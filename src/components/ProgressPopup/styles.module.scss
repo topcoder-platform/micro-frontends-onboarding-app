@@ -1,0 +1,48 @@
+@import "styles/include";
+
+.progress-popup {
+  position: absolute;
+  right: 10px;
+  top: 85px;
+  min-height: 150px;
+  background: #fff;
+  padding: 20px 20px 10px 20px;
+  box-shadow: 0 0 6px #aaa;
+  border-radius: 4px;
+
+  .levels{
+  
+  }
+
+  .level{
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .level-check-icon{
+    height: 20px;
+    margin-right: 10px;
+    *{
+      fill: #ddd;
+    }
+    &.done *{
+      fill: #26e7b2;
+    }
+    &.current *{
+      fill: #d0f9ee;
+    }
+  }
+  
+  .close-btn{
+    position: absolute;
+    top: 21px;
+    right: 18px;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    *{
+      stroke-width: 1px !important;
+    }
+  }
+}

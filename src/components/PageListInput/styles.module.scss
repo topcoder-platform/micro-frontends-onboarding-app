@@ -1,0 +1,26 @@
+@import "styles/include";
+
+.page-list-input {
+  .form-row{
+    align-items: flex-start;
+  }
+  .form-description{
+    font-size: 18px;
+    margin-top: 0;
+  }
+  .listinput-itemslist{
+  }
+  .add-listinput-item-button{
+    cursor: pointer;
+    color: $green1;
+    display: flex;
+    align-items: center;
+    font-weight: 430;
+    
+    .icon-add{
+      margin-right: 5px;
+      width: 25px;
+    }
+  }
+
+}

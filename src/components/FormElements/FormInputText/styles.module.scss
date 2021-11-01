@@ -1,0 +1,21 @@
+@import "styles/include";
+
+.form-input-text{
+  background-color: #ffffff !important;
+  box-sizing: border-box !important;
+  color: #444 !important;
+  font-size: 20px !important;
+  height: 19px !important;
+  outline: none !important;
+  border: 0 !important;
+  padding: 0 15px !important;
+  width: 100% !important;
+  &::placeholder {
+    color: #aaaaaa !important;
+    font-size: 18px !important;
+    text-transform: capitalize !important;
+  }
+  &:focus{
+    box-shadow: none !important;
+  }
+}

@@ -1,0 +1,40 @@
+@import "styles/include";
+
+.upload-profile-photo{
+  display: flex;
+  align-items: center;
+  @include mobile {
+    flex-direction: column;
+    & > *{
+      margin: 0 !important;
+      margin-bottom: 18px !important;
+    }
+  }
+  & > button{
+    margin-left: 15px !important;
+  }
+  .profile-photo{
+      width: 80px;
+      height: 80px;
+      @include mobile {
+        width: 160px;
+        height: 160px;
+      }
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-right: -30px;
+  }
+  .icon-edit{
+    width: 20px;
+    margin: -5px 5px 0 0;
+  }
+  .icon-delete{
+    width: 20px;
+    margin: -2px 5px 0 0;
+    *{
+      fill: $green1 !important;
+    }
+  }
+}

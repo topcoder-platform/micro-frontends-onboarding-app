@@ -3,14 +3,12 @@ module.exports = {
   transform: {
     "^.+\\.(j|t)sx?$": "babel-jest",
   },
-  transformIgnorePatterns: ["node_modules/?!(react-dropzone)"],
+  transformIgnorePatterns: ["node_modules/?!(react-avatar)"],
   moduleNameMapper: {
-    "\\.(css|scss)$": "identity-obj-proxy",
-    "\\.(png|eot|otf|ttf|woff|woff2|svg)$": "<rootDir>/__mocks__/fileMock.js",
-
+    "\\.(s?css)$": "identity-obj-proxy",
+    "\\.svg$": "<rootDir>/__mocks__/fileMock.js",
   },
   setupFilesAfterEnv: [
     "../node_modules/@testing-library/jest-dom/dist/index.js",
-    "../config/jest/setup.js",
   ],
 };

@@ -1,44 +1,59 @@
-let cssLocalIdent;
-if (process.env.APPMODE === 'production') {
-  cssLocalIdent = '[hash:base64:6]';
-} else {
-  cssLocalIdent = 'onboarding_[path][name]___[local]___[hash:base64:6]';
-}
+module.exports = function (api) {
+  const isProd = process.env.APPMODE === "production";
+  api.cache(!isProd);
 
-const config = {
-  presets: [
-    ['@babel/preset-env', { targets: { 'browsers': ['> 1%', 'not dead'] } }],
-    '@babel/preset-react'
-  ],
-  plugins: [
-    ['module-resolver', {
-      extensions: ['.js', '.jsx'],
-      root: [
-        './src',
-      ],
-    }],
-    [
-      'inline-react-svg',
-      {
-        ignorePattern: '[/\/]assets[/\/]images'
-      }
-    ],
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        useESModules: true,
-        regenerator: false,
-      },
-    ],
-    ['react-css-modules', {
-      filetypes: {
-        '.scss': {
-          syntax: 'postcss-scss',
+  const generateScopedName = isProd
+    ? "[hash:base64:6]"
+    : "onboarding_[path][name]___[local]___[hash:base64:6]";
+  return {
+    presets: ["@babel/preset-env", "@babel/preset-react"],
+    plugins: [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          useESModules: true,
+          regenerator: false,
         },
+      ],
+      [
+        "react-css-modules",
+        {
+          filetypes: {
+            ".scss": {
+              syntax: "postcss-scss",
+            },
+          },
+          generateScopedName,
+        },
+      ],
+      "inline-react-svg",
+    ],
+    env: {
+      test: {
+        presets: [
+          [
+            "@babel/preset-env",
+            {
+              targets: "current node",
+            },
+          ],
+        ],
+        plugins: [
+          [
+            "module-resolver",
+            {
+              alias: {
+                styles: "./src/styles",
+                components: "./src/components",
+                hooks: "./src/hooks",
+                utils: "./src/utils",
+                constants: "./src/constants",
+                services: "./src/services",
+              },
+            },
+          ],
+        ],
       },
-      generateScopedName: cssLocalIdent
-    }],
-  ],
+    },
+  };
 };
-
-module.exports = config;

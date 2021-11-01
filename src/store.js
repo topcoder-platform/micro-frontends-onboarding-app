@@ -1,18 +1,28 @@
 /* global process */
-
 /**
  * Configure Redux Store
  */
-import { createStore, compose, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import thunk from "redux-thunk";
 import { createPromise } from "redux-promise-middleware";
+import rootReducer from "./reducers";
 
 const middlewares = [
-  createPromise({ promiseTypeSuffixes: ["INIT", "DONE", "FAILURE"] }),
+  // if payload of action is promise it would split action into 3 states
+  createPromise({
+    promiseTypeSuffixes: ["PENDING", "SUCCESS", "ERROR"],
+  }),
+  thunk,
 ];
 
-if (process.env.APPMODE !== "production") {
-  const logger = require("redux-logger").createLogger();
+// enable Redux Logger in in DEV environment
+if (process.env.NODE_ENV === "development") {
+  const { createLogger } = require("redux-logger");
+  const logger = createLogger();
   middlewares.push(logger);
 }
 
-export default createStore(() => {}, compose(applyMiddleware(...middlewares)));
+const store = createStore(rootReducer, applyMiddleware(...middlewares));
+
+export default store;
