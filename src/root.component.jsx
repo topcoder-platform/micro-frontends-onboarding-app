@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
-import { Router } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import ReduxToastr from "react-redux-toastr";
 import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import GetStarted from "./routes/GetStarted";
 import ContactDetails from "./routes/ContactDetails";
 import PaymentSetup from "./routes/PaymentSetup";
 import BuildMyProfile from "./routes/BuildMyProfile";
 import Complete from "./routes/Complete";
+import { getOnboardingChecklist } from './services/onboardingChecklist';
+import {checkOnboarding} from './utils';
 import store from "./store";
 import "./styles/main.vendor.scss";
 import styles from "./styles/main.module.scss";
@@ -19,6 +22,17 @@ export default function Root() {
     disableSidebarForRoute("/onboard/payment-setup");
     disableSidebarForRoute("/onboard/build-my-profile");
     disableSidebarForRoute("/onboard/complete");
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const {handle} = await getAuthUserProfile();
+      const response = await getOnboardingChecklist(handle);
+      const onboardingPath = checkOnboarding(response);
+      if (onboardingPath) {
+        navigate(onboardingPath);
+      }
+    })();
   }, []);
 
   return (
