@@ -5,7 +5,8 @@ UPDATE_CACHE=""
 
 docker build -f docker/Dockerfile -t $APP_NAME:latest \
 --build-arg APPMODE=$APPMODE \
---build-arg APPENV=$APPENV .
+--build-arg APPENV=$APPENV \
+--build-arg HEAP_ANALYTICS_KEY=$HEAP_ANALYTICS_KEY .
 
 docker create --name app $APP_NAME:latest
 

@@ -6,6 +6,7 @@ ARG APPENV
 
 ENV APPMODE=$APPMODE
 ENV APPENV=$APPENV
+ENV HEAP_ANALYTICS_KEY=$HEAP_ANALYTICS_KEY 
 
 # Copy the current directory into the Docker image
 COPY . /micro-frontends-onboarding-app
