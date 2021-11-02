@@ -7,7 +7,7 @@ import React, {useState} from "react";
 import PT from "prop-types";
 import cn from "classnames";
 import "./styles.module.scss";
-import IconCheck from "../../assets/images/icon-check.svg";
+import IconCheck from "../../assets/images/icon-check-thin.svg";
 import IconCross from "../../assets/images/icon-cross.svg";
 
 const ProgressPopup = ({ level, levels, open, handleClose = e => e, styleName, ...props }) => {
@@ -22,9 +22,11 @@ const ProgressPopup = ({ level, levels, open, handleClose = e => e, styleName, .
     <>
       {open && <div styleName={cn("progress-popup", styleName || "" )} {...props}>
         <IconCross styleName="close-btn" onClick={e => handleClose(e)} />
-        <div styleName="levels">
+        <div>
           {levels.map((levelName, levelIndex) => (
-            <div styleName="level"><IconCheck styleName={cn("level-check-icon", getLevelClass(levelIndex))}/>
+            <div styleName="level"><div styleName={cn("level-check-icon", getLevelClass(levelIndex))}>
+              {getLevelClass(levelIndex) === "done" && <IconCheck styleName={"icon-check"}/>}
+            </div>
               {levelName}
             </div>
           ))}

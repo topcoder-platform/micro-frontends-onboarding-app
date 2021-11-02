@@ -27,7 +27,7 @@ const SkillsList = ({ selecteds, onNewSkillClicked, handleSkillRemove }) => {
     <div styleName="skills-list">
       {selecteds.length ? <>
         {renderSelectedElements()}
-        <div styleName="skill" onClick={e => onNewSkillClicked(null, e)}>Add Anothet Skill <IconPlus styleName="skill-add-icon" /></div>
+        <div styleName="skill" onClick={e => onNewSkillClicked(null, e)}>Add Another Skill <IconPlus styleName="skill-add-icon" /></div>
       </> : renderCategoriesElements() }
     </div>
   );

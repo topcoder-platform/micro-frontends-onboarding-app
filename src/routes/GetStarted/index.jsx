@@ -34,6 +34,7 @@ import { skills as allSkills } from "constants";
 import { interests as allInterests } from "constants";
 
 import IconEdit from "../../assets/images/icon-edit.svg";
+import IconUpload from "../../assets/images/icon-upload.svg";
 import IconDelete from "../../assets/images/icon-delete.svg";
 import ImgTestimonial1 from "../../assets/images/testimonial-1.png";
 
@@ -286,7 +287,8 @@ const GetStarted = () => {
             </div>
             <div>
               {!profilePhotoSrc && <Button size={BUTTON_SIZE.MEDIUM}
-                                           onClick={e => setUploadPhotoModalShow(true)} >UPLOAD</Button>}
+                                           onClick={e => setUploadPhotoModalShow(true)}> 
+                <IconUpload styleName="icon-upload" />UPLOAD</Button>}
               {profilePhotoSrc && <div styleName="upload-profile-photo">
                 <div style={{backgroundImage: `url(${profilePhotoSrc})`}} styleName="profile-photo"></div>
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={e => setUploadPhotoModalShow(true)} >

@@ -10,10 +10,6 @@
   box-shadow: 0 0 6px #aaa;
   border-radius: 4px;
 
-  .levels{
-  
-  }
-
   .level{
     margin: 20px 0;
     display: flex;
@@ -21,16 +17,27 @@
   }
 
   .level-check-icon{
-    height: 20px;
+    width: 24px;
+    height: 24px;
+    background: #F4F4F4;
+    // border: 2px solid #26e7b2;
+    border-radius: 50%;
     margin-right: 10px;
-    *{
-      fill: #ddd;
+    &.done{
+      background: #06D6A0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .icon-check{
+        height: 14px;
+        * {
+          fill: #FFFFFF;
+        }
+      }
     }
-    &.done *{
-      fill: #26e7b2;
-    }
-    &.current *{
-      fill: #d0f9ee;
+    &.current{
+      border: 2px solid #06D6A0;
+      background: #FFFFFF;
     }
   }
   

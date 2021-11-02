@@ -28,13 +28,18 @@
   }
   .icon-edit{
     width: 20px;
-    margin: -5px 5px 0 0;
+    margin: -1px 5px 0 0;
   }
   .icon-delete{
     width: 20px;
-    margin: -2px 5px 0 0;
+    margin: -1px 5px 0 0;
     *{
       fill: $green1 !important;
     }
-  }
+  }  
+}
+
+.icon-upload{
+  width: 20px;
+  margin: 0 5px 0 0;
 }
