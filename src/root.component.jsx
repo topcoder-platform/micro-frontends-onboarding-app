@@ -27,7 +27,8 @@ export default function Root() {
         <Router>
           <GetStarted path="/onboard" />
           <ContactDetails path="/onboard/contact-details" />
-          <PaymentSetup path="/onboard/payment-setup" />
+          {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
+          {/* <PaymentSetup path="/onboard/payment-setup" /> */}
           <BuildMyProfile path="/onboard/build-my-profile" />
           <Complete path="/onboard/complete" />
         </Router>

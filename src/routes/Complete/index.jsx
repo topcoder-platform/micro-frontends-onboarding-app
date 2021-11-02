@@ -51,6 +51,9 @@ const Complete = () => {
           <div styleName="congrats-box">
             <PageH2><IconCheck styleName="icon-check" />CONGRATULATIONS!</PageH2>
             <PageP>
+              Almost done! Be sure to go set up your payment so you can get paid for your work
+            </PageP>
+            <PageP>
               Now it's time to put your skills to good use. Go explore your new Topcoder home and discover
               the ways you can earn, and connect with great people in the Topcoder Community.
             </PageP>
