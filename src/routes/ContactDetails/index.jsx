@@ -326,8 +326,12 @@ const ContactDetails = () => {
             <Link to="/onboard">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>{"< "}Back</Button>
             </Link>
-            <Link to="/onboard/payment-setup" onClick={e => handleSubmit(e)}>
+            {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
+            {/* <Link to="/onboard/payment-setup" onClick={e => handleSubmit(e)}>
               <Button size={BUTTON_SIZE.MEDIUM}>CONTINUE TO PAYMENT SETUP</Button>
+            </Link> */}            
+            <Link to="/onboard/build-my-profile">
+              <Button size={BUTTON_SIZE.MEDIUM}>CONTINUE TO BUILD MY PROFILE</Button>
             </Link>
           </PageFoot>
           <OnboardProgress level={2} />

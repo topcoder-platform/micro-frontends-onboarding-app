@@ -624,7 +624,11 @@ const BuildMyProfile = () => {
           <PageFoot>
           </PageFoot>
           <PageFoot align="between">
-            <Link to="/onboard/payment-setup">
+            {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
+            {/* <Link to="/onboard/payment-setup">
+              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>{"< "}Back</Button>
+            </Link> */}
+            <Link to="/onboard/contact-details">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>{"< "}Back</Button>
             </Link>
             <Link to="/onboard/complete"  onClick={e => handleSubmit(e)}>
