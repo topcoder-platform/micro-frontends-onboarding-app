@@ -294,9 +294,10 @@ const GetStarted = () => {
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={e => setUploadPhotoModalShow(true)} >
                   <IconEdit styleName="icon-edit" />UPLOAD NEW PHOTO
                 </Button>
-                <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY} onClick={e => setProfilePhotoSrc('')} >
+                {/* TODO: implement delete after member Api implements Delete functionality  */}
+                {/* <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY} onClick={e => setProfilePhotoSrc('')} >
                   <IconDelete styleName="icon-delete" />DELETE PHOTO
-                </Button>
+                </Button> */}
               </div>}
             </div>
           </PageRow>
