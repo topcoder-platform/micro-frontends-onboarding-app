@@ -145,9 +145,9 @@ const ContactDetails = () => {
     return getMyBasicInfo(authUser.handle).then(result => {
       let myBasicInfo = result?.data?.result?.content[0].traits?.data[0];
       if(myBasicInfo === undefined){
-        return addMyAddress(authUser.handle, addressMapped)
+        return addMyAddress(authUser.handle, addressMapped, country)
       }else{
-        return updateMyAddress(authUser.handle, myBasicInfo, addressMapped)
+        return updateMyAddress(authUser.handle, myBasicInfo, addressMapped, country)
       }
     }).catch(e => {
       setIsLoading(false);
@@ -160,10 +160,6 @@ const ContactDetails = () => {
     // saving contact details
     // map data before passing to server
     let contactDetailsMapped = {
-      city: city,
-      state: state,
-      zip: zipCode,                            
-      country: country,
       timeZone: timeZone,
       workingHourStart: startTime,
       workingHourEnd: endTime,
@@ -192,9 +188,7 @@ const ContactDetails = () => {
     setIsLoading(true);
     // save address (basic info) then contact details before navigate
     e.preventDefault();
-    saveMyAddress().then(() => {
-      return saveContactDetails()
-    }).then(() => {
+    Promise.all([saveMyAddress(), saveContactDetails()]).then(() => {
       setIsLoading(false);
       toastr.success('Success', 'contact details saved successfully!');
       navigate('/onboard/payment-setup');
