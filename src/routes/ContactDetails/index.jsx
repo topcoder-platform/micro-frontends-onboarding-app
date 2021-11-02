@@ -270,11 +270,11 @@ const ContactDetails = () => {
               <FormField label={"Time Zone"}>
                 <Select
                   value={timeZone &&({
-                    value: timeZones.find(v => v === timeZone),
-                    label: timeZones.find(v => v === timeZone)
+                    value: timeZones.find(v => v === timeZone.zoneName),
+                    label: timeZones.find(v => v === timeZone.zoneName)
                   })}
                   onChange={option => handleInputChange("timeZone", option.value)}
-                  options={timeZones.map(v => ({value: v, label: v}))}
+                  options={timeZones.map(v => ({value: v.zoneName, label: v.zoneName}))}
                   style2={true}
                   placeholder={"Select time zone"}
                 />
