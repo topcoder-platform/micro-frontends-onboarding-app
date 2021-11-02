@@ -53,7 +53,7 @@ export const writtenLevels = writtenLevel.map(v => v.name)
 export const ProgressLevelNames = [
   "Get Started",
   "Contact Details",
-  "Payment Setup",
+  // "Payment Setup", {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
   "Building My Profile",
   "Complete",
 ]
