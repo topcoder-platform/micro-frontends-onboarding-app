@@ -255,7 +255,7 @@ const GetStarted = () => {
           <PageH2>GET STARTED</PageH2>
           {`${myProfileData?.firstName || ""} ${myProfileData?.lastName || ""} | ${authUser?.handle}`}
           <PageDivider />
-          <PageH1>WELCOME {myProfileData?.firstName || authUser?.handle}!</PageH1>
+          <PageH1>WELCOME {myProfileData?.firstName}!</PageH1>
           
           <PageRow half={true}>
             <PageCard>
@@ -291,9 +291,13 @@ const GetStarted = () => {
               </PageP>
             </div>
             <div>
-              {!profilePhotoSrc && <Button size={BUTTON_SIZE.MEDIUM}
-                                           onClick={e => setUploadPhotoModalShow(true)}> 
-                <IconUpload styleName="icon-upload" />UPLOAD</Button>}
+              {!profilePhotoSrc && <div styleName="upload-profile-photo">
+              
+                <div styleName="profile-photo-void"></div>
+                <Button size={BUTTON_SIZE.MEDIUM} onClick={e => setUploadPhotoModalShow(true)}> 
+                  <IconUpload styleName="icon-upload" />UPLOAD
+                </Button>
+              </div>}
               {profilePhotoSrc && <div styleName="upload-profile-photo">
                 <div style={{backgroundImage: `url(${profilePhotoSrc})`}} styleName="profile-photo"></div>
                 <Button size={BUTTON_SIZE.MEDIUM} onClick={e => setUploadPhotoModalShow(true)} >
