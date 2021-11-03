@@ -43,6 +43,7 @@ import { getMyBasicInfo,
          addMyPrimaryInterests,
          updateMyPrimaryInterests } from "services/basicInfo";
 import { getMemberData, uploadProfilePhoto } from "services/memberData";
+import _ from "lodash";
 
 const GetStarted = () => {
   // states
@@ -99,12 +100,16 @@ const GetStarted = () => {
   // Get all live skills
   useEffect(() => {
     setLoadedDatas({...loadedDatas, allSkills: false});
-    getAllSkills().then(result => {
+    getAllSkills().then(result => {      
       setLoadedDatas(loadedDatas => ({...loadedDatas, allSkills: true}));
-      setAllSkillsLive(result?.data);
+      let tempSkills = result?.data;
+      // TODO: Intersect local and fetch lists.
+      // tempSkills = tempSkills.filter(s => allSkills.some(x => x.id === s.id && !_.isNull(x.legacyId) && !_.isUndefined(x.legacyId)))
+      setAllSkillsLive(tempSkills);
+      setIsLoading(false);
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to get skills!');
+      // toastr.error('Error', 'failed to get skills!');
       console.log(e);
     })
   }, [])
@@ -118,7 +123,7 @@ const GetStarted = () => {
       setMyProfileData(result);
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to get profile basic infos!');
+      // toastr.error('Error', 'failed to get profile basic infos!');
       console.log(e);
     })
   }, [authUser])
@@ -131,7 +136,7 @@ const GetStarted = () => {
     getMemberSkills(authUser.handle).then(result => {
       // set loadedDatas to track page load
       setLoadedDatas(loadedDatas => ({...loadedDatas, mySkills: true}));
-      let myskills = result?.data?.result?.content?.skills;
+      let myskills = result?.data?.skills;
       if(myskills) myskills = Object.values(myskills);
       // map and store on state
       setSelectedSkills(
@@ -140,7 +145,7 @@ const GetStarted = () => {
       );
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to get profile skills!');
+      // toastr.error('Error', 'failed to get profile skills!');
       console.log(e);
     })
   }, [authUser, allSkillsLive])
@@ -152,7 +157,7 @@ const GetStarted = () => {
     getMyBasicInfo(authUser.handle).then(result => {
       // set loadedDatas to track page load
       setLoadedDatas(loadedDatas => ({...loadedDatas, basicInfo: true}));
-      let myInterestsOnServer = result?.data?.result?.content[0].traits?.data[0]?.primaryInterestInTopcoder || "";
+      let myInterestsOnServer = result?.data[0]?.traits?.data[0]?.primaryInterestInTopcoder || "";
       // convert myInterests strin to array
       myInterestsOnServer = myInterestsOnServer.split(',')
                                .map(interest => ({name: interest.trim()}));
@@ -163,7 +168,7 @@ const GetStarted = () => {
       );
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to get profile interests!');
+      // toastr.error('Error', 'failed to get profile interests!');
       console.log(e);
     })
   }, [authUser])
@@ -186,7 +191,7 @@ const GetStarted = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save profile photo!');
+      // toastr.error('Error', 'failed to save profile photo!');
       // revert image to last image
       setProfilePhotoSrc(profilePhotoSrcBeforeSave);
       console.log(e);
@@ -200,7 +205,7 @@ const GetStarted = () => {
     let myInterestsFlat = myInterests.map(interest => interest.name).join(', ')
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     return getMyBasicInfo(authUser.handle).then(result => {
-      let myBasicInfo = result?.data?.result?.content[0].traits?.data[0];
+      let myBasicInfo = result?.data[0]?.traits?.data[0];
       if(myBasicInfo === undefined){
         return addMyPrimaryInterests(authUser.handle, myInterestsFlat)
       }else{
@@ -208,7 +213,7 @@ const GetStarted = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save profile interests!');
+      // toastr.error('Error', 'failed to save profile interests!');
       console.log(e);
     })
   }
@@ -223,7 +228,7 @@ const GetStarted = () => {
     mySkillsLegacyIds = mySkillsLegacyIds.filter(s => s)
     return updateMySkills(authUser.handle, mySkillsLegacyIds).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save my skills!');
+      // toastr.error('Error', 'failed to save my skills!');
       console.log(e);
     })
   }
