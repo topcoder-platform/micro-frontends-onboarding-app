@@ -1,8 +1,6 @@
 /** Contact details page */
 import React, {useState, useEffect} from "react";
-import PT from "prop-types";
 import "./styles.module.scss";
-import { Link } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
 import {toastr} from 'react-redux-toastr'
@@ -15,14 +13,11 @@ import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageH1 from "components/PageElements/PageH1";
 import PageH2 from "components/PageElements/PageH2";
-import PageH3 from "components/PageElements/PageH3";
 import PageP from "components/PageElements/PageP";
-import PageUl from "components/PageElements/PageUl";
-import PageRow from "components/PageElements/PageRow";
-import PageFoot from "components/PageElements/PageFoot";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
+import config from '../../../config';
 
 const Complete = () => {
   const [myProfileData, setMyProfileData] = useState({});
@@ -58,9 +53,9 @@ const Complete = () => {
               the ways you can earn, and connect with great people in the Topcoder Community.
             </PageP>
             <br />
-            <Link to="/">
+            <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>EXPLORE TOPCODER HOME</Button>
-            </Link>
+            </a>
           </div>
           <OnboardProgress level={4} />
         </PageContent>
