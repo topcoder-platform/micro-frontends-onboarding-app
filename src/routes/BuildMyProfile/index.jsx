@@ -25,6 +25,7 @@ import OnboardProgress from "components/OnboardProgress";
 import FormField from "components/FormElements/FormField";
 import FormInputText from "components/FormElements/FormInputText";
 import FormInputCheckbox from "components/FormElements/FormInputCheckbox";
+import FormInputTextArea from "components/FormElements/FormInputTextArea";
 import Select from 'components/ReactSelect';
 import DateInput from 'components/DateInput';
 import LoadingSpinner from "components/LoadingSpinner";
@@ -363,7 +364,7 @@ const BuildMyProfile = () => {
             <PageCard>
               <PageH2>Why build your profile?</PageH2>
               <PageP>
-                Topcoder offers freelance gig oppurtunities with great companies. if you're interested in Freelance work, be sure to complete this part of your profile!
+                Topcoder offers freelance gig opportunities with great companies. if you're interested in Freelance work, be sure to complete this part of your profile!
               </PageP>
             </PageCard>
             <PageCard colorStyle="secondary" hasImage={true}>
@@ -384,7 +385,7 @@ const BuildMyProfile = () => {
           <PageRow half={true} styleName="form-row">
             <div>
               <PageP styleName="form-description">
-                Some customers search for candidates by role. (eg., "Front-End Developer" or "UI Designer").
+                Some customers search for candidates by role (eg., "Front-End Developer" or "UI Designer").
                 Enter your Title and a short bio to help customers find you.
               </PageP>
             </div>
@@ -396,7 +397,7 @@ const BuildMyProfile = () => {
                 />
               </FormField>
               <FormField label={"Bio"}>
-                <FormInputText
+                <FormInputTextArea
                   placeholder={"Enter your bio"} value={bio}
                   name="bio" onChange={e => handleInputChange(e.target.name, e.target.value)}
                 />
@@ -593,7 +594,7 @@ const BuildMyProfile = () => {
                         onChange={option => handleListInputChange(name, index, "spokenLevel", option.value)}
                         options={spokenLevels.map(v => ({value: v, label: v}))}
                         style2={true}
-                        placeholder={"Select spoken levels"}
+                        placeholder={"Select spoken level"}
                       />
                     </FormField>
                     <FormField label={"Written Level"}>
@@ -605,7 +606,7 @@ const BuildMyProfile = () => {
                         onChange={option => handleListInputChange(name, index, "writtenLevel", option.value)}
                         options={writtenLevels.map(v => ({value: v, label: v}))}
                         style2={true}
-                        placeholder={"Select written levels"}
+                        placeholder={"Select written level"}
                       />
                     </FormField>
                   </PageRow>
