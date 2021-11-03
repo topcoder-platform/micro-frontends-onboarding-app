@@ -215,7 +215,7 @@ const ContactDetails = () => {
           <PageRow half={true} styleName="form-row">
             <div>
               <PageP styleName="form-description">
-                We may contact you about relevant freelance oppurtunities at Topcoder,
+                We may contact you about relevant freelance opportunities at Topcoder,
                 or even surprise you with a cool T-shirt. Sharing your contact details will never
                 result in robocalls about health insurance plans or junk mail.
               </PageP>
