@@ -50,17 +50,15 @@ export const spokenLevels = spokenLevel.map(v => v.name)
 export const writtenLevels = writtenLevel.map(v => v.name)
 
 /**
- * ProgressLevelNames
+ * ProgressLevels
  */
-export const ProgressLevelNames = [
-  "Get Started",
-  "Contact Details",
+export const ProgressLevels = [
+  {label: "Get Started", url: "/onboard"},
+  {label: "Contact Details", url:"/onboard/contact-details"},
   // "Payment Setup", {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
-  "Building My Profile",
-  "Complete",
+  {label:"Building My Profile", url:"/onboard/build-my-profile"},
+  {label:"Complete", url:"/onboard/complete"},
 ]
-
-
 
 /**
  * Supported Button Sizes
@@ -93,3 +91,4 @@ export const ACTION_TYPE = {
   AUTH_USER_ERROR: "AUTH_USER_ERROR",
 };
 
+export const MAX_COMPLETED_STEP = "MAX_COMPLETED_STEP";
