@@ -47,14 +47,15 @@ export function updateMyPrimaryInterests(myusername, prevBasicInfo, interestsFla
 /**
  * Add my address, if the basicInfo not exists
  */
-export function addMyAddress(myusername, address){
+export function addMyAddress(myusername, address, country){
   return axios.post(`${config.API.V5}/members/${myusername}/traits`, [{
     "categoryName": "Basic Info",
     "traitId": "basic_info",
     "traits": {
       "traitId": "basic_info",
       "data": [{
-        "addresses": [address]
+        "addresses": [address],
+        country
       }]
     }
   }]);
@@ -63,7 +64,7 @@ export function addMyAddress(myusername, address){
 /**
  * Update my address
  */
-export function updateMyAddress(myusername, prevBasicInfo, address){
+export function updateMyAddress(myusername, prevBasicInfo, address, country){
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [{
     "categoryName": "Basic Info",
     "traitId": "basic_info",
@@ -71,7 +72,8 @@ export function updateMyAddress(myusername, prevBasicInfo, address){
       "traitId": "basic_info",
       "data": [{
         ...prevBasicInfo,
-        "addresses": [address]
+        "addresses": [address],
+        country
       }]
     }
   }]);
