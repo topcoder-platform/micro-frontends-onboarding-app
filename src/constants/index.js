@@ -90,3 +90,5 @@ export const ACTION_TYPE = {
   AUTH_USER_ERROR: "AUTH_USER_ERROR",
 };
 
+export const MAX_COMPLETED_STEP = "MAX_COMPLETED_STEP";
+

@@ -11,14 +11,14 @@ import IconCheck from "../../assets/images/icon-check-thin.svg";
 import IconCross from "../../assets/images/icon-cross.svg";
 import {useNavigate} from "@reach/router";
 
-const ProgressPopup = ({ level, levels, open, handleClose = e => e, styleName, ...props }) => {
+const ProgressPopup = ({ level, maxStep, levels, open, handleClose = e => e, styleName, ...props }) => {
   const navigate = useNavigate()
   // add a class to show if it's done or current or notDone yet
   const getLevelClass = levelIndex => {
     let levelNumber = levelIndex + 1;
     // last level, everything is done.
     if(level === levels.length) return "done";
-    return levelNumber < level ? "done" : (levelNumber === level ? "current" : "")
+    return (levelNumber === level ? "current" : levelNumber <= maxStep ? "done" : "")
   }
   return (
     <>
@@ -45,6 +45,7 @@ const ProgressPopup = ({ level, levels, open, handleClose = e => e, styleName, .
 
 ProgressPopup.propTypes = {
   level: PT.number,
+  maxStep: PT.number,
   levels: PT.array,
   open: PT.bool,
   handleClose: PT.func,
