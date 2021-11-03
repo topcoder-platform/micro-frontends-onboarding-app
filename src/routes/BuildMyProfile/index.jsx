@@ -140,7 +140,7 @@ const BuildMyProfile = () => {
     getAuthUserProfile().then(result => {
       setMyProfileData(result);
     }).catch(e => {
-      toastr.error('Error', 'failed to get profile basic infos!');
+      // toastr.error('Error', 'failed to get profile basic infos!');
       console.log(e);
     })
   }, [authUser])
@@ -211,7 +211,7 @@ const BuildMyProfile = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to get profile datas!');
+      // toastr.error('Error', 'failed to get profile datas!');
       console.log(e);
     })
   }, [])
@@ -225,7 +225,7 @@ const BuildMyProfile = () => {
     };
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     return getMyBasicInfo(authUser.handle).then(result => {
-      let myBasicInfo = result?.data?.result?.content[0].traits?.data[0];
+      let myBasicInfo = result?.data[0]?.traits?.data[0];
       if(myBasicInfo === undefined){
         return addMyTitleAndBio(authUser.handle, data)
       }else{
@@ -233,7 +233,7 @@ const BuildMyProfile = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save my title and bio!');
+      // toastr.error('Error', 'failed to save my title and bio!');
       console.log(e);
     })
   }
@@ -266,7 +266,7 @@ const BuildMyProfile = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save work experiences!');
+      // toastr.error('Error', 'failed to save work experiences!');
       console.log(e);
     })
   }
@@ -297,7 +297,7 @@ const BuildMyProfile = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save education experiences!');
+      // toastr.error('Error', 'failed to save education experiences!');
       console.log(e);
     })
   }
@@ -324,7 +324,7 @@ const BuildMyProfile = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save language skills!');
+      // toastr.error('Error', 'failed to save language skills!');
       console.log(e);
     })
   }
@@ -635,7 +635,7 @@ const BuildMyProfile = () => {
               <Button size={BUTTON_SIZE.MEDIUM}>COMPLETE YOUR PROFILE</Button>
             </Link>
           </PageFoot>
-          <OnboardProgress level={4} />
+          <OnboardProgress level={3} />
         </PageContent>
       </Page>
     </>

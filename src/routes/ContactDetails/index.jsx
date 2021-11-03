@@ -72,7 +72,7 @@ const ContactDetails = () => {
         setCountries(res);
       }
     }).catch(e => {
-      toastr.error('Error', 'failed to get countries!');
+      // toastr.error('Error', 'failed to get countries!');
       console.log(e);
     })
   }, [])
@@ -83,7 +83,7 @@ const ContactDetails = () => {
     getAuthUserProfile().then(result => {
       setMyProfileData(result);
     }).catch(e => {
-      toastr.error('Error', 'failed to get profile basic infos!');
+      // toastr.error('Error', 'failed to get profile basic infos!');
       console.log(e);
     })
   }, [authUser])
@@ -125,7 +125,7 @@ const ContactDetails = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to get my contact details!');
+      // toastr.error('Error', 'failed to get my contact details!');
       console.log(e);
     })
   }, [])
@@ -143,7 +143,7 @@ const ContactDetails = () => {
 
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     return getMyBasicInfo(authUser.handle).then(result => {
-      let myBasicInfo = result?.data?.result?.content[0].traits?.data[0];
+      let myBasicInfo = result?.data[0]?.traits?.data[0];
       if(myBasicInfo === undefined){
         return addMyAddress(authUser.handle, addressMapped)
       }else{
@@ -151,7 +151,7 @@ const ContactDetails = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save my address!');
+      // toastr.error('Error', 'failed to save my address!');
       console.log(e);
     })
   }
@@ -180,7 +180,7 @@ const ContactDetails = () => {
       }
     }).catch(e => {
       setIsLoading(false);
-      toastr.error('Error', 'failed to save contact details!');
+      // toastr.error('Error', 'failed to save contact details!');
       console.log(e);
     })
   }
@@ -197,7 +197,7 @@ const ContactDetails = () => {
     }).then(() => {
       setIsLoading(false);
       toastr.success('Success', 'contact details saved successfully!');
-      navigate('/onboard/payment-setup');
+      navigate('/onboard/build-my-profile');
     })
   }
 
@@ -330,7 +330,7 @@ const ContactDetails = () => {
             {/* <Link to="/onboard/payment-setup" onClick={e => handleSubmit(e)}>
               <Button size={BUTTON_SIZE.MEDIUM}>CONTINUE TO PAYMENT SETUP</Button>
             </Link> */}            
-            <Link to="/onboard/build-my-profile">
+            <Link to="/onboard/build-my-profile" onClick={e => handleSubmit(e)}>
               <Button size={BUTTON_SIZE.MEDIUM}>CONTINUE TO BUILD MY PROFILE</Button>
             </Link>
           </PageFoot>

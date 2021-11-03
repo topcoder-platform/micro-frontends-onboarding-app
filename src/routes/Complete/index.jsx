@@ -62,7 +62,7 @@ const Complete = () => {
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>EXPLORE TOPCODER HOME</Button>
             </Link>
           </div>
-          <OnboardProgress level={5} />
+          <OnboardProgress level={4} />
         </PageContent>
       </Page>
     </>
