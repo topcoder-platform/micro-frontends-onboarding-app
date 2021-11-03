@@ -163,11 +163,11 @@ const BuildMyProfile = () => {
       let languagesExpValue = languagesExp?.traits?.data
       // fill title and bio to state
       if(basicInfoValue){
-        const {description, shortBio} = basicInfoValue;
+        const {description, title} = basicInfoValue;
         setFormData(formDate => ({
           ...formDate,
-          title: description || "",
-          bio: shortBio || "",
+          title: title || "",
+          bio: description || "",
         }))
       }
       if(workExpValue){
@@ -220,8 +220,8 @@ const BuildMyProfile = () => {
   const saveMyTitleAndBio = () => {
     // mapped data
     let data = {
-      description: title,
-      shortBio: bio,
+      title,
+      description: bio,
     };
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     return getMyBasicInfo(authUser.handle).then(result => {
