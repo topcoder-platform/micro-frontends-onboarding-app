@@ -10,7 +10,7 @@ import "./styles.module.scss";
 import ProgressDonutChart from "components/ProgressDonutChart";
 import ProgressPopup from "components/ProgressPopup";
 import IconThreeDots from "../../assets/images/icon-three-dots-vertical.svg";
-import {ProgressLevelNames as levels} from "constants";
+import {ProgressLevels as levels} from "constants";
 
 const OnboardProgress = ({ level, styleName, ...props }) => {
   const [progressPopupOpen, setProgressPopupOpen] = useState(false);
@@ -21,7 +21,7 @@ const OnboardProgress = ({ level, styleName, ...props }) => {
           <span styleName="level-num">STEP {level} </span>
           <span styleName="muted">/ {levels.length}</span>
         </div>
-        <div>{levels[level - 1]}</div>
+        <div>{levels[level - 1].label}</div>
       </div>
       <ProgressDonutChart styleName="progress-donut-chart" progress={100 * (level / levels.length)} />
       <div styleName="progress-popup-toggle" onClick={e => setProgressPopupOpen(o => !o)}>

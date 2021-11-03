@@ -9,8 +9,10 @@ import cn from "classnames";
 import "./styles.module.scss";
 import IconCheck from "../../assets/images/icon-check-thin.svg";
 import IconCross from "../../assets/images/icon-cross.svg";
+import {useNavigate} from "@reach/router";
 
 const ProgressPopup = ({ level, levels, open, handleClose = e => e, styleName, ...props }) => {
+  const navigate = useNavigate()
   // add a class to show if it's done or current or notDone yet
   const getLevelClass = levelIndex => {
     let levelNumber = levelIndex + 1;
@@ -20,18 +22,23 @@ const ProgressPopup = ({ level, levels, open, handleClose = e => e, styleName, .
   }
   return (
     <>
-      {open && <div styleName={cn("progress-popup", styleName || "" )} {...props}>
+{open && <div styleName={cn("progress-popup", styleName || "" )} {...props}>
         <IconCross styleName="close-btn" onClick={e => handleClose(e)} />
-        <div>
-          {levels.map((levelName, levelIndex) => (
-            <div styleName="level"><div styleName={cn("level-check-icon", getLevelClass(levelIndex))}>
-              {getLevelClass(levelIndex) === "done" && <IconCheck styleName={"icon-check"}/>}
-            </div>
-              {levelName}
-            </div>
-          ))}
-        </div>
-      </div>}
+          <div>
+            {levels.map((level, levelIndex) => (
+              <div styleName={cn("level", getLevelClass(levelIndex))} onClick={() => {
+                getLevelClass(levelIndex) !== "" ? navigate(level.url) : null;
+              }}>
+                <div
+                  styleName={cn("level-check-icon", getLevelClass(levelIndex))}
+                >
+                  {getLevelClass(levelIndex) === "done" && <IconCheck styleName={"icon-check"}/>}
+                </div>
+                {level.label}
+              </div>
+            ))}
+          </div>
+        </div>}
     </>
   );
 };
