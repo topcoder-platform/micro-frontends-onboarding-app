@@ -8,7 +8,7 @@ import config from "../../config";
  * Loads my basic info (To get interests)
  */
 export function getMyBasicInfo(myusername) {
-  return axios.get(`${config.API.V3}/members/${myusername}/traits?traitIds=basic_info`);
+  return axios.get(`${config.API.V5}/members/${myusername}/traits?traitIds=basic_info`);
 }
 
 /**

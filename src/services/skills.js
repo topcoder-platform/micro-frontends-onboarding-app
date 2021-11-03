@@ -15,7 +15,7 @@ export function getAllSkills() {
  * Loads member skills
  */
 export function getMemberSkills(username) {
-  return axios.get(`${config.API.V3}/members/${username}/skills`);
+  return axios.get(`${config.API.V5}/members/${username}/skills`);
 }
 
 /**
