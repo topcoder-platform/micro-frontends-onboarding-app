@@ -138,6 +138,7 @@ const ContactDetails = () => {
       zip: zipCode,                            
       city: city,
       stateCode: state,
+      country,
       type: "HOME"
     };
 
