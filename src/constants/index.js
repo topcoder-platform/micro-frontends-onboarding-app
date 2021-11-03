@@ -1,3 +1,5 @@
+import { range } from 'lodash';
+
 /**
  * This file should contain all application constants which do not depend on the DEV/PROD environment.
  */
@@ -28,8 +30,8 @@ export const timeZones = orderBy(timeZones_list, ['zoneName'], ['asc'])
  * Working hours
  */
 
-import workingHours_list from './workinghours.json'
-export const workingHours = workingHours_list
+export const workingHours = range(1, 25)
+  .map(h => `${h}:00`)
 
 /**
  * Industries

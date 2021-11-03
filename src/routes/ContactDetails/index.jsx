@@ -145,7 +145,7 @@ const ContactDetails = () => {
     return getMyBasicInfo(authUser.handle).then(result => {
       let myBasicInfo = result?.data[0]?.traits?.data[0];
       if(myBasicInfo === undefined){
-        return addMyAddress(authUser.handle, addressMapped)
+        return addMyAddress(authUser.handle, addressMapped, country)
       }else{
         return updateMyAddress(authUser.handle, myBasicInfo, addressMapped, country)
       }
