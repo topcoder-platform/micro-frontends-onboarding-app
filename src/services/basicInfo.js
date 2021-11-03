@@ -63,7 +63,7 @@ export function addMyAddress(myusername, address){
 /**
  * Update my address
  */
-export function updateMyAddress(myusername, prevBasicInfo, address){
+export function updateMyAddress(myusername, prevBasicInfo, address, country){
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [{
     "categoryName": "Basic Info",
     "traitId": "basic_info",
@@ -71,7 +71,8 @@ export function updateMyAddress(myusername, prevBasicInfo, address){
       "traitId": "basic_info",
       "data": [{
         ...prevBasicInfo,
-        "addresses": [address]
+        "addresses": [address],
+        country
       }]
     }
   }]);

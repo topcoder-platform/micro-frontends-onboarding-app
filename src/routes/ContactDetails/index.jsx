@@ -138,7 +138,6 @@ const ContactDetails = () => {
       zip: zipCode,                            
       city: city,
       stateCode: state,
-      country,
       type: "HOME"
     };
 
@@ -148,7 +147,7 @@ const ContactDetails = () => {
       if(myBasicInfo === undefined){
         return addMyAddress(authUser.handle, addressMapped)
       }else{
-        return updateMyAddress(authUser.handle, myBasicInfo, addressMapped)
+        return updateMyAddress(authUser.handle, myBasicInfo, addressMapped, country)
       }
     }).catch(e => {
       setIsLoading(false);
