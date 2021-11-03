@@ -1,3 +1,5 @@
+import { range } from 'lodash';
+
 /**
  * This file should contain all application constants which do not depend on the DEV/PROD environment.
  */
@@ -21,14 +23,15 @@ export const interests = interests_list
  */
 
 import timeZones_list from './timezones.json'
-export const timeZones = timeZones_list
+import { orderBy } from 'lodash'
+export const timeZones = orderBy(timeZones_list, ['zoneName'], ['asc'])
 
 /**
  * Working hours
  */
 
-import workingHours_list from './workinghours.json'
-export const workingHours = workingHours_list
+export const workingHours = range(1, 25)
+  .map(h => `${h}:00`)
 
 /**
  * Industries
@@ -56,8 +59,6 @@ export const ProgressLevels = [
   {label:"Building My Profile", url:"/onboard/build-my-profile"},
   {label:"Complete", url:"/onboard/complete"},
 ]
-
-
 
 /**
  * Supported Button Sizes
