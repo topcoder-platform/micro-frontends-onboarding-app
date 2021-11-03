@@ -21,7 +21,8 @@ export const interests = interests_list
  */
 
 import timeZones_list from './timezones.json'
-export const timeZones = timeZones_list
+import { orderBy } from 'lodash'
+export const timeZones = orderBy(timeZones_list, ['zoneName'], ['asc'])
 
 /**
  * Working hours
