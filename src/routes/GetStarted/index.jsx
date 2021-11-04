@@ -265,7 +265,7 @@ const GetStarted = () => {
               <PageP>
                 Members with completed profiles are 7x more likely to be selected for Topcoder
                  freelance opportunities. The more information you share, the
-                 more customized, useful, and valuable Topcoder will be ro you.
+                 more customized, useful, and valuable Topcoder will be to you.
               </PageP>
             </PageCard>
             <PageCard colorStyle="secondary" hasImage={true}>
