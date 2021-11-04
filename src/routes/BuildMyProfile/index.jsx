@@ -44,17 +44,18 @@ import { getBuildProfile,
          updateEducationExperiences,
          createLanguageExperiences,
          updateLanguageExperiences } from "services/buildMyProfile";
+import { getTraits } from "utils/";
 
 const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
   const [isLoading, setIsLoading] = useState(false)
   const [myProfileData, setMyProfileData] = useState({});
   // form states
-  const [formDate, setFormData] = useState({
+  const [formData, setFormData] = useState({
     title: "",
     bio: "",
   });
-  const {title, bio} = formDate;
+  const {title, bio} = formData;
   // get an empty job item
   const emptyJob = () => ({
     company: "",
@@ -100,7 +101,7 @@ const BuildMyProfile = () => {
   const {jobs, educations, languages} = listInputs;
   // handle form simple input changes
   const handleInputChange = (name, value) => {
-    setFormData(formDate => ({...formDate, [name]: value}));
+    setFormData(formData => ({...formData, [name]: value}));
   }
   // handle list input changes
   const handleListInputChange = (listInputName, index, inputName, value) => {
@@ -162,11 +163,13 @@ const BuildMyProfile = () => {
       let workExpValue = workExp?.traits?.data
       let educationExpValue = educationExp?.traits?.data
       let languagesExpValue = languagesExp?.traits?.data
+      
       // fill title and bio to state
+      console.log('basicInfovalue', basicInfoValue);
       if(basicInfoValue){
         const {description, title} = basicInfoValue;
-        setFormData(formDate => ({
-          ...formDate,
+        setFormData(formData => ({
+          ...formData,
           title: title || "",
           bio: description || "",
         }))
@@ -218,29 +221,23 @@ const BuildMyProfile = () => {
   }, [])
 
   // save title / bio
-  const saveMyTitleAndBio = () => {
+  const saveMyTitleAndBio = (basicInfo) => {
+    console.log('saving basicInfo', basicInfo);
     // mapped data
     let data = {
       title,
       description: bio,
     };
     // check if basic info already exists. if so, update(put data). otherwise, post data.
-    return getMyBasicInfo(authUser.handle).then(result => {
-      let myBasicInfo = result?.data[0]?.traits?.data[0];
-      if(myBasicInfo === undefined){
-        return addMyTitleAndBio(authUser.handle, data)
-      }else{
-        return updateMyTitleAndBio(authUser.handle, myBasicInfo, data)
-      }
-    }).catch(e => {
-      setIsLoading(false);
-      // toastr.error('Error', 'failed to save my title and bio!');
-      console.log(e);
-    })
+    if(basicInfo == null){
+      return addMyTitleAndBio(authUser.handle, data)
+    } else {
+      return updateMyTitleAndBio(authUser.handle, basicInfo, data)
+    }
   }
 
   // save jobs
-  const saveJobs = () => {
+  const saveJobs = (workExp) => {
     // mapped data
     let data = jobs.map(job => {
       const { company, position, industry, city,
@@ -255,25 +252,17 @@ const BuildMyProfile = () => {
         working: currentlyWorking
       }
     });
-    // check if work exp already exists. if so, update(put data). otherwise, post data.
-    return getBuildProfile(authUser.handle).then(result => {
-      // get prev work exp
-      let workExp = result?.data?.find(t => t.traitId === 'work');
-      // create if not exists, update if exists
-      if(!workExp){
-        return createWorkExperiences(authUser.handle, data)
-      }else{
-        return updateWorkExperiences(authUser.handle, data)
-      }
-    }).catch(e => {
-      setIsLoading(false);
-      // toastr.error('Error', 'failed to save work experiences!');
-      console.log(e);
-    })
+
+    // create if not exists, update if exists
+    if(!workExp){
+      return createWorkExperiences(authUser.handle, data)
+    } else {
+      return updateWorkExperiences(authUser.handle, data)
+    }
   }
 
   // save educations
-  const saveEducations = () => {
+  const saveEducations = (educationExp) => {
     // mapped data
     let data = educations.map(education => {
       const { collegeName, major, startDate,
@@ -286,26 +275,17 @@ const BuildMyProfile = () => {
         graduated: graduated,
       }
     });
-    // check if education exp already exists. if so, update(put data). otherwise, post data.
-    return getBuildProfile(authUser.handle).then(result => {
-      // get prev education exp
-      let educationExp = result?.data?.find(t => t.traitId === 'education');
-      // create if not exists, update if exists
-      if(!educationExp){
-        return createEducationExperiences(authUser.handle, data)
-      }else{
-        return updateEducationExperiences(authUser.handle, data)
-      }
-    }).catch(e => {
-      setIsLoading(false);
-      // toastr.error('Error', 'failed to save education experiences!');
-      console.log(e);
-    })
+
+    // create if not exists, update if exists
+    if(!educationExp){
+      return createEducationExperiences(authUser.handle, data)
+    } else {
+      return updateEducationExperiences(authUser.handle, data)
+    }
   }
 
-
   // save languages
-  const saveLanguages = () => {
+  const saveLanguages = (languagesExp) => {
     // mapped data
     let data = languages.map(language_ => {
       const { language, spokenLevel, writtenLevel } = language_;
@@ -313,39 +293,41 @@ const BuildMyProfile = () => {
         language, spokenLevel, writtenLevel
       }
     });
-    // check if language exp already exists. if so, update(put data). otherwise, post data.
-    return getBuildProfile(authUser.handle).then(result => {
-      // get prev language exp
-      let languagesExp = result?.data?.find(t => t.traitId === 'languages');
-      // create if not exists, update if exists
-      if(!languagesExp){
-        return createLanguageExperiences(authUser.handle, data)
-      }else{
-        return updateLanguageExperiences(authUser.handle, data)
-      }
-    }).catch(e => {
-      setIsLoading(false);
-      // toastr.error('Error', 'failed to save language skills!');
-      console.log(e);
-    })
+
+    // create if not exists, update if exists
+    if(!languagesExp){
+      return createLanguageExperiences(authUser.handle, data)
+    } else {
+      return updateLanguageExperiences(authUser.handle, data)
+    }
   }
 
   // reach router, navigate programmatically
   const navigate = useNavigate()
   // on submit, save form and then navigate
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     setIsLoading(true);
     // save address (basic info) then contact details before navigate
     e.preventDefault();
-    saveMyTitleAndBio().then(() => {
-      return saveJobs()
+
+    const result = await getBuildProfile(authUser.handle);
+    
+    const languageExperience = result?.data?.find(t => t.traitId === 'languages');
+    const educationExperience = result?.data?.find(t => t.traitId === 'education');
+    const workExperience = result?.data?.find(t => t.traitId === 'work');
+
+    const basicInfo = result?.data?.find(t => t.traitId === 'basic_info');
+    const basicInfoTraits = getTraits(basicInfo);
+
+    saveMyTitleAndBio(basicInfoTraits).then(() => {
+      return saveJobs(workExperience)
     }).then(() => {
-      return saveEducations()
+      return saveEducations(educationExperience)
     }).then(() => {
-      return saveLanguages()
+      return saveLanguages(languageExperience)
     }).then(() => {
       setIsLoading(false);
-      toastr.success('Success', 'profile saved successfully!');
+      toastr.success('Success', 'Successfully saved profile!');
       navigate('/onboard/complete');
     })
   }
