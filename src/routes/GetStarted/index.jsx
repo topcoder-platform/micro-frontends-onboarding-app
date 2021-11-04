@@ -45,6 +45,7 @@ import { getMyBasicInfo,
 import { getMemberData, uploadProfilePhoto } from "services/memberData";
 import _ from "lodash";
 import { getTraits } from "utils/";
+import { scrollToTop } from 'utils/';
 
 const GetStarted = () => {
   // states
@@ -71,7 +72,9 @@ const GetStarted = () => {
 
   // at start, set loading to true
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
+
+    scrollToTop();
   }, [])
 
   // count loaded datas, if it's equal to all datas, set loading to false
