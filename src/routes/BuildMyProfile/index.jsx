@@ -165,7 +165,6 @@ const BuildMyProfile = () => {
       let languagesExpValue = languagesExp?.traits?.data
       
       // fill title and bio to state
-      console.log('basicInfovalue', basicInfoValue);
       if(basicInfoValue){
         const {description, title} = basicInfoValue;
         setFormData(formData => ({
@@ -222,7 +221,6 @@ const BuildMyProfile = () => {
 
   // save title / bio
   const saveMyTitleAndBio = (basicInfo) => {
-    console.log('saving basicInfo', basicInfo);
     // mapped data
     let data = {
       title,
