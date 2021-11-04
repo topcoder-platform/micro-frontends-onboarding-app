@@ -37,6 +37,7 @@ import { getMyBasicInfo,
 import { getContactDetails,
          createContactDetails,
          updateContactDetails } from "services/contactDetails";
+import { getTraits } from "utils/";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -130,7 +131,7 @@ const ContactDetails = () => {
     })
   }, [])
 
-  const saveMyAddress = () => {
+  const saveMyAddress = (basicInfo) => {
     // update address
     let addressMapped = {
       streetAddr1: addressLine1,
@@ -138,26 +139,18 @@ const ContactDetails = () => {
       zip: zipCode,                            
       city: city,
       stateCode: state,
-      country,
       type: "HOME"
     };
 
     // check if basic info already exists. if so, update(put data). otherwise, post data.
-    return getMyBasicInfo(authUser.handle).then(result => {
-      let myBasicInfo = result?.data[0]?.traits?.data[0];
-      if(myBasicInfo === undefined){
-        return addMyAddress(authUser.handle, addressMapped, country)
-      }else{
-        return updateMyAddress(authUser.handle, myBasicInfo, addressMapped, country)
-      }
-    }).catch(e => {
-      setIsLoading(false);
-      // toastr.error('Error', 'failed to save my address!');
-      console.log(e);
-    })
+    if(basicInfo == null){
+      return addMyAddress(authUser.handle, addressMapped, country)
+    } else {
+      return updateMyAddress(authUser.handle, basicInfo, addressMapped, country)
+    }
   }
 
-  const saveContactDetails = () => {
+  const saveContactDetails = (contactDetailsOnServer) => {
     // saving contact details
     // map data before passing to server
     let contactDetailsMapped = {
@@ -170,34 +163,31 @@ const ContactDetails = () => {
       workingHourEnd: endTime,
     };
     // check if contact details already exists. if so, update(put data). otherwise, post data.
-    return getContactDetails(authUser.handle).then(result => {
-      let contactDetailsOnServer = result?.data;
-      if(contactDetailsOnServer?.length)
-        contactDetailsOnServer = contactDetailsOnServer.find(t => t.traitId === 'connect_info')
-      if(contactDetailsOnServer === undefined){
-        return createContactDetails(authUser.handle, contactDetailsMapped)
-      }else{
-        return updateContactDetails(authUser.handle, contactDetailsMapped)
-      }
-    }).catch(e => {
-      setIsLoading(false);
-      // toastr.error('Error', 'failed to save contact details!');
-      console.log(e);
-    })
+    if(contactDetailsOnServer == null){
+      return createContactDetails(authUser.handle, contactDetailsMapped)
+    } else {
+      return updateContactDetails(authUser.handle, contactDetailsMapped)
+    }
   }
 
   // reach router, navigate programmatically
   const navigate = useNavigate()
   // on submit, save form and then navigate
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     setIsLoading(true);
     // save address (basic info) then contact details before navigate
     e.preventDefault();
-    saveMyAddress().then(() => {
-      return saveContactDetails()
+
+    const result = await getContactDetails(authUser.handle)
+    const contactDetailsOnServer = result?.data?.find(t => t.traitId === 'connect_info');
+    const basicInfo = result?.data?.find(t => t.traitId === 'basic_info');
+    const basicInfoTraits = getTraits(basicInfo);
+
+    saveMyAddress(basicInfoTraits).then(() => {
+      return saveContactDetails(contactDetailsOnServer)
     }).then(() => {
       setIsLoading(false);
-      toastr.success('Success', 'contact details saved successfully!');
+      toastr.success('Success', 'Successfully saved contact details!');
       navigate('/onboard/build-my-profile');
     })
   }

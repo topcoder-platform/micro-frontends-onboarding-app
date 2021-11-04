@@ -44,6 +44,7 @@ import { getMyBasicInfo,
          updateMyPrimaryInterests } from "services/basicInfo";
 import { getMemberData, uploadProfilePhoto } from "services/memberData";
 import _ from "lodash";
+import { getTraits } from "utils/";
 
 const GetStarted = () => {
   // states
@@ -205,11 +206,12 @@ const GetStarted = () => {
     let myInterestsFlat = myInterests.map(interest => interest.name).join(', ')
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     return getMyBasicInfo(authUser.handle).then(result => {
-      let myBasicInfo = result?.data[0]?.traits?.data[0];
-      if(myBasicInfo === undefined){
+      const basicInfoTraits = getTraits(result?.data[0]);
+
+      if(basicInfoTraits == null) {
         return addMyPrimaryInterests(authUser.handle, myInterestsFlat)
-      }else{
-        return updateMyPrimaryInterests(authUser.handle, myBasicInfo, myInterestsFlat)
+      } else {
+        return updateMyPrimaryInterests(authUser.handle, basicInfoTraits, myInterestsFlat)
       }
     }).catch(e => {
       setIsLoading(false);

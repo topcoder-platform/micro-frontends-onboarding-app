@@ -64,7 +64,7 @@ export function addMyAddress(myusername, address, country){
 /**
  * Update my address
  */
-export function updateMyAddress(myusername, prevBasicInfo, address, country){
+export function updateMyAddress(myusername, prevBasicInfo, address, country) {
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [{
     "categoryName": "Basic Info",
     "traitId": "basic_info",
@@ -96,7 +96,7 @@ export function addMyTitleAndBio(myusername, data){
 /**
  * Update my title and bio
  */
-export function updateMyTitleAndBio(myusername, prevBasicInfo, data){
+export function updateMyTitleAndBio(myusername, prevBasicInfo, data) {
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [{
     "categoryName": "Basic Info",
     "traitId": "basic_info",
