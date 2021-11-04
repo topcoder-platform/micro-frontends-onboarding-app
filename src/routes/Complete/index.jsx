@@ -18,10 +18,15 @@ import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
 import config from '../../../config';
+import { scrollToTop } from 'utils/';
 
 const Complete = () => {
   const [myProfileData, setMyProfileData] = useState({});
   const authUser = useSelector((state) => state.authUser);
+
+  useEffect(() => {
+    scrollToTop();
+  });
 
   // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
   useEffect(() => {
