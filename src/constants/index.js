@@ -1,4 +1,4 @@
-import { range } from 'lodash';
+import { range, isUndefined, isNull } from "lodash";
 
 /**
  * This file should contain all application constants which do not depend on the DEV/PROD environment.
@@ -8,57 +8,62 @@ import { range } from 'lodash';
  * Skills
  */
 
-import skills_list from './skills.json'
-export const skills = skills_list
+import skills_list_dev from "./skills-dev.json";
+import skills_list_prod from "./skills-prod.json";
+export const skills =
+  isUndefined(process.env.APPENV) ||
+  isNull(process.env.APPENV) ||
+  process.env.APPENV === "dev"
+    ? skills_list_dev
+    : skills_list_prod;
 
 /**
  * Interests
  */
 
-import interests_list from './interests.json'
-export const interests = interests_list
+import interests_list from "./interests.json";
+export const interests = interests_list;
 
 /**
  * Time zones
  */
 
-import timeZones_list from './timezones.json'
-import { orderBy } from 'lodash'
-export const timeZones = orderBy(timeZones_list, ['zoneName'], ['asc'])
+import timeZones_list from "./timezones.json";
+import { orderBy } from "lodash";
+export const timeZones = orderBy(timeZones_list, ["zoneName"], ["asc"]);
 
 /**
  * Working hours
  */
 
-export const workingHours = range(1, 25)
-  .map(h => `${h}:00`)
+export const workingHours = range(1, 25).map((h) => `${h}:00`);
 
 /**
  * Industries
  */
 
-import industries_list from './industries.json'
-export const industries = industries_list
+import industries_list from "./industries.json";
+export const industries = industries_list;
 
 /**
  * Languages and language levels
  */
 
-import {language, spokenLevel, writtenLevel} from './languageLevels.json'
-export const languages = language.map(v => v.name)
-export const spokenLevels = spokenLevel.map(v => v.name)
-export const writtenLevels = writtenLevel.map(v => v.name)
+import { language, spokenLevel, writtenLevel } from "./languageLevels.json";
+export const languages = language.map((v) => v.name);
+export const spokenLevels = spokenLevel.map((v) => v.name);
+export const writtenLevels = writtenLevel.map((v) => v.name);
 
 /**
  * ProgressLevels
  */
 export const ProgressLevels = [
-  {label: "Get Started", url: "/onboard"},
-  {label: "Contact Details", url:"/onboard/contact-details"},
+  { label: "Get Started", url: "/onboard" },
+  { label: "Contact Details", url: "/onboard/contact-details" },
   // "Payment Setup", {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
-  {label:"Building My Profile", url:"/onboard/build-my-profile"},
-  {label:"Complete", url:"/onboard/complete"},
-]
+  { label: "Building My Profile", url: "/onboard/build-my-profile" },
+  { label: "Complete", url: "/onboard/complete" },
+];
 
 /**
  * Supported Button Sizes
@@ -78,7 +83,6 @@ export const BUTTON_TYPE = {
   SEGMENT: "segment",
   SEGMENT_SELECTED: "segment-selected",
 };
-
 
 /**
  * All action types
