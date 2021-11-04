@@ -42,9 +42,7 @@ const UploadPhotoModal = ( {show = false, handleClose = f => f, onPhotoSaved = f
     <Modal show={show} handleClose={handleClose}>
       <PageH3><span styleName="mute">Add your image</span> > Upload Photo</PageH3>
       <PageP>
-        {photoSrc && <div style={{backgroundImage: `url(${photoSrc})`}} styleName="photo">
-          <div styleName="photo-select-area"></div>
-        </div>}
+        {photoSrc && <div style={{backgroundImage: `url(${photoSrc})`}} styleName="photo" />}
         {!photoSrc && <div {...getRootProps()} styleName='dropzone'>
           <input {...getInputProps()} />
           <p>Drag & Drop your photo here<br />OR<br />choose a photo to upload</p>
