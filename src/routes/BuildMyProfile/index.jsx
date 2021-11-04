@@ -55,6 +55,7 @@ import {
 } from "services/buildMyProfile";
 import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
+import { isFormDataEmpty } from 'utils/';
 
 const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -245,7 +246,11 @@ const BuildMyProfile = () => {
     if (basicInfo == null) {
       return addMyTitleAndBio(authUser.handle, data);
     } else {
-      return updateMyTitleAndBio(authUser.handle, basicInfo, data);
+      if (isFormDataEmpty("bio", data)) {
+        return updateMyTitleAndBio(authUser.handle, basicInfo, data);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -277,7 +282,11 @@ const BuildMyProfile = () => {
     if (!workExp) {
       return createWorkExperiences(authUser.handle, data);
     } else {
-      return updateWorkExperiences(authUser.handle, data);
+      if (isFormDataEmpty("work", data[0])) {
+        return updateWorkExperiences(authUser.handle, data);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -299,7 +308,11 @@ const BuildMyProfile = () => {
     if (!educationExp) {
       return createEducationExperiences(authUser.handle, data);
     } else {
-      return updateEducationExperiences(authUser.handle, data);
+      if (isFormDataEmpty("education", data[0])) {
+        return updateEducationExperiences(authUser.handle, data);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -319,7 +332,11 @@ const BuildMyProfile = () => {
     if (!languagesExp) {
       return createLanguageExperiences(authUser.handle, data);
     } else {
-      return updateLanguageExperiences(authUser.handle, data);
+      if (isFormDataEmpty("language", data[0])) {
+        return updateLanguageExperiences(authUser.handle, data);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
