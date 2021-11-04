@@ -21,7 +21,7 @@ import {useDropzone} from 'react-dropzone';
 
 const UploadPhotoModal = ( {show = false, handleClose = f => f, onPhotoSaved = f => f} ) => {
   // react dropzone hooks
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({multiple: false});
+  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({multiple: false, accept: "image/jpg, image/jpeg, image/png"});
   const [photoSrc, setPhotoSrc] = useState('');
   useEffect(() => {
     if(acceptedFiles && acceptedFiles.length){
