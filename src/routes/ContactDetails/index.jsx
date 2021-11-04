@@ -42,6 +42,7 @@ import {
   updateContactDetails,
 } from "services/contactDetails";
 import { getTraits } from "utils/";
+import { scrollToTop } from "utils/";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -91,6 +92,8 @@ const ContactDetails = () => {
         // toastr.error('Error', 'failed to get countries!');
         console.log(e);
       });
+
+    scrollToTop();
   }, []);
 
   // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData

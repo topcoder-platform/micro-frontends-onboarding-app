@@ -54,6 +54,7 @@ import {
   updateLanguageExperiences,
 } from "services/buildMyProfile";
 import { getTraits } from "utils/";
+import { scrollToTop } from "utils/";
 
 const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -230,6 +231,7 @@ const BuildMyProfile = () => {
         // toastr.error('Error', 'failed to get profile datas!');
         console.log(e);
       });
+    scrollToTop();
   }, []);
 
   // save title / bio
