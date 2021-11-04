@@ -130,7 +130,7 @@ const AddSkillsModal = ({
             onChange={handleSelectedSkillChange}
             options={categorySkills
               .filter((skill) =>
-                selectedSkills.find((s) => s.name !== skill.label)
+                !selectedSkills?.find((s) => s.name === skill.label)
               )
               .map(({ label }) => ({ value: label, label }))}
           />
