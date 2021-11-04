@@ -22,6 +22,7 @@ const DateInput = (props) => {
         onBlur={props.onBlur}
         onCalendarClose={props.onBlur}
         onFocus={props.onFocus}
+        showYearDropdown
       />
     </div>
   );
