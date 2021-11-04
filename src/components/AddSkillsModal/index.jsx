@@ -21,6 +21,7 @@ import { skills as allSkills } from "constants";
 
 import IconPlus from "../../assets/images/icon-plus.svg";
 import IconCross from "../../assets/images/icon-cross.svg";
+import _ from "lodash";
 
 const AddSkillsModal = ({
   show = false,
@@ -48,13 +49,12 @@ const AddSkillsModal = ({
 
   useEffect(() => {
     if (!categorySkills?.length) return;
-    if (!selectedSkills?.length) return;
     const skills = categorySkills
       .filter((skill) => selectedSkills.find((s) => s.name === skill.label))
       .map(({ label }) => ({ value: label, name: label }));
     console.log(skills);
     setSelectedCategorySkills(skills);
-  }, [categorySkills, selectedCategory, show, selectedSkills]);
+  }, [categorySkills, show, selectedSkills]);
 
   useEffect(() => {
     if (initialSelectedCategory && initialSelectedCategory.id) {
@@ -104,6 +104,21 @@ const AddSkillsModal = ({
     handleClose(e);
     setSelectedSkills([]);
   };
+
+  const checkDisable = () => {
+    if (initialSelectedSkills?.length === 0 && selectedSkills?.length === 0) {
+      return true;
+    }
+
+    if (initialSelectedSkills?.length > 0) {
+      if (selectedSkills?.length === initialSelectedSkills?.length) {
+        return _.isEqual(selectedSkills, initialSelectedSkills);
+      }
+    }
+
+    return false;
+  };
+
   return (
     <Modal show={show} handleClose={handleClose}>
       <PageH2>Add Skills</PageH2>
@@ -129,8 +144,8 @@ const AddSkillsModal = ({
             value={null}
             onChange={handleSelectedSkillChange}
             options={categorySkills
-              .filter((skill) =>
-                !selectedSkills?.find((s) => s.name === skill.label)
+              .filter(
+                (skill) => !selectedSkills?.find((s) => s.name === skill.label)
               )
               .map(({ label }) => ({ value: label, label }))}
           />
@@ -155,7 +170,7 @@ const AddSkillsModal = ({
       <PageFoot>
         <Button
           size={BUTTON_SIZE.MEDIUM}
-          disabled={!selectedSkills.length}
+          disabled={checkDisable()}
           onClick={handleSaveClick}
         >
           Save

@@ -58,6 +58,7 @@ const GetStarted = () => {
   const [myProfileData, setMyProfileData] = useState({});
   const [myInterests, setMyInterests] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [initialMySkills, setInitialMySkills] = useState([]);
   const [skillsModalShow, setSkillsModalShow] = useState(false);
   const [uploadPhotoModalShow, setUploadPhotoModalShow] = useState(false);
   const [profilePhotoSrc, setProfilePhotoSrc] = useState("");
@@ -162,13 +163,14 @@ const GetStarted = () => {
         let myskills = result?.data?.skills;
         if (myskills) myskills = Object.values(myskills);
         // map and store on state
-        setSelectedSkills(
-          myskills
-            .map((myskill) =>
-              allSkillsLive.find((s) => s.name === myskill.tagName)
-            )
-            .filter((s) => s)
-        );
+        const finalMySkills = myskills
+          .map((myskill) =>
+            allSkillsLive.find((s) => s.name === myskill.tagName)
+          )
+          .filter((s) => s);
+
+        setSelectedSkills(finalMySkills);
+        setInitialMySkills(finalMySkills);
       })
       .catch((e) => {
         setIsLoading(false);
@@ -264,6 +266,15 @@ const GetStarted = () => {
   };
 
   const saveMySkills = () => {
+    // get deleted skills
+    const deletedSkills = initialMySkills.filter(
+      (s) => !selectedSkills.find((x) => x.name === s.name)
+    );
+    let deletedSkillsLegacyIds = deletedSkills.map((skill) => {
+      return allSkills.find((s) => s.label === skill.name)?.legacyId;
+    });
+    deletedSkillsLegacyIds = deletedSkillsLegacyIds.filter((s) => s);
+
     // saving mySkills
     // map
     let mySkillsLegacyIds = selectedSkills.map((skill) => {
@@ -271,7 +282,11 @@ const GetStarted = () => {
     });
     // remove the ones that we dont know the legacy ids
     mySkillsLegacyIds = mySkillsLegacyIds.filter((s) => s);
-    return updateMySkills(authUser.handle, mySkillsLegacyIds).catch((e) => {
+    return updateMySkills(
+      authUser.handle,
+      mySkillsLegacyIds,
+      deletedSkillsLegacyIds
+    ).catch((e) => {
       setIsLoading(false);
       // toastr.error('Error', 'failed to save my skills!');
       console.log(e);

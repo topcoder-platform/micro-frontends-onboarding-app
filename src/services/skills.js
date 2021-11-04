@@ -21,15 +21,17 @@ export function getMemberSkills(username) {
 /**
  * Update member skills
  */
-export function updateMySkills(username, skillIds) {
+export function updateMySkills(username, skillIds, deletedSkillIds) {
   let skills = {};
-  skillIds.forEach(skillId => {
-    skills[skillId] = { "hidden": false }
+  skillIds.forEach((skillId) => {
+    skills[skillId] = { hidden: false };
+  });
+  deletedSkillIds.forEach((skillId) => {
+    skills[skillId] = { hidden: true };
   });
   return axios.patch(`${config.API.V3}/members/${username}/skills`, {
-      "param": {
-        "skills": skills
-      }
+    param: {
+      skills: skills,
+    },
   });
 }
-
