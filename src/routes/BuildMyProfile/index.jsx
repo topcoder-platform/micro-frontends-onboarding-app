@@ -55,6 +55,7 @@ import {
 } from "services/buildMyProfile";
 import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
+import { isProfileFormDataEmpty } from 'utils/';
 
 const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -243,10 +244,14 @@ const BuildMyProfile = () => {
       description: bio,
     };
     // check if basic info already exists. if so, update(put data). otherwise, post data.
-    if (basicInfo == null) {
+    if (basicInfo == null && isProfileFormDataEmpty("bio", data)) {
       return addMyTitleAndBio(authUser.handle, data);
     } else {
-      return updateMyTitleAndBio(authUser.handle, basicInfo, data);
+      if (isProfileFormDataEmpty("bio", data)) {
+        return updateMyTitleAndBio(authUser.handle, basicInfo, data);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -275,10 +280,14 @@ const BuildMyProfile = () => {
     });
 
     // create if not exists, update if exists
-    if (!workExp) {
+    if (!workExp && isProfileFormDataEmpty("work", data[0])) {
       return createWorkExperiences(authUser.handle, data);
     } else {
-      return updateWorkExperiences(authUser.handle, data);
+      if (isProfileFormDataEmpty("work", data[0])) {
+        return updateWorkExperiences(authUser.handle, data);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -297,10 +306,14 @@ const BuildMyProfile = () => {
     });
 
     // create if not exists, update if exists
-    if (!educationExp) {
+    if (!educationExp && isProfileFormDataEmpty("education", data[0])) {
       return createEducationExperiences(authUser.handle, data);
     } else {
-      return updateEducationExperiences(authUser.handle, data);
+      if (isProfileFormDataEmpty("education", data[0])) {
+        return updateEducationExperiences(authUser.handle, data);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -317,10 +330,14 @@ const BuildMyProfile = () => {
     });
 
     // create if not exists, update if exists
-    if (!languagesExp) {
+    if (!languagesExp && isProfileFormDataEmpty("language", data[0])) {
       return createLanguageExperiences(authUser.handle, data);
     } else {
-      return updateLanguageExperiences(authUser.handle, data);
+      if (isProfileFormDataEmpty("language", data[0])) {
+        return updateLanguageExperiences(authUser.handle, data);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -357,7 +374,7 @@ const BuildMyProfile = () => {
       })
       .then(() => {
         setIsLoading(false);
-        toastr.success("Success", "Successfully saved profile!");
+        // toastr.success("Success", "Successfully saved profile!");
         navigate("/onboard/complete");
       });
   };

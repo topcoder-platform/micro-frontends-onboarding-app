@@ -43,6 +43,8 @@ import {
 } from "services/contactDetails";
 import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
+import { isAddressFormEmpty } from 'utils/';
+import { isContactFormEmpty } from 'utils/';
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -173,15 +175,19 @@ const ContactDetails = () => {
     };
 
     // check if basic info already exists. if so, update(put data). otherwise, post data.
-    if (basicInfo == null) {
+    if (basicInfo == null && isAddressFormEmpty(addressMapped, basicInfo)) {
       return addMyAddress(authUser.handle, addressMapped, country);
     } else {
-      return updateMyAddress(
-        authUser.handle,
-        basicInfo,
-        addressMapped,
-        country
-      );
+      if (isAddressFormEmpty(addressMapped, basicInfo)) {
+        return updateMyAddress(
+          authUser.handle,
+          basicInfo,
+          addressMapped,
+          country
+        );
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -198,10 +204,14 @@ const ContactDetails = () => {
       workingHourEnd: endTime,
     };
     // check if contact details already exists. if so, update(put data). otherwise, post data.
-    if (contactDetailsOnServer == null) {
+    if (contactDetailsOnServer == null && isContactFormEmpty(contactDetailsMapped)) {
       return createContactDetails(authUser.handle, contactDetailsMapped);
     } else {
-      return updateContactDetails(authUser.handle, contactDetailsMapped);
+      if (isContactFormEmpty(contactDetailsMapped)) {
+        return updateContactDetails(authUser.handle, contactDetailsMapped);
+      } else {
+        return Promise.resolve();
+      }
     }
   };
 
@@ -226,7 +236,7 @@ const ContactDetails = () => {
       })
       .then(() => {
         setIsLoading(false);
-        toastr.success("Success", "Successfully saved contact details!");
+        // toastr.success("Success", "Successfully saved contact details!");
         navigate("/onboard/build-my-profile");
       });
   };
