@@ -1,39 +1,38 @@
 @import "styles/include";
 
-.build-my-profile{
-  .form-row{
+.build-my-profile {
+  .form-row {
     align-items: flex-start;
   }
-  .form-description{
+  .form-description {
     font-size: 18px;
     margin-top: 0;
   }
-  .form-p{
+  .form-p {
     font-weight: 430;
     font-size: 18px;
     margin-top: 20px;
   }
-  .listinput-item{
-    &:not(:first-child){
+  .listinput-item {
+    &:not(:first-child) {
       margin-top: 10px;
     }
   }
-  .remove-listinput-item-button{
+  .remove-listinput-item-button {
     margin: 8px 0 14px 0;
     cursor: pointer;
     color: red;
     display: flex;
     align-items: center;
     font-weight: 430;
-    
-    .icon-remove{
+
+    .icon-remove {
       margin-right: 5px;
       width: 26px;
       height: 14px;
     }
-    .icon-remove *{
+    .icon-remove * {
       stroke: red;
     }
   }
-  
 }

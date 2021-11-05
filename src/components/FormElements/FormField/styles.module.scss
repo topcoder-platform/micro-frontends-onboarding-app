@@ -1,18 +1,28 @@
 @import "styles/include";
 
-.form-field {
+.form-field-wrapper {
   position: relative;
-  border: 1px solid #b7b7b7;
-  border-radius: 4px;
-  background: white;
-  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-self: baseline;
   margin-bottom: 18px;
+  .form-field {
+    border: 1px solid #b7b7b7;
+    border-radius: 4px;
+    background: white;
+    padding-top: 24px;
+    margin-bottom: 10px;
 
-  .label{
-    position: absolute;
-    top: 5px;
-    left: 15px;
-    color: $green1;
-    font-size: 13px;
+    .label {
+      position: absolute;
+      top: 5px;
+      left: 15px;
+      color: $green1;
+      font-size: 13px;
+    }
+  }
+  .error {
+    color: #ec2710;
   }
 }

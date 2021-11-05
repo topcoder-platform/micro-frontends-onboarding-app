@@ -55,6 +55,8 @@ import {
 } from "services/buildMyProfile";
 import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
+import moment from "moment";
+import _ from "lodash";
 
 const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -108,6 +110,11 @@ const BuildMyProfile = () => {
     educations: [emptyListInputItem("educations")],
     languages: [emptyListInputItem("languages")],
   });
+  const [errors, setErrors] = useState({
+    jobs: [], // {index, field}
+    educations: [],
+    languages: [],
+  });
   const { jobs, educations, languages } = listInputs;
   // handle form simple input changes
   const handleInputChange = (name, value) => {
@@ -123,6 +130,48 @@ const BuildMyProfile = () => {
       });
       return { ...listInputs, [listInputName]: newListInput };
     });
+  };
+
+  const validateDate = (listInputName, index, startDate, endDate) => {
+    setErrors((errs) => {
+      const err = [...errs[listInputName]];
+      const isValid =
+        _.isUndefined(endDate) ||
+        _.isNull(endDate) ||
+        moment(startDate).isBefore(endDate);
+      const item = err.find((x) => x.index === index && x.field);
+      if (isValid) {
+        _.remove(err, {
+          index: index,
+          field: "startDate",
+        });
+      } else {
+        if (!item) {
+          err.push({
+            index: index,
+            field: "startDate",
+          });
+        }
+      }
+
+      return { ...errs, [listInputName]: err };
+    });
+  };
+
+  const hasError = (listInputName, index, inputName) => {
+    console.log(errors[listInputName]);
+    console.log(
+      errors[listInputName].find(
+        (x) => x.index === index && x.field === inputName
+      )
+    );
+    return (
+      errors &&
+      errors[listInputName].length > 0 &&
+      errors[listInputName].some(
+        (x) => x.index === index && x.field === inputName
+      )
+    );
   };
 
   // add an item to a list input
@@ -324,10 +373,22 @@ const BuildMyProfile = () => {
     }
   };
 
+  const canSubmit = () => {
+    return !(
+      errors &&
+      (errors.jobs.length > 0 ||
+        errors.educations.length > 0 ||
+        errors.languages.length > 0)
+    );
+  };
+
   // reach router, navigate programmatically
   const navigate = useNavigate();
   // on submit, save form and then navigate
   const handleSubmit = async (e) => {
+    if (!canSubmit()) {
+      return;
+    }
     setIsLoading(true);
     // save address (basic info) then contact details before navigate
     e.preventDefault();
@@ -534,12 +595,20 @@ const BuildMyProfile = () => {
                     </FormField>
                   </PageRow>
                   <PageRow half={true}>
-                    <FormField label={"Start Date"}>
+                    <FormField
+                      label={"Start Date"}
+                      error={
+                        errors && hasError(name, index, "startDate")
+                          ? "Start Date should be before End Date"
+                          : ""
+                      }
+                    >
                       <DateInput
                         value={startDate}
-                        onChange={(v) =>
-                          handleListInputChange(name, index, "startDate", v)
-                        }
+                        onChange={(v) => {
+                          handleListInputChange(name, index, "startDate", v);
+                          validateDate(name, index, v, endDate);
+                        }}
                         style2={true}
                         placeholder={"Select start date"}
                       />
@@ -547,9 +616,10 @@ const BuildMyProfile = () => {
                     <FormField label={"End Date"}>
                       <DateInput
                         value={endDate}
-                        onChange={(v) =>
-                          handleListInputChange(name, index, "endDate", v)
-                        }
+                        onChange={(v) => {
+                          handleListInputChange(name, index, "endDate", v);
+                          validateDate(name, index, startDate, v);
+                        }}
                         style2={true}
                         placeholder={"Select end date"}
                       />
@@ -643,12 +713,20 @@ const BuildMyProfile = () => {
                     />
                   </FormField>
                   <PageRow half={true}>
-                    <FormField label={"Start Date"}>
+                    <FormField
+                      label={"Start Date"}
+                      error={
+                        errors && hasError(name, index, "startDate")
+                          ? "Start Date should be before End Date"
+                          : ""
+                      }
+                    >
                       <DateInput
                         value={startDate}
-                        onChange={(v) =>
-                          handleListInputChange(name, index, "startDate", v)
-                        }
+                        onChange={(v) => {
+                          handleListInputChange(name, index, "startDate", v);
+                          validateDate(name, index, v, endDate);
+                        }}
                         style2={true}
                         placeholder={"Select start date"}
                       />
@@ -656,9 +734,10 @@ const BuildMyProfile = () => {
                     <FormField label={"End Date (or expected)"}>
                       <DateInput
                         value={endDate}
-                        onChange={(v) =>
-                          handleListInputChange(name, index, "endDate", v)
-                        }
+                        onChange={(v) => {
+                          handleListInputChange(name, index, "endDate", v);
+                          validateDate(name, index, startDate, v);
+                        }}
                         style2={true}
                         placeholder={"Select end date"}
                       />
@@ -824,8 +903,16 @@ const BuildMyProfile = () => {
                 {"< "}Back
               </Button>
             </Link>
-            <Link to="/onboard/complete" onClick={(e) => handleSubmit(e)}>
-              <Button size={BUTTON_SIZE.MEDIUM}>COMPLETE YOUR PROFILE</Button>
+            <Link
+              to={errors && canSubmit() ? "/onboard/complete" : "#"}
+              onClick={(e) => handleSubmit(e)}
+            >
+              <Button
+                disabled={errors && !canSubmit()}
+                size={BUTTON_SIZE.MEDIUM}
+              >
+                COMPLETE YOUR PROFILE
+              </Button>
             </Link>
           </PageFoot>
           <OnboardProgress level={3} />
