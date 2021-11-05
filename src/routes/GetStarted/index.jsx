@@ -322,7 +322,7 @@ const GetStarted = () => {
 
           <PageRow half={true}>
             <PageCard>
-              <PageH2>DO MORE WITH GREAT PROFILE</PageH2>
+              <PageH2>DO MORE WITH A GREAT PROFILE.</PageH2>
               <PageP>
                 Members with completed profiles are 7x more likely to be
                 selected for Topcoder freelance opportunities. The more
