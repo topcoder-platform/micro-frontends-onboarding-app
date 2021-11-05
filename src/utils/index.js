@@ -80,8 +80,8 @@ export function isAddressFormEmpty(data, basicInfo) {
     data?.streetAddr2.length ||
     data?.zip.length ||
     basicInfo?.country.length ||
-    basicInfo?.description.length ||
-    basicInfo?.title.length
+    (basicInfo?.description && basicInfo?.description.length) ||
+    (basicInfo?.title && basicInfo?.title.length)
   );
 }
 
