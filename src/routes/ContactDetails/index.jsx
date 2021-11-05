@@ -236,7 +236,7 @@ const ContactDetails = () => {
       })
       .then(() => {
         setIsLoading(false);
-        toastr.success("Success", "Successfully saved contact details!");
+        // toastr.success("Success", "Successfully saved contact details!");
         navigate("/onboard/build-my-profile");
       });
   };

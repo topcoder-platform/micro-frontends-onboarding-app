@@ -225,7 +225,7 @@ const GetStarted = () => {
         .then((result) => {
           if (result?.data?.photoURL) {
             setIsLoading(false);
-            toastr.success("Success", "Profile photo updated successfully!");
+            // toastr.success("Success", "Profile photo updated successfully!");
             setProfilePhotoSrc(result.data.photoURL);
           }
         })

@@ -374,7 +374,7 @@ const BuildMyProfile = () => {
       })
       .then(() => {
         setIsLoading(false);
-        toastr.success("Success", "Successfully saved profile!");
+        // toastr.success("Success", "Successfully saved profile!");
         navigate("/onboard/complete");
       });
   };
