@@ -138,7 +138,7 @@ const AddSkillsModal = ({
         </div>
         <div>
           <PageH3 style={{ marginTop: "-5px" }}>
-            Select {selectedCategory.label}
+            Select {selectedCategory.label} Skills
           </PageH3>
           <Select
             value={null}

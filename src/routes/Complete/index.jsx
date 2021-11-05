@@ -55,7 +55,7 @@ const Complete = () => {
             </PageP>
             <PageP>
               Now it's time to put your skills to good use. Go explore your new Topcoder home and discover
-              the ways you can earn, and connect with great people in the Topcoder Community.
+              the ways you can earn, learn, and connect with great people in the Topcoder Community.
             </PageP>
             <br />
             <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
