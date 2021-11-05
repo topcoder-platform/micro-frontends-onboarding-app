@@ -138,7 +138,7 @@ const AddSkillsModal = ({
         </div>
         <div>
           <PageH3 style={{ marginTop: "-5px" }}>
-            Select design / ux skills
+            Select {selectedCategory.label}
           </PageH3>
           <Select
             value={null}
