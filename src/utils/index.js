@@ -13,12 +13,12 @@ export function scrollToTop() {
 }
 
 /**
- * Check if form data is empty
+ * Check if Build My Profile form data is empty
  *
  * @param type {String}
  * @param data {Object}
  */
-export function isFormDataEmpty(type, data) {
+export function isProfileFormDataEmpty(type, data) {
 
   switch (type) {
     case "bio":
@@ -46,4 +46,58 @@ export function isFormDataEmpty(type, data) {
       );
   }
   return true;
+}
+
+/**
+ * Check if Build Get Started form data is empty
+ *
+ * @param myInterest {Object}
+ */
+export function isGetStartedFormDataEmpty(myInterest) {
+  return myInterest.length;
+}
+
+/**
+ * Check if Skill form data is empty
+ *
+ * @param data {Object}
+ */
+export function isSkillFormEmpty(data) {
+  return data.length;
+}
+
+/**
+ * Check if Address form data is empty
+ *
+ * @param data {Object}
+ */
+export function isAddressFormEmpty(data, basicInfo) {
+  return (
+    data?.city.length ||
+    data?.stateCode.length ||
+    data?.streetAddr1.length ||
+    data?.streetAddr2.length ||
+    data?.zip.length ||
+    basicInfo?.country.length ||
+    basicInfo?.description.length ||
+    basicInfo?.title.length
+  );
+}
+
+/**
+ * Check if Contact form data is empty
+ *
+ * @param data {Object}
+ */
+export function isContactFormEmpty(data) {
+  return (
+    data?.city.length ||
+    data?.country.length ||
+    data?.state.length ||
+    data?.timeZone.length ||
+    data?.zip.length ||
+    data?.workingHourEnd.length ||
+    data?.workingHourStart.length ||
+    data?.zip.length
+  );
 }
