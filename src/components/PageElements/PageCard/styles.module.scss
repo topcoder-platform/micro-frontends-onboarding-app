@@ -6,9 +6,6 @@
   border-radius: 8px;
   overflow: hidden;
   height: 200px;
-  @media (max-width: 1360px) {
-    height: auto;
-  }
   @include mobile {
     height: auto;
     margin-bottom: 20px;
@@ -39,6 +36,7 @@
   }
   & img{
     height: 100%;
+    object-fit: contain;
     @include desktop{
       margin-right: 31px;
     }

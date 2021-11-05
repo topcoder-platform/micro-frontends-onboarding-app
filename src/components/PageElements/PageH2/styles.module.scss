@@ -8,4 +8,8 @@
   font-weight: 420;
   line-height: 40px;
   text-transform: uppercase;
+
+  @media screen and (max-width: 1325px) and (min-width: 1199px) {
+    margin-top: 40px;
+  }
 }
