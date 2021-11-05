@@ -16,7 +16,11 @@ const ReactSelect = (props) => {
       minHeight: "40px",
       border: props.style2 ? "0" : "1px solid #aaaaab",
       borderColor: state.isFocused ? "#55a5ff" : "#aaaaab",
-      boxShadow: props.style2 ? "none" : (state.isFocused ? "0 0 2px 1px #cee6ff" : provided.boxShadow),
+      boxShadow: props.style2
+        ? "none"
+        : state.isFocused
+        ? "0 0 2px 1px #cee6ff"
+        : provided.boxShadow,
     }),
     menu: (provided) => ({
       ...provided,
@@ -73,8 +77,8 @@ const ReactSelect = (props) => {
       textAlign: "left",
       borderRadius: "5px",
     }),
-    dropdownIndicator: () => ({
-      display: "none",
+    indicatorsContainer: () => ({
+      marginTop: "-5px",
     }),
   };
 
