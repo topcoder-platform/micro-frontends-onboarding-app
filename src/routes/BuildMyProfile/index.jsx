@@ -179,7 +179,8 @@ const BuildMyProfile = () => {
 
         // fill title and bio to state
         if (basicInfoValue) {
-          const { description, title } = basicInfoValue;
+          // Using shortBio as title has to do with v3 using this mapping
+          const { description, shortBio: title } = basicInfoValue;
           setFormData((formData) => ({
             ...formData,
             title: title || "",
@@ -238,7 +239,7 @@ const BuildMyProfile = () => {
   const saveMyTitleAndBio = (basicInfo) => {
     // mapped data
     let data = {
-      title,
+      shortBio: title,
       description: bio,
     };
     // check if basic info already exists. if so, update(put data). otherwise, post data.

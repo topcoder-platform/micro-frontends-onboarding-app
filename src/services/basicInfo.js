@@ -4,6 +4,9 @@
 import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
 
+const TRAIT_BASIC_INFO = "basic_info";
+const CATEGORY_NAME = "Basic Info";
+
 /**
  * Loads my basic info (To get interests)
  */
@@ -16,10 +19,9 @@ export function getMyBasicInfo(myusername) {
  */
 export function addMyPrimaryInterests(myusername, interestsFlat){
   return axios.post(`${config.API.V5}/members/${myusername}/traits`, [{
-    "categoryName": "Basic Info",
-    "traitId": "basic_info",
+    "categoryName": CATEGORY_NAME,
+    "traitId": TRAIT_BASIC_INFO,
     "traits": {
-      "traitId": "basic_info",
       "data": [{
         "primaryInterestInTopcoder": interestsFlat
       }]
@@ -32,10 +34,9 @@ export function addMyPrimaryInterests(myusername, interestsFlat){
  */
 export function updateMyPrimaryInterests(myusername, prevBasicInfo, interestsFlat){
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [{
-    "categoryName": "Basic Info",
-    "traitId": "basic_info",
+    "categoryName": CATEGORY_NAME,
+    "traitId": TRAIT_BASIC_INFO,
     "traits": {
-      "traitId": "basic_info",
       "data": [{
         ...prevBasicInfo,
         "primaryInterestInTopcoder": interestsFlat
@@ -49,10 +50,9 @@ export function updateMyPrimaryInterests(myusername, prevBasicInfo, interestsFla
  */
 export function addMyAddress(myusername, address, country){
   return axios.post(`${config.API.V5}/members/${myusername}/traits`, [{
-    "categoryName": "Basic Info",
-    "traitId": "basic_info",
+    "categoryName": CATEGORY_NAME,
+    "traitId": TRAIT_BASIC_INFO,
     "traits": {
-      "traitId": "basic_info",
       "data": [{
         "addresses": [address],
         country
@@ -66,10 +66,9 @@ export function addMyAddress(myusername, address, country){
  */
 export function updateMyAddress(myusername, prevBasicInfo, address, country) {
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [{
-    "categoryName": "Basic Info",
-    "traitId": "basic_info",
+    "categoryName": CATEGORY_NAME,
+    "traitId": TRAIT_BASIC_INFO,
     "traits": {
-      "traitId": "basic_info",
       "data": [{
         ...prevBasicInfo,
         "addresses": [address],
@@ -84,10 +83,9 @@ export function updateMyAddress(myusername, prevBasicInfo, address, country) {
  */
 export function addMyTitleAndBio(myusername, data){
   return axios.post(`${config.API.V5}/members/${myusername}/traits`, [{
-    "categoryName": "Basic Info",
-    "traitId": "basic_info",
+    "categoryName": CATEGORY_NAME,
+    "traitId": TRAIT_BASIC_INFO,
     "traits": {
-      "traitId": "basic_info",
       "data": [data]
     }
   }]);
@@ -98,10 +96,9 @@ export function addMyTitleAndBio(myusername, data){
  */
 export function updateMyTitleAndBio(myusername, prevBasicInfo, data) {
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [{
-    "categoryName": "Basic Info",
-    "traitId": "basic_info",
+    "categoryName": CATEGORY_NAME,
+    "traitId": TRAIT_BASIC_INFO,
     "traits": {
-      "traitId": "basic_info",
       "data": [{
         ...prevBasicInfo,
         ...data
