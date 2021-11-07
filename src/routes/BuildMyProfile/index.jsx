@@ -587,7 +587,7 @@ const BuildMyProfile = () => {
                     />
                   </div>
                   <br />
-                  {index !== 0 && (
+                  {jobs.length > 1 && (
                     <div
                       styleName="remove-listinput-item-button"
                       onClick={(e) => removeListInputItem(name, index)}
@@ -696,7 +696,7 @@ const BuildMyProfile = () => {
                     />
                   </div>
                   <br />
-                  {index !== 0 && (
+                  {educations.length > 1 && (
                     <div
                       styleName="remove-listinput-item-button"
                       onClick={(e) => removeListInputItem(name, index)}
@@ -813,7 +813,7 @@ const BuildMyProfile = () => {
                       />
                     </FormField>
                   </PageRow>
-                  {index !== 0 && (
+                  {languages.length > 1 && (
                     <div
                       styleName="remove-listinput-item-button"
                       onClick={(e) => removeListInputItem(name, index)}
