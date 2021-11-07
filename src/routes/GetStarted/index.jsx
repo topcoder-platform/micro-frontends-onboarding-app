@@ -48,6 +48,8 @@ import { getMemberData, uploadProfilePhoto } from "services/memberData";
 import _ from "lodash";
 import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
+import { isGetStartedFormDataEmpty } from 'utils/';
+import { isSkillFormEmpty } from 'utils/';
 
 const GetStarted = () => {
   // states
@@ -223,7 +225,7 @@ const GetStarted = () => {
         .then((result) => {
           if (result?.data?.photoURL) {
             setIsLoading(false);
-            toastr.success("Success", "Profile photo updated successfully!");
+            // toastr.success("Success", "Profile photo updated successfully!");
             setProfilePhotoSrc(result.data.photoURL);
           }
         })
@@ -248,14 +250,18 @@ const GetStarted = () => {
       .then((result) => {
         const basicInfoTraits = getTraits(result?.data[0]);
 
-        if (basicInfoTraits == null) {
+        if (basicInfoTraits == null && isGetStartedFormDataEmpty(myInterestsFlat)) {
           return addMyPrimaryInterests(authUser.handle, myInterestsFlat);
         } else {
-          return updateMyPrimaryInterests(
-            authUser.handle,
-            basicInfoTraits,
-            myInterestsFlat
-          );
+          if (isGetStartedFormDataEmpty(myInterestsFlat)) {
+            return updateMyPrimaryInterests(
+              authUser.handle,
+              basicInfoTraits,
+              myInterestsFlat
+            );
+          } else {
+            return Promise.resolve();
+          }
         }
       })
       .catch((e) => {
@@ -282,15 +288,19 @@ const GetStarted = () => {
     });
     // remove the ones that we dont know the legacy ids
     mySkillsLegacyIds = mySkillsLegacyIds.filter((s) => s);
-    return updateMySkills(
-      authUser.handle,
-      mySkillsLegacyIds,
-      deletedSkillsLegacyIds
-    ).catch((e) => {
-      setIsLoading(false);
-      // toastr.error('Error', 'failed to save my skills!');
-      console.log(e);
-    });
+    if (isSkillFormEmpty(mySkillsLegacyIds)) {
+      return updateMySkills(
+        authUser.handle,
+        mySkillsLegacyIds,
+        deletedSkillsLegacyIds
+      ).catch((e) => {
+        setIsLoading(false);
+        // toastr.error('Error', 'failed to save my skills!');
+        console.log(e);
+      });
+    } else {
+      return Promise.resolve();
+    }
   };
 
   // reach router, navigate programmatically
