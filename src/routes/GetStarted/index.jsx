@@ -48,8 +48,8 @@ import { getMemberData, uploadProfilePhoto } from "services/memberData";
 import _ from "lodash";
 import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
-import { isGetStartedFormDataEmpty } from 'utils/';
-import { isSkillFormEmpty } from 'utils/';
+import { isGetStartedFormDataEmpty } from "utils/";
+import { isSkillFormEmpty } from "utils/";
 
 const GetStarted = () => {
   // states
@@ -250,7 +250,10 @@ const GetStarted = () => {
       .then((result) => {
         const basicInfoTraits = getTraits(result?.data[0]);
 
-        if (basicInfoTraits == null && isGetStartedFormDataEmpty(myInterestsFlat)) {
+        if (
+          basicInfoTraits == null &&
+          isGetStartedFormDataEmpty(myInterestsFlat)
+        ) {
           return addMyPrimaryInterests(authUser.handle, myInterestsFlat);
         } else {
           if (isGetStartedFormDataEmpty(myInterestsFlat)) {
@@ -271,10 +274,10 @@ const GetStarted = () => {
       });
   };
 
-  const saveMySkills = () => {
+  const saveMySkills = (skills) => {
     // get deleted skills
     const deletedSkills = initialMySkills.filter(
-      (s) => !selectedSkills.find((x) => x.name === s.name)
+      (s) => !skills.find((x) => x.name === s.name)
     );
     let deletedSkillsLegacyIds = deletedSkills.map((skill) => {
       return allSkills.find((s) => s.label === skill.name)?.legacyId;
@@ -283,7 +286,7 @@ const GetStarted = () => {
 
     // saving mySkills
     // map
-    let mySkillsLegacyIds = selectedSkills.map((skill) => {
+    let mySkillsLegacyIds = skills.map((skill) => {
       return allSkills.find((s) => s.label === skill.name)?.legacyId;
     });
     // remove the ones that we dont know the legacy ids
@@ -311,7 +314,7 @@ const GetStarted = () => {
     e.preventDefault();
     saveMyInterests()
       .then(() => {
-        return saveMySkills();
+        return saveMySkills(selectedSkills);
       })
       .then(() => {
         setIsLoading(false);
@@ -464,7 +467,10 @@ const GetStarted = () => {
       <AddSkillsModal
         show={skillsModalShow}
         handleClose={(e) => setSkillsModalShow(false)}
-        onSkillsSaved={(skills) => setSelectedSkills(skills)}
+        onSkillsSaved={(skills) => {
+          setSelectedSkills(skills);
+          saveMySkills(skills);
+        }}
         initialSelectedSkills={selectedSkills}
         initialSelectedCategory={skillsModalInitialCategory}
         allSkillsLive={allSkillsLive}
