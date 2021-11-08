@@ -157,12 +157,6 @@ const BuildMyProfile = () => {
   };
 
   const hasError = (listInputName, index, inputName) => {
-    console.log(errors[listInputName]);
-    console.log(
-      errors[listInputName].find(
-        (x) => x.index === index && x.field === inputName
-      )
-    );
     return (
       errors &&
       errors[listInputName].length > 0 &&
@@ -620,7 +614,7 @@ const BuildMyProfile = () => {
                       <DateInput
                         value={startDate}
                         onChange={(v) => {
-                          handleListInputChange(name, index, "startDate", v);
+                          handleListInputChange(name, index, "startDate", v ? v.getTime() : "");
                           validateDate(name, index, v, endDate);
                         }}
                         style2={true}
@@ -631,7 +625,7 @@ const BuildMyProfile = () => {
                       <DateInput
                         value={endDate}
                         onChange={(v) => {
-                          handleListInputChange(name, index, "endDate", v);
+                          handleListInputChange(name, index, "endDate", v ? v.getTime() : "");
                           validateDate(name, index, startDate, v);
                         }}
                         style2={true}
@@ -738,7 +732,7 @@ const BuildMyProfile = () => {
                       <DateInput
                         value={startDate}
                         onChange={(v) => {
-                          handleListInputChange(name, index, "startDate", v);
+                          handleListInputChange(name, index, "startDate", v ? v.getTime() : "");
                           validateDate(name, index, v, endDate);
                         }}
                         style2={true}
@@ -749,7 +743,7 @@ const BuildMyProfile = () => {
                       <DateInput
                         value={endDate}
                         onChange={(v) => {
-                          handleListInputChange(name, index, "endDate", v);
+                          handleListInputChange(name, index, "endDate", v ? v.getTime() : "");
                           validateDate(name, index, startDate, v);
                         }}
                         style2={true}
