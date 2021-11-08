@@ -1,16 +1,52 @@
 @import "styles/include";
 
 .datepicker-wrapper {
-  & > div {
-    width: 100%;
+  position: relative;
+  padding: 0 10px;
+  .icon {
+    position: absolute;
+    display: flex;
+    padding: 8px 0 8px 4px;
+    align-items: center;
+    & > svg {
+      width: 20px;
+      height: 20px;
+    }
   }
+  .icon-calendar {
+    left: 8px;
+    cursor: pointer;
+  }
+
+  .icon-arrow {
+    right: 8px;
+    top: 0;
+    & > svg {
+      color: hsl(0, 0%, 80%);
+    }
+    &:hover {
+      & > svg {
+        color: hsl(0, 0%, 60%);
+      }
+    }
+    &.icon-arrow-open {
+      & > svg {
+        color: hsl(0, 0%, 40%);
+      }
+    }
+  }
+
   &.error {
     input {
       border-color: #fe665d;
     }
   }
-  
-  &.style2 input{
+
+  & > div:nth-child(2) {
+    margin-left: 24px;
+  }
+
+  &.style2 input {
     border: none !important;
     box-shadow: none !important;
     margin-bottom: 0 !important;
@@ -23,6 +59,6 @@
   }
 }
 
-.datepicker-wrapper > div:nth-child(2) > div:nth-child(2) {
+.datepicker-wrapper > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
   z-index: 100;
 }

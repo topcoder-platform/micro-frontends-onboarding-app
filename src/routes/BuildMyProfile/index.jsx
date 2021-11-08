@@ -135,12 +135,10 @@ const BuildMyProfile = () => {
   const validateDate = (listInputName, index, startDate, endDate) => {
     setErrors((errs) => {
       const err = [...errs[listInputName]];
-      const isValid =
-        _.isUndefined(endDate) ||
-        _.isNull(endDate) ||
-        moment(startDate).isBefore(endDate);
+      const isInValid = endDate && startDate &&
+        moment(endDate).isSameOrBefore(startDate);
       const item = err.find((x) => x.index === index && x.field);
-      if (isValid) {
+      if (!isInValid) {
         _.remove(err, {
           index: index,
           field: "startDate",
