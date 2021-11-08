@@ -39,10 +39,7 @@ import {
   spokenLevels,
   writtenLevels,
 } from "constants";
-import {
-  addMyTitleAndBio,
-  updateMyTitleAndBio,
-} from "services/basicInfo";
+import { addMyTitleAndBio, updateMyTitleAndBio } from "services/basicInfo";
 import {
   getBuildProfile,
   createWorkExperiences,
@@ -56,7 +53,7 @@ import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
 import moment from "moment";
 import _ from "lodash";
-import { isProfileFormDataEmpty } from 'utils/';
+import { isProfileFormDataEmpty } from "utils/";
 
 const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -135,8 +132,8 @@ const BuildMyProfile = () => {
   const validateDate = (listInputName, index, startDate, endDate) => {
     setErrors((errs) => {
       const err = [...errs[listInputName]];
-      const isInValid = endDate && startDate &&
-        moment(endDate).isSameOrBefore(startDate);
+      const isInValid =
+        endDate && startDate && moment(endDate).isSameOrBefore(startDate);
       const item = err.find((x) => x.index === index && x.field);
       if (!isInValid) {
         _.remove(err, {
@@ -313,8 +310,8 @@ const BuildMyProfile = () => {
         industry: industry,
         position: position,
         cityTown: city,
-        timePeriodFrom: startDate,
-        timePeriodTo: endDate,
+        timePeriodFrom: (startDate ? new Date(startDate).getTime() : ""),
+        timePeriodTo: (endDate ? new Date(endDate).getTime() : ""),
         working: currentlyWorking,
       };
     });
@@ -339,8 +336,8 @@ const BuildMyProfile = () => {
       return {
         schoolCollegeName: collegeName,
         major: major,
-        timePeriodFrom: startDate,
-        timePeriodTo: endDate,
+        timePeriodFrom: (startDate ? new Date(startDate).getTime() : ""),
+        timePeriodTo: (endDate ? new Date(endDate).getTime() : ""),
         graduated: graduated,
       };
     });
@@ -614,7 +611,7 @@ const BuildMyProfile = () => {
                       <DateInput
                         value={startDate}
                         onChange={(v) => {
-                          handleListInputChange(name, index, "startDate", v ? v.getTime() : "");
+                          handleListInputChange(name, index, "startDate", v);
                           validateDate(name, index, v, endDate);
                         }}
                         style2={true}
@@ -625,7 +622,7 @@ const BuildMyProfile = () => {
                       <DateInput
                         value={endDate}
                         onChange={(v) => {
-                          handleListInputChange(name, index, "endDate", v ? v.getTime() : "");
+                          handleListInputChange(name, index, "endDate", v);
                           validateDate(name, index, startDate, v);
                         }}
                         style2={true}
@@ -649,14 +646,11 @@ const BuildMyProfile = () => {
                   </div>
                   <br />
                   {jobs.length > 1 && (
-                    <div
-                      styleName="remove-listinput-item-button"
-                      onClick={(e) => removeListInputItem(name, index)}
-                    >
-                      <>
-                        <br />
-                        <IconCross styleName="icon-remove" /> Delete This Job
-                      </>
+                    <div styleName="remove-listinput-item-button">
+                      <div onClick={(e) => removeListInputItem(name, index)}>
+                        <IconCross styleName="icon-remove" />
+                        <span>Delete This Job</span>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -732,7 +726,7 @@ const BuildMyProfile = () => {
                       <DateInput
                         value={startDate}
                         onChange={(v) => {
-                          handleListInputChange(name, index, "startDate", v ? v.getTime() : "");
+                          handleListInputChange(name, index, "startDate", v);
                           validateDate(name, index, v, endDate);
                         }}
                         style2={true}
@@ -743,7 +737,7 @@ const BuildMyProfile = () => {
                       <DateInput
                         value={endDate}
                         onChange={(v) => {
-                          handleListInputChange(name, index, "endDate", v ? v.getTime() : "");
+                          handleListInputChange(name, index, "endDate", v);
                           validateDate(name, index, startDate, v);
                         }}
                         style2={true}
@@ -767,15 +761,11 @@ const BuildMyProfile = () => {
                   </div>
                   <br />
                   {educations.length > 1 && (
-                    <div
-                      styleName="remove-listinput-item-button"
-                      onClick={(e) => removeListInputItem(name, index)}
-                    >
-                      <>
-                        <br />
-                        <IconCross styleName="icon-remove" /> Delete This School
-                        / Degree
-                      </>
+                    <div styleName="remove-listinput-item-button">
+                      <div onClick={(e) => removeListInputItem(name, index)}>
+                        <IconCross styleName="icon-remove" />
+                        <span>Delete This School / Degree</span>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -884,14 +874,11 @@ const BuildMyProfile = () => {
                     </FormField>
                   </PageRow>
                   {languages.length > 1 && (
-                    <div
-                      styleName="remove-listinput-item-button"
-                      onClick={(e) => removeListInputItem(name, index)}
-                    >
-                      <>
-                        <IconCross styleName="icon-remove" /> Delete This
-                        Language
-                      </>
+                    <div styleName="remove-listinput-item-button">
+                      <div onClick={(e) => removeListInputItem(name, index)}>
+                        <IconCross styleName="icon-remove" />
+                        <span>Delete This Language</span>
+                      </div>
                     </div>
                   )}
                 </div>

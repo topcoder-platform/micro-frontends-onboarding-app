@@ -65,6 +65,7 @@ const ReactSelect = (props) => {
       paddingLeft: props.style2 ? "10px" : "",
       marginTop: props.style2 ? "-5px" : "",
       fontSize: props.style2 ? "20px" : "",
+      lineHeight: "24px",
       ...provided,
     }),
     multiValue: (provided) => ({
