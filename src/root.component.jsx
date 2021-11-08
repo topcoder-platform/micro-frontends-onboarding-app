@@ -7,6 +7,9 @@ import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
 import GetStarted from "./routes/GetStarted";
 import ContactDetails from "./routes/ContactDetails";
 import PaymentSetup from "./routes/PaymentSetup";
+import PaymentProviders from "./routes/PaymentSetup/PaymentProviders";
+import PaymentMethod from "./routes/PaymentSetup/PaymentMethod";
+import PaymentComplete from "./routes/PaymentSetup/PaymentComplete";
 import BuildMyProfile from "./routes/BuildMyProfile";
 import Complete from "./routes/Complete";
 import store from "./store";
@@ -29,6 +32,13 @@ export default function Root() {
     disableSidebarForRoute("/onboard/payment-setup");
     disableSidebarForRoute("/onboard/build-my-profile");
     disableSidebarForRoute("/onboard/complete");
+    disableSidebarForRoute("/onboard/payment-setup/payment-providers");
+    disableSidebarForRoute("/onboard/payment-setup/payment-providers/paypal");
+    disableSidebarForRoute("/onboard/payment-setup/payment-providers/payoneer");
+    disableSidebarForRoute("/onboard/payment-setup/payment-providers/western-union");
+    disableSidebarForRoute("/onboard/payment-setup/payment-providers/paypal/complete");
+    disableSidebarForRoute("/onboard/payment-setup/payment-providers/payoneer/complete");
+    disableSidebarForRoute("/onboard/payment-setup/payment-providers/western-union/complete");
   }, []);
 
   return (
@@ -36,10 +46,16 @@ export default function Root() {
       <Provider store={store}>
         <Router>
           <GetStarted path="/onboard" />
+          
           <ContactDetails path="/onboard/contact-details" />
-          {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
-          {/* <PaymentSetup path="/onboard/payment-setup" /> */}
+
+          <PaymentSetup path="/onboard/payment-setup" />
+          <PaymentProviders path="/onboard/payment-setup/payment-providers" />
+          <PaymentMethod path="/onboard/payment-setup/payment-providers/:paymentMethod" />
+          <PaymentComplete path="/onboard/payment-setup/payment-providers/:paymentMethod/complete" />
+          
           <BuildMyProfile path="/onboard/build-my-profile" />
+          
           <Complete path="/onboard/complete" />
         </Router>
 
