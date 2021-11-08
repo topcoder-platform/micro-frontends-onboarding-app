@@ -43,7 +43,7 @@ const PaymentMethod = ({paymentMethod}) => {
   };
 
   const onBack = () => {
-    navigate("/onboard/payment-setup/payment-providers");
+    navigate("/onboard/payment-setup/payment-provider");
   };
 
   const goToPaymentSetup = () => {
@@ -58,7 +58,7 @@ const PaymentMethod = ({paymentMethod}) => {
 
   const onConfirm = () => {
     localStorage.setItem("payment_provider", paymentMethod);
-    navigate(`/onboard/payment-setup/payment-providers/${paymentMethod}/complete`);
+    navigate(`/onboard/payment-setup/payment-provider/${paymentMethod}/complete`);
   };
 
   return (

@@ -16,7 +16,7 @@ import "./styles.module.scss";
  */
 const PaymentMethods = () => {
   const onGoToPaymentMethod = (name) => {
-    navigate(`/onboard/payment-setup/payment-providers/${name}`);
+    navigate(`/onboard/payment-setup/payment-provider/${name}`);
   };
 
   return (

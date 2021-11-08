@@ -32,13 +32,13 @@ export default function Root() {
     disableSidebarForRoute("/onboard/payment-setup");
     disableSidebarForRoute("/onboard/build-my-profile");
     disableSidebarForRoute("/onboard/complete");
-    disableSidebarForRoute("/onboard/payment-setup/payment-providers");
-    disableSidebarForRoute("/onboard/payment-setup/payment-providers/paypal");
-    disableSidebarForRoute("/onboard/payment-setup/payment-providers/payoneer");
-    disableSidebarForRoute("/onboard/payment-setup/payment-providers/western-union");
-    disableSidebarForRoute("/onboard/payment-setup/payment-providers/paypal/complete");
-    disableSidebarForRoute("/onboard/payment-setup/payment-providers/payoneer/complete");
-    disableSidebarForRoute("/onboard/payment-setup/payment-providers/western-union/complete");
+    disableSidebarForRoute("/onboard/payment-setup/payment-provider");
+    disableSidebarForRoute("/onboard/payment-setup/payment-provider/paypal");
+    disableSidebarForRoute("/onboard/payment-setup/payment-provider/payoneer");
+    disableSidebarForRoute("/onboard/payment-setup/payment-provider/western-union");
+    disableSidebarForRoute("/onboard/payment-setup/payment-provider/paypal/complete");
+    disableSidebarForRoute("/onboard/payment-setup/payment-provider/payoneer/complete");
+    disableSidebarForRoute("/onboard/payment-setup/payment-provider/western-union/complete");
   }, []);
 
   return (
@@ -50,10 +50,11 @@ export default function Root() {
           <ContactDetails path="/onboard/contact-details" />
 
           <PaymentSetup path="/onboard/payment-setup" />
-          <PaymentProviders path="/onboard/payment-setup/payment-providers" />
-          <PaymentMethod path="/onboard/payment-setup/payment-providers/:paymentMethod" />
-          <PaymentComplete path="/onboard/payment-setup/payment-providers/:paymentMethod/complete" />
           
+          <PaymentProviders path="/onboard/payment-setup/payment-provider" />
+          <PaymentMethod path="/onboard/payment-setup/payment-provider/:paymentMethod" />
+          <PaymentComplete path="/onboard/payment-setup/payment-provider/:paymentMethod/complete" />
+
           <BuildMyProfile path="/onboard/build-my-profile" />
           
           <Complete path="/onboard/complete" />
