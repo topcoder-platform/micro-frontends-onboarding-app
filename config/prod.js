@@ -13,4 +13,5 @@ module.exports = {
     V5: "https://api.topcoder.com/v5",
     V3: "https://api.topcoder.com/v3",
   },
+  HEAP_ANALYTICS_KEY: process.env.HEAP_ANALYTICS_KEY,
 };
