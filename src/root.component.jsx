@@ -16,7 +16,10 @@ import {HEAP_ANALYTICS_KEY} from '../config';
 
 
 if (HEAP_ANALYTICS_KEY) {
+  console.log('heap analytics key found');
   ReactHeap.initialize(HEAP_ANALYTICS_KEY);
+} else {
+  console.log('heap analytics key missing');
 }
 
 export default function Root() {
