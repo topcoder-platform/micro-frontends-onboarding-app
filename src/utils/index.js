@@ -1,3 +1,5 @@
+import { instanceOf } from "prop-types";
+
 /**
  * Extract trait values
  */
@@ -29,20 +31,23 @@ export function isProfileFormDataEmpty(type, data) {
       )
     case "work":
       let { cityTown, company, position, timePeriodFrom, timePeriodTo } = data;
-      return (
+      let response = (
         (cityTown && cityTown.length) ||
         (company && company.length) ||
         (position && position.length) ||
-        (timePeriodFrom && timePeriodFrom.length) ||
-        (timePeriodTo && timePeriodTo.length)
+        (timePeriodFrom instanceof Date) ||
+        (timePeriodTo instanceof Date)
       );
+
+      console.log('response', response);
+      return response;
     case "education":
       let { major, schoolCollegeName } = data;
       return (
         (major && major.length) ||
         (schoolCollegeName && schoolCollegeName.length) ||
-        (data?.timePeriodFrom && data?.timePeriodFrom.length) ||
-        (data?.timePeriodTo && data?.timePeriodTo.length)
+        (data?.timePeriodTo instanceof Date) ||
+        (data?.timePeriodFrom instanceof Date)
       );
     case "language":
       let { language, spokenLevel, writtenLevel } = data;
