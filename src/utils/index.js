@@ -20,30 +20,36 @@ export function scrollToTop() {
  * @param data {Object}
  */
 export function isProfileFormDataEmpty(type, data) {
-
   switch (type) {
     case "bio":
-      return data?.shortBio.length || data?.description.length
-    case "work":
+      let { shortBio, description } = data;
       return (
-        data?.cityTown.length ||
-        data?.company.length ||
-        data?.position.length ||
-        data?.timePeriodFrom.length ||
-        data?.timePeriodTo.length
+        (shortBio && shortBio.length) ||
+        (description && description.length)
+      )
+    case "work":
+      let { cityTown, company, position, timePeriodFrom, timePeriodTo } = data;
+      return (
+        (cityTown && cityTown.length) ||
+        (company && company.length) ||
+        (position && position.length) ||
+        (timePeriodFrom && timePeriodFrom.length) ||
+        (timePeriodTo && timePeriodTo.length)
       );
     case "education":
+      let { major, schoolCollegeName } = data;
       return (
-        data?.major.length ||
-        data?.schoolCollegeName.length ||
-        data?.timePeriodFrom.length ||
-        data?.timePeriodTo.length
+        (major && major.length) ||
+        (schoolCollegeName && schoolCollegeName.length) ||
+        (data?.timePeriodFrom && data?.timePeriodFrom.length) ||
+        (data?.timePeriodTo && data?.timePeriodTo.length)
       );
     case "language":
+      let { language, spokenLevel, writtenLevel } = data;
       return (
-        data?.language.length ||
-        data?.spokenLevel.length ||
-        data?.writtenLevel.length
+        (language && language.length) ||
+        (spokenLevel && spokenLevel.length) ||
+        (writtenLevel && writtenLevel.length)
       );
   }
   return true;
