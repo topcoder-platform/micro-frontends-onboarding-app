@@ -37,7 +37,7 @@ const ReactSelect = (props) => {
       height: "auto",
       padding: "0",
       fontSize: props.style2 ? "20px" : "14px",
-      paddingLeft: props.style2 ? "10px" : "0",
+      paddingLeft: props.style2 ? "8px" : "0",
     }),
     indicatorSeparator: () => ({
       display: "none",
@@ -58,11 +58,11 @@ const ReactSelect = (props) => {
       lineHeight: "22px",
       textAlign: "left",
       fontWeight: "400",
-      paddingLeft: props.style2 ? "10px" : "0",
+      paddingLeft: props.style2 ? "5px" : "0",
       marginTop: props.style2 ? "-5px" : "0",
     }),
     singleValue: (provided) => ({
-      paddingLeft: props.style2 ? "10px" : "",
+      paddingLeft: props.style2 ? "5px" : "",
       marginTop: props.style2 ? "-5px" : "",
       fontSize: props.style2 ? "20px" : "",
       lineHeight: "24px",
