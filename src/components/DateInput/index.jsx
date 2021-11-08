@@ -22,9 +22,11 @@ const DateInput = (props) => {
         props.className,
         props.style2 ? "styles.style2" : ""
       )}
-      onClick={() => calendarRef.current.setOpen(true)}
     >
-      <div styleName={cn("styles.icon", "styles.icon-calendar")}>
+      <div
+        onClick={() => calendarRef.current.setOpen(true)}
+        styleName={cn("styles.icon", "styles.icon-calendar")}
+      >
         <CalendarIcon />
       </div>
       <DatePicker
@@ -47,6 +49,7 @@ const DateInput = (props) => {
           "styles.icon-arrow",
           open ? "styles.icon-arrow-open" : ""
         )}
+        onClick={() => calendarRef.current.setOpen(true)}
       >
         <ArrowIcon />
       </div>
