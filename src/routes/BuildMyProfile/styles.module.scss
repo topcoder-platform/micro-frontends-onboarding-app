@@ -20,16 +20,22 @@
   }
   .remove-listinput-item-button {
     margin: 8px 0 14px 0;
-    cursor: pointer;
     color: red;
     display: flex;
     align-items: center;
     font-weight: 430;
 
+    & > * {
+      cursor: pointer;
+      align-items: center;
+      display: flex;
+    }
+
     .icon-remove {
       margin-right: 5px;
       width: 26px;
       height: 14px;
+      cursor: pointer;
     }
     .icon-remove * {
       stroke: red;
