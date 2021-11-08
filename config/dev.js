@@ -15,4 +15,6 @@ module.exports = {
   },
 
   COMMUNITY_ADMIN_URL: "https://tc-micro-community-admin.herokuapp.com",
+
+  HEAP_ANALYTICS_KEY: process.env.HEAP_ANALYTICS_KEY,
 };
