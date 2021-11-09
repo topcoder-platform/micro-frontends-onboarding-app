@@ -1,11 +1,9 @@
 /** Contact details page */
 import React, { useState, useEffect } from "react";
-import PT from "prop-types";
 import "./styles.module.scss";
 import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
-import { toastr } from "react-redux-toastr";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 // import components and other stuffs
 import Page from "components/Page";
@@ -13,18 +11,14 @@ import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageH1 from "components/PageElements/PageH1";
 import PageH2 from "components/PageElements/PageH2";
-import PageH3 from "components/PageElements/PageH3";
 import PageP from "components/PageElements/PageP";
-import PageUl from "components/PageElements/PageUl";
 import PageRow from "components/PageElements/PageRow";
 import PageFoot from "components/PageElements/PageFoot";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
 import FormField from "components/FormElements/FormField";
 import FormInputText from "components/FormElements/FormInputText";
-import FormInputCheckbox from "components/FormElements/FormInputCheckbox";
 import Select from "components/ReactSelect";
-import DateInput from "components/DateInput";
 import LoadingSpinner from "components/LoadingSpinner";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
 
@@ -32,7 +26,6 @@ import { timeZones } from "constants";
 import { workingHours } from "constants";
 import { getAllCountries } from "services/countries";
 import {
-  getMyBasicInfo,
   addMyAddress,
   updateMyAddress,
 } from "services/basicInfo";
@@ -242,7 +235,7 @@ const ContactDetails = () => {
       .then(() => {
         setIsLoading(false);
         // toastr.success("Success", "Successfully saved contact details!");
-        navigate("/onboard/build-my-profile");
+        navigate("/onboard/payment-setup");
       });
   };
 
@@ -416,16 +409,9 @@ const ContactDetails = () => {
                 {"< "}Back
               </Button>
             </Link>
-            {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
-            {/* <Link to="/onboard/payment-setup" onClick={e => handleSubmit(e)}>
-              <Button size={BUTTON_SIZE.MEDIUM}>CONTINUE TO PAYMENT SETUP</Button>
-            </Link> */}
-            <Link
-              to="/onboard/build-my-profile"
-              onClick={(e) => handleSubmit(e)}
-            >
+            <Link to="/onboard/payment-setup" onClick={(e) => handleSubmit(e)}>
               <Button size={BUTTON_SIZE.MEDIUM}>
-                CONTINUE TO BUILD MY PROFILE
+                CONTINUE TO PAYMENT SETUP
               </Button>
             </Link>
           </PageFoot>
