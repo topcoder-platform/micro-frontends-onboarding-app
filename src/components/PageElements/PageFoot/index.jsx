@@ -8,9 +8,12 @@ import PT from "prop-types";
 import cn from "classnames";
 import "./styles.module.scss";
 
-const PageFoot = ({ children, align = 'right', styleName, ...props }) => {
+const PageFoot = ({ children, align = "right", styleName, ...props }) => {
   return (
-    <div styleName={cn("page-foot", `align-${align}`, styleName || "")} {...props} >
+    <div
+      styleName={cn("page-foot", `align-${align}`, styleName || "")}
+      {...props}
+    >
       {children}
     </div>
   );

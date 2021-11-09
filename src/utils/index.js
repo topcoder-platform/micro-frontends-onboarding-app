@@ -1,10 +1,11 @@
+import _ from "lodash";
 import { instanceOf } from "prop-types";
 
 /**
  * Extract trait values
  */
 export function getTraits(payload) {
-    return payload?.traits.data.length > 0 ? payload?.traits.data[0] : null
+  return payload?.traits.data.length > 0 ? payload?.traits.data[0] : null;
 }
 
 /**
@@ -13,7 +14,6 @@ export function getTraits(payload) {
 export function scrollToTop() {
   window.scrollTo(0, 0);
 }
-
 
 /**
  * Check if Build My Profile form data is empty
@@ -26,28 +26,26 @@ export function isProfileFormDataEmpty(type, data) {
     case "bio":
       let { shortBio, description } = data;
       return (
-        (shortBio && shortBio.length) ||
-        (description && description.length)
-      )
+        (shortBio && shortBio.length) || (description && description.length)
+      );
     case "work":
       let { cityTown, company, position, timePeriodFrom, timePeriodTo } = data;
-      let response = (
+      let response =
         (cityTown && cityTown.length) ||
         (company && company.length) ||
         (position && position.length) ||
-        (timePeriodFrom instanceof Date) ||
-        (timePeriodTo instanceof Date)
-      );
+        timePeriodFrom instanceof Date ||
+        timePeriodTo instanceof Date;
 
-      console.log('response', response);
+      console.log("response", response);
       return response;
     case "education":
       let { major, schoolCollegeName } = data;
       return (
         (major && major.length) ||
         (schoolCollegeName && schoolCollegeName.length) ||
-        (data?.timePeriodTo instanceof Date) ||
-        (data?.timePeriodFrom instanceof Date)
+        data?.timePeriodTo instanceof Date ||
+        data?.timePeriodFrom instanceof Date
       );
     case "language":
       let { language, spokenLevel, writtenLevel } = data;
@@ -76,6 +74,15 @@ export function isGetStartedFormDataEmpty(myInterest) {
  */
 export function isSkillFormEmpty(data) {
   return data.length;
+}
+
+/**
+ * Check if array null or empty
+ *
+ * @param data {Object}
+ */
+ export function isNullOrEmpty(data) {
+  return _.isNull(data) || data.length === 0;
 }
 
 /**
@@ -112,4 +119,4 @@ export function isContactFormEmpty(data) {
     data?.workingHourStart.length ||
     data?.zip.length
   );
- }
+}

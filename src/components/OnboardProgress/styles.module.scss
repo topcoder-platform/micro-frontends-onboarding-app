@@ -8,26 +8,25 @@
   align-items: center;
 }
 
-.level-container{
+.level-container {
   display: flex;
   align-items: flex-end;
   flex-direction: column;
-  .level{
+  .level {
     margin-bottom: 8px;
-    .level-num{
+    .level-num {
       font-weight: bold;
     }
-    .muted{
+    .muted {
       color: #ddd;
     }
   }
 }
-.progress-donut-chart{
-
+.progress-donut-chart {
 }
-.progress-popup-toggle{
+.progress-popup-toggle {
   cursor: pointer;
-  *{
+  * {
     fill: $green1;
   }
 }

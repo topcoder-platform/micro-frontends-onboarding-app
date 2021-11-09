@@ -10,7 +10,7 @@ import "./styles.module.scss";
 
 const PageH3 = ({ children, styleName, ...props }) => {
   return (
-    <h3 styleName={cn("page-h3", styleName || "" )} {...props}>
+    <h3 styleName={cn("page-h3", styleName || "")} {...props}>
       {children}
     </h3>
   );

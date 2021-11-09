@@ -10,7 +10,14 @@ import "./styles.module.scss";
 
 const PageRow = ({ children, half = false, styleName, ...props }) => {
   return (
-    <div styleName={cn("page-row", half ? "page-row-half" : "page-row-normal", styleName || "" )} {...props}>
+    <div
+      styleName={cn(
+        "page-row",
+        half ? "page-row-half" : "page-row-normal",
+        styleName || ""
+      )}
+      {...props}
+    >
       {children}
     </div>
   );

@@ -10,11 +10,14 @@ import "./styles.module.scss";
 
 const FormInputText = ({ styleName, ...props }) => {
   return (
-    <input type="text" styleName={cn("form-input-text", styleName || "" )} {...props} />
+    <input
+      type="text"
+      styleName={cn("form-input-text", styleName || "")}
+      {...props}
+    />
   );
 };
 
-FormInputText.propTypes = {
-};
+FormInputText.propTypes = {};
 
 export default FormInputText;

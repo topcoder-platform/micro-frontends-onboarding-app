@@ -10,7 +10,7 @@ import "./styles.module.scss";
 
 const PageP = ({ children, styleName, ...props }) => {
   return (
-    <p styleName={cn("page-p", styleName || "" )} {...props}>
+    <p styleName={cn("page-p", styleName || "")} {...props}>
       {children}
     </p>
   );

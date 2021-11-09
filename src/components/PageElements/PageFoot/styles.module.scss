@@ -5,22 +5,22 @@
   display: flex;
   justify-content: flex-start;
 
-  &.page-foot.align-right{
+  &.page-foot.align-right {
     justify-content: flex-end;
   }
 
-  &.page-foot.align-between{
+  &.page-foot.align-between {
     justify-content: space-between;
   }
   @include mobile {
     flex-direction: column;
     justify-content: center !important;
     align-items: center !important;
-    & > *{
+    & > * {
       margin-bottom: 20px;
     }
   }
-  a{
+  a {
     text-decoration: none;
   }
 }

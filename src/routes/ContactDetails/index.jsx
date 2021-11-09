@@ -43,8 +43,8 @@ import {
 } from "services/contactDetails";
 import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
-import { isAddressFormEmpty } from 'utils/';
-import { isContactFormEmpty } from 'utils/';
+import { isAddressFormEmpty } from "utils/";
+import { isContactFormEmpty } from "utils/";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -204,7 +204,10 @@ const ContactDetails = () => {
       workingHourEnd: endTime,
     };
     // check if contact details already exists. if so, update(put data). otherwise, post data.
-    if (contactDetailsOnServer == null && isContactFormEmpty(contactDetailsMapped)) {
+    if (
+      contactDetailsOnServer == null &&
+      isContactFormEmpty(contactDetailsMapped)
+    ) {
       return createContactDetails(authUser.handle, contactDetailsMapped);
     } else {
       if (isContactFormEmpty(contactDetailsMapped)) {

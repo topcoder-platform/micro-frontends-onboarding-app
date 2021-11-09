@@ -7,13 +7,18 @@ import React from "react";
 import PT from "prop-types";
 import cn from "classnames";
 import styles from "./styles.module.scss";
-import Checkbox from 'rc-checkbox';
+import Checkbox from "rc-checkbox";
 
-import 'rc-checkbox/assets/index.css';
+import "rc-checkbox/assets/index.css";
 
-const FormInputCheckbox = ({ label, onChange = f => f, styleName, ...props }) => {
+const FormInputCheckbox = ({
+  label,
+  onChange = (f) => f,
+  styleName,
+  ...props
+}) => {
   return (
-    <label styleName={cn("styles.form-input-checkbox", styleName || "" )} >
+    <label styleName={cn("styles.form-input-checkbox", styleName || "")}>
       <Checkbox
         className={"form-input-rc-checkbox"}
         onChange={onChange}

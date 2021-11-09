@@ -13,10 +13,7 @@ import React, { useEffect } from "react";
 import _ from "lodash";
 import { getAuthUserTokens, login } from "@topcoder/micro-frontends-navbar-app";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import {
-  authUserSuccess,
-  authUserError,
-} from "./actions";
+import { authUserSuccess, authUserError } from "./actions";
 import { decodeToken } from "tc-auth-lib";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "@reach/router";
@@ -24,10 +21,7 @@ import { useParams } from "@reach/router";
 export default function withAuthentication(Component) {
   const AuthenticatedComponent = (props) => {
     const dispatch = useDispatch();
-    const {
-      isLoggedIn,
-      authError,
-    } = useSelector((state) => state.authUser);
+    const { isLoggedIn, authError } = useSelector((state) => state.authUser);
     const params = useParams();
 
     /*
@@ -42,7 +36,7 @@ export default function withAuthentication(Component) {
           .then(({ tokenV3 }) => {
             if (!!tokenV3) {
               const tokenData = decodeToken(tokenV3);
-              console.log('tokenData', tokenData)
+              console.log("tokenData", tokenData);
               dispatch(
                 authUserSuccess(
                   _.pick(tokenData, ["userId", "handle", "roles"])
@@ -64,14 +58,10 @@ export default function withAuthentication(Component) {
       <>
         {/* Show loading indicator until we know if user is logged-in or no.
             In we got error during this process, show error */}
-        {isLoggedIn === null && (
-            <LoadingIndicator error={authError} />
-          )}
+        {isLoggedIn === null && <LoadingIndicator error={authError} />}
 
         {/* Show component only if user is logged-in */}
-        {isLoggedIn === true ? (
-          <Component {...props} />
-        ) : null}
+        {isLoggedIn === true ? <Component {...props} /> : null}
       </>
     );
   };

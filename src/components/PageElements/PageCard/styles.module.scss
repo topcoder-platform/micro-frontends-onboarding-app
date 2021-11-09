@@ -12,32 +12,40 @@
     padding-right: 20px;
   }
 
-  p{
+  p {
     color: white;
   }
-  &.color-primary{
-    background: linear-gradient(90deg, rgba(101,35, 133,1),rgba(140,56,76,1));
+  &.color-primary {
+    background: linear-gradient(
+      90deg,
+      rgba(101, 35, 133, 1),
+      rgba(140, 56, 76, 1)
+    );
   }
-  &.color-secondary{
-    background: linear-gradient(90deg, rgba(5,106, 135,1),rgba(3,131,104,1));
+  &.color-secondary {
+    background: linear-gradient(
+      90deg,
+      rgba(5, 106, 135, 1),
+      rgba(3, 131, 104, 1)
+    );
   }
-  &.has-image{
+  &.has-image {
     display: flex;
     align-items: center;
-    @include desktop{
+    @include desktop {
       padding: 0;
       padding-right: 10px;
     }
-    @include mobile{
+    @include mobile {
       padding-top: 0;
       flex-direction: column;
       text-align: center;
     }
   }
-  & img{
+  & img {
     height: 100%;
     object-fit: contain;
-    @include desktop{
+    @include desktop {
       margin-right: 31px;
     }
   }
