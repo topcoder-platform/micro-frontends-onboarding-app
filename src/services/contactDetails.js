@@ -17,16 +17,20 @@ export function getContactDetails(myusername) {
  * CreateContactDetails
  */
 export function createContactDetails(myusername, contactDetails) {
-  return axios.post(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      categoryName: "Connect User Information",
-      traitId: "connect_info",
-      traits: {
+  return axios
+    .post(`${config.API.V5}/members/${myusername}/traits`, [
+      {
+        categoryName: "Connect User Information",
         traitId: "connect_info",
-        data: [contactDetails],
+        traits: {
+          traitId: "connect_info",
+          data: [contactDetails],
+        },
       },
-    },
-  ]);
+    ])
+    .catch((err) => {
+      return updateContactDetails(myusername, contactDetails);
+    });
 }
 
 /**
