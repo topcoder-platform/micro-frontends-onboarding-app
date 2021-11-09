@@ -469,6 +469,7 @@ const GetStarted = () => {
         handleClose={(e) => setSkillsModalShow(false)}
         onSkillsSaved={(skills) => {
           setSelectedSkills(skills);
+          setInitialMySkills(skills);
           saveMySkills(skills);
         }}
         initialSelectedSkills={selectedSkills}

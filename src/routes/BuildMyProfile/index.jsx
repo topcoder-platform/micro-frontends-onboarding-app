@@ -275,6 +275,7 @@ const BuildMyProfile = () => {
 
   // save title / bio
   const saveMyTitleAndBio = (basicInfo) => {
+    const { title, bio } = formData;
     // mapped data
     let data = {
       shortBio: title,
