@@ -56,13 +56,6 @@
     "rank": 258
   },
   {
-    "id": "ca994ef7-755c-4f10-bba1-6409fa47fc76",
-    "label": "ADO.NET",
-    "category": "Development",
-    "legacyId": 104,
-    "rank": 109
-  },
-  {
     "id": "418562eb-71c8-49cd-b7a5-1a4e23bbd91f",
     "label": "Elasticsearch",
     "category": "Data Science",
@@ -588,13 +581,6 @@
     "rank": 242
   },
   {
-    "id": "0b9517f6-02c8-42e9-9e35-3441d869c247",
-    "label": "BizTalk",
-    "category": "Development",
-    "legacyId": 10,
-    "rank": 260
-  },
-  {
     "id": "bdc26fa2-f2ec-4065-b3a0-2dfad293845f",
     "label": "Sencha Touch 2",
     "category": "Design/UX",
@@ -714,13 +700,6 @@
     "rank": 80
   },
   {
-    "id": "59d5ca04-e85e-4278-86c7-8ea0e9a9bfd6",
-    "label": "Protractor",
-    "category": "Development",
-    "legacyId": 310,
-    "rank": 114
-  },
-  {
     "id": "60b46fd4-3bb6-4b58-ac2b-d36647767e7a",
     "label": "Java",
     "category": "Development",
@@ -733,13 +712,6 @@
     "category": "Development",
     "legacyId": 110,
     "rank": 117
-  },
-  {
-    "id": "581afd4b-8958-4538-af6e-a1f272a179df",
-    "label": "Java",
-    "category": "Development",
-    "legacyId": 247,
-    "rank": 273
   },
   {
     "id": "b2dddefa-bc85-446c-9f9d-83c66375bf2d",
@@ -798,13 +770,6 @@
     "rank": 101
   },
   {
-    "id": "baecbf18-0ea0-4160-9c6c-242a6976107e",
-    "label": "C",
-    "category": "Development",
-    "legacyId": 436,
-    "rank": 220
-  },
-  {
     "id": "fefbd310-9721-43f7-b7c9-729923992b75",
     "label": "Branding",
     "category": "Development",
@@ -831,20 +796,6 @@
     "category": "Development",
     "legacyId": 34,
     "rank": 244
-  },
-  {
-    "id": "c77fe596-d256-4183-b88b-1a19dbac3197",
-    "label": "jQuery",
-    "category": "Development",
-    "legacyId": 255,
-    "rank": 225
-  },
-  {
-    "id": "bd963434-2f26-4b86-bf43-bfd789252b43",
-    "label": "Maven",
-    "category": "Development",
-    "legacyId": 276,
-    "rank": 259
   },
   {
     "id": "48b5e2ae-2dcc-4937-8cad-3a14aabfcf34",
@@ -929,13 +880,6 @@
     "category": "Development",
     "legacyId": 384,
     "rank": 61
-  },
-  {
-    "id": "c31d5f09-0b01-4892-b520-5c35eb577966",
-    "label": ".NET",
-    "category": "Development",
-    "legacyId": 100,
-    "rank": 64
   },
   {
     "id": "3048b9f8-5e6c-4c5d-9d95-efc3c814593a",
@@ -1876,13 +1820,6 @@
     "rank": 162
   },
   {
-    "id": "3da73891-506e-430b-a96d-ad2b4dda8cef",
-    "label": "HTML5",
-    "category": "Development",
-    "legacyId": 213,
-    "rank": 209
-  },
-  {
     "id": "1e375b22-0ba2-48ac-a2f4-7c05b78d7da3",
     "label": "Docker",
     "category": "Development",
@@ -2105,13 +2042,6 @@
     "category": "Development",
     "legacyId": 222,
     "rank": 177
-  },
-  {
-    "id": "f2249cc9-0aa6-49b0-a314-6872eb4f58d4",
-    "label": "Github",
-    "category": "Development",
-    "legacyId": 192,
-    "rank": 40
   },
   {
     "id": "71ac4951-8201-4148-aa98-7cd95c291ea4",
@@ -2422,13 +2352,6 @@
     "rank": 173
   },
   {
-    "id": "3761d929-ac6e-4daa-b145-98fd72167812",
-    "label": "Appium",
-    "category": "Development",
-    "legacyId": 556,
-    "rank": 44
-  },
-  {
     "id": "79b3cb1d-a5eb-450d-a12f-cac8fb9a16d5",
     "label": "Customer Experience (Cx)",
     "category": "Design/UX",
@@ -2569,32 +2492,11 @@
     "rank": 65
   },
   {
-    "id": "52fb186c-b99c-4b31-a07d-eb4d2c7cb634",
-    "label": "SQL Server",
-    "category": "Data Science",
-    "legacyId": 356,
-    "rank": 37
-  },
-  {
     "id": "fba91a26-285a-47e4-80db-ab58a9e7fa78",
     "label": "Play Framework",
     "category": "Development",
     "legacyId": 305,
     "rank": 182
-  },
-  {
-    "id": "2dbb426b-8f7e-492d-b573-d5a1eb35b0f7",
-    "label": "Elasticsearch",
-    "category": "Data Science",
-    "legacyId": 171,
-    "rank": 195
-  },
-  {
-    "id": "2a618c1a-b063-4f58-99f0-fbd883961c04",
-    "label": "Gitlab",
-    "category": "Development",
-    "legacyId": 193,
-    "rank": 65
   },
   {
     "id": "f6cb9dc3-0639-445a-b25c-52fbc1efa402",
@@ -2828,13 +2730,6 @@
     "rank": 232
   },
   {
-    "id": "1bfd685f-f2e0-447f-9d7e-3ef7769337fe",
-    "label": "TypeScript",
-    "category": "Development",
-    "legacyId": 370,
-    "rank": 194
-  },
-  {
     "id": "d658e431-9042-4572-9d73-a6a515d4a4a2",
     "label": "Winforms",
     "category": "Development",
@@ -2896,13 +2791,6 @@
     "category": "Development",
     "legacyId": 391,
     "rank": 295
-  },
-  {
-    "id": "441fa7ac-5d5b-400c-8879-bfe662465cb8",
-    "label": "VB.NET",
-    "category": "Development",
-    "legacyId": 380,
-    "rank": 14
   },
   {
     "id": "ea6ad509-d2d6-4b87-9495-46c6c4ad4f1f",
@@ -2989,13 +2877,6 @@
     "rank": 114
   },
   {
-    "id": "0d94b5dc-d7f7-4eaa-adc7-f3e7f6ad0b92",
-    "label": "PHP",
-    "category": "Development",
-    "legacyId": 303,
-    "rank": 105
-  },
-  {
     "id": "8a4e0b63-b820-4743-a4f7-f8660b8b0ed1",
     "label": "Microservices",
     "category": "Development",
@@ -3029,13 +2910,6 @@
     "category": "Development",
     "legacyId": 367,
     "rank": 10
-  },
-  {
-    "id": "d6914039-0b08-4bab-bd4b-5dfbc8cf60e6",
-    "label": "CSS3",
-    "category": "Design/UX",
-    "legacyId": 154,
-    "rank": 286
   },
   {
     "id": "96129661-103a-43cf-a96f-224edcd2f018",
@@ -3108,13 +2982,6 @@
     "rank": 200
   },
   {
-    "id": "447bf476-0862-4ad7-b86e-d3d219a22717",
-    "label": "C++",
-    "category": "Development",
-    "legacyId": 133,
-    "rank": 7
-  },
-  {
     "id": "2d1c15eb-0993-4b87-84a5-96a7dc47d7cf",
     "label": "Backbone.js",
     "category": "Development",
@@ -3148,13 +3015,6 @@
     "category": "Development",
     "legacyId": 332,
     "rank": 118
-  },
-  {
-    "id": "19b6794a-a222-4b0d-b91f-d42435976f09",
-    "label": "Selenium",
-    "category": "Development",
-    "legacyId": 552,
-    "rank": 297
   },
   {
     "id": "3b160227-1c5c-4cc5-b41b-7a22bb49be2d",
