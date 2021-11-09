@@ -75,7 +75,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - dev-without-payment-step
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
