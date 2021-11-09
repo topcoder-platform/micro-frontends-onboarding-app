@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { instanceOf } from "prop-types";
 
 /**
@@ -73,6 +74,15 @@ export function isGetStartedFormDataEmpty(myInterest) {
  */
 export function isSkillFormEmpty(data) {
   return data.length;
+}
+
+/**
+ * Check if array null or empty
+ *
+ * @param data {Object}
+ */
+ export function isNullOrEmpty(data) {
+  return _.isNull(data) || data.length === 0;
 }
 
 /**
