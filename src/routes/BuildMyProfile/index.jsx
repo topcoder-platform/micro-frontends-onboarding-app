@@ -336,8 +336,8 @@ const BuildMyProfile = () => {
       return {
         schoolCollegeName: collegeName,
         major: major,
-        timePeriodFrom: startDate ? new Date(startDate).getTime() : "",
-        timePeriodTo: endDate ? new Date(endDate).getTime() : "",
+        timePeriodFrom: startDate ? new Date(`${startDate.getMonth() + 1} ${startDate.getDay()} ${startDate.getFullYear()} 06:00 UTC`).getTime() : "",
+        timePeriodTo: endDate ? new Date(`${endDate.getMonth() + 1} ${endDate.getDay()} ${endDate.getFullYear()} 06:00 UTC`).getTime() : "",
         graduated: graduated,
       };
     });
