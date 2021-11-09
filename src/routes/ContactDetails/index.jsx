@@ -208,7 +208,9 @@ const ContactDetails = () => {
       contactDetailsOnServer == null &&
       isContactFormEmpty(contactDetailsMapped)
     ) {
-      return createContactDetails(authUser.handle, contactDetailsMapped);
+      createContactDetails(authUser.handle, contactDetailsMapped);
+      updateContactDetails(authUser.handle, contactDetailsMapped);
+      return Promise.resolve();
     } else {
       if (isContactFormEmpty(contactDetailsMapped)) {
         return updateContactDetails(authUser.handle, contactDetailsMapped);
