@@ -73,7 +73,7 @@ const Complete = () => {
               </Button>
             </a>
           </div>
-          <OnboardProgress level={4} />
+          <OnboardProgress level={5} />
         </PageContent>
       </Page>
     </>

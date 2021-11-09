@@ -59,7 +59,7 @@ export const writtenLevels = writtenLevel.map((v) => v.name);
 export const ProgressLevels = [
   { label: "Get Started", url: "/onboard" },
   { label: "Contact Details", url: "/onboard/contact-details" },
-  // "Payment Setup", {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
+  { label: "Payment Setup", url: "/onboard/payment-setup" },
   { label: "Building My Profile", url: "/onboard/build-my-profile" },
   { label: "Complete", url: "/onboard/complete" },
 ];

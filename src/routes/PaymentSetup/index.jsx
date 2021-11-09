@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
-import { Link } from "@reach/router";
+import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
 // import components and other stuffs
@@ -21,6 +21,7 @@ import IconCheck from "../../assets/images/check.svg";
 
 const PaymentSetup = () => {
   const authUser = useSelector((state) => state.authUser);
+  const navigate = useNavigate();
 
   const [isTaxFormCompleted, setIsTaxFormCompleted] = useState(false);
   const [isPaymentServiceSelected, setIsPaymentServiceSelected] = useState(
@@ -28,13 +29,11 @@ const PaymentSetup = () => {
   );
 
   function completeTaxForm() {
-    localStorage.setItem("tax_form", "W-9");
-    setIsTaxFormCompleted(true);
+    navigate("/onboard/payment-setup/tax-form");
   }
 
   function selectPaymentService() {
-    localStorage.setItem("payment_service", "Payoneer");
-    setIsPaymentServiceSelected(true);
+    navigate("/onboard/payment-setup/payment-provider");
   }
 
   React.useEffect(() => {
