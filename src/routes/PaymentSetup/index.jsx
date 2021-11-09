@@ -99,8 +99,13 @@ const PaymentSetup = () => {
           </div>
           <PageP styleName="para">
             Once Payments Set-up has been completed, you will be able to manage
-            payments from your Topcoder account. For more information, see:
-            Topcoder Payment Policies
+            payments from your Topcoder account. For more information, see:{" "}
+            <a
+              href="https://www.topcoder.com/thrive/articles/payment-policies-and-instructions"
+              target="_blank"
+            >
+              Topcoder Payment Policies
+            </a>
           </PageP>
           <PageDivider />
           <PageFoot align="between">
