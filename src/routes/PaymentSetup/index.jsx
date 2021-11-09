@@ -38,7 +38,7 @@ const PaymentSetup = () => {
 
   React.useEffect(() => {
     setIsTaxFormCompleted(!!localStorage.getItem("tax_form"));
-    setIsPaymentServiceSelected(!!localStorage.getItem("payment_service"));
+    setIsPaymentServiceSelected(!!localStorage.getItem("payment_provider"));
   }, []);
 
   return (
