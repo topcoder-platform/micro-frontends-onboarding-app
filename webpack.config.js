@@ -4,6 +4,8 @@ const webpackMerge = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react");
 const path = require("path");
 const autoprefixer = require("autoprefixer");
+const _ = require("lodash");
+const config = require("config");
 
 const cssLocalIdent =
   process.env.APPMODE === "production"
@@ -92,6 +94,13 @@ module.exports = (webpackConfigEnv) => {
       },
     },
     plugins: [
+      new webpack.DefinePlugin({
+        "process.env": {
+          ..._.mapValues(config, (value) => JSON.stringify(value)),
+          APPENV: JSON.stringify(process.env.APPENV),
+          APPMODE: JSON.stringify(process.env.APPMODE),
+        },
+      }),
       // ignore moment locales to reduce bundle size by 64kb gzipped
       // see solution details https://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
