@@ -18,7 +18,11 @@ const Page = ({ children, title, styleName, ...props }) => {
     }
   }, [title]);
 
-  return <div styleName={cn("page", styleName || "" )} {...props}>{children}</div>;
+  return (
+    <div styleName={cn("page", styleName || "")} {...props}>
+      {children}
+    </div>
+  );
 };
 
 Page.propTypes = {

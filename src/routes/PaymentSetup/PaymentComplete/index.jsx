@@ -26,37 +26,52 @@ const PaymentComplete = () => {
   };
 
   return (
-    <Page title="Payment Setup"  styleName="page-wrapper">
+    <Page title="Payment Setup" styleName="page-wrapper">
       <div styleName="page-title">Member Onboarding</div>
       <div styleName="payment-complete">
         <PageContent styleName="page-content">
           <div styleName="page-header">
             <div styleName="left-pane">
-              <Button onClick={goToPaymentSetup} type={BUTTON_TYPE.SEGMENT} styleName="back-button">
-              <BackIcon />
-              <span styleName="button-text">
-                Payment set-up
-              </span>
-            </Button>
-            <PageH2 styleName="payment-service-title">select your payment service</PageH2>
+              <Button
+                onClick={goToPaymentSetup}
+                type={BUTTON_TYPE.SEGMENT}
+                styleName="back-button"
+              >
+                <BackIcon />
+                <span styleName="button-text">Payment set-up</span>
+              </Button>
+              <PageH2 styleName="payment-service-title">
+                select your payment service
+              </PageH2>
             </div>
             <div styleName="right-pane">
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="complete" />
             </div>
           </div>
-          
+
           <div styleName="user-name">{authUser.handle}!</div>
           <PageDivider styleName="page-divider" />
           <PageH1 styleName="thank-you">Thank You!</PageH1>
           <PageDivider styleName="page-divider" />
 
-          <PageH3 styleName="submitted-text">You have submitted account details to topcoder support</PageH3>
+          <PageH3 styleName="submitted-text">
+            You have submitted account details to topcoder support
+          </PageH3>
           <PageP styleName="instructions">
-            Once Payments Set-up has been confirmed, you will be able to manage payments from your Topcoder account. For more information, see: <a href="https://www.topcoder.com/thrive/articles/payment-policies-and-instructions" target="_blank">Topcoder Payment Policies</a>
+            Once Payments Set-up has been confirmed, you will be able to manage
+            payments from your Topcoder account. For more information, see:{" "}
+            <a
+              href="https://www.topcoder.com/thrive/articles/payment-policies-and-instructions"
+              target="_blank"
+            >
+              Topcoder Payment Policies
+            </a>
           </PageP>
 
           <PageFoot styleName="complete-page-footer">
-            <Button onClick={goToPaymentSetup} styleName="continue-button">Continue</Button>
+            <Button onClick={goToPaymentSetup} styleName="continue-button">
+              Continue
+            </Button>
           </PageFoot>
         </PageContent>
       </div>

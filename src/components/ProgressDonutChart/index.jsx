@@ -3,11 +3,11 @@
  *
  * Progress Donut Chart to display on top-right of the page
  */
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PT from "prop-types";
 import cn from "classnames";
 import "./styles.module.scss";
-import Chart from 'react-apexcharts'
+import Chart from "react-apexcharts";
 
 const ProgressDonutChart = ({ progress, styleName, ...props }) => {
   // chart options to display donut chart
@@ -15,33 +15,40 @@ const ProgressDonutChart = ({ progress, styleName, ...props }) => {
     chart: {
       height: 150,
       width: 120,
-      type: 'radialBar',
+      type: "radialBar",
     },
     plotOptions: {
       radialBar: {
         hollow: {
-          size: '40%',
+          size: "40%",
         },
         dataLabels: {
           name: {
             show: false,
-          },value: {
-            show: false
-          }
-        }
-      }
+          },
+          value: {
+            show: false,
+          },
+        },
+      },
     },
     stroke: {
-      lineCap: 'round'
+      lineCap: "round",
     },
     fill: {
-        colors: ["#9d41c9"],
+      colors: ["#9d41c9"],
     },
   });
   return (
-    <div styleName={cn("progress-donut-chart", styleName || "" )} {...props}>
+    <div styleName={cn("progress-donut-chart", styleName || "")} {...props}>
       <div id="chart">
-        <Chart options={chartOptions} series={[progress]} type="radialBar" height={150} width={120} />
+        <Chart
+          options={chartOptions}
+          series={[progress]}
+          type="radialBar"
+          height={150}
+          width={120}
+        />
       </div>
     </div>
   );

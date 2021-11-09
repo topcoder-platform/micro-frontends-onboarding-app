@@ -56,7 +56,7 @@
               margin-bottom: 10px;
             }
             .button-text {
-              margin-left: 6px; 
+              margin-left: 6px;
             }
           }
           .payment-service-title {
@@ -64,7 +64,7 @@
             @include font-barlow-condensed;
             font-size: 34px;
             font-weight: 500;
-  
+
             @include mobile {
               font-family: Barlow;
               font-weight: 600;
@@ -73,7 +73,7 @@
             }
           }
         }
-  
+
         .right-pane {
           width: 400px;
           display: flex;
@@ -100,7 +100,7 @@
           font-weight: 500;
         }
       }
-  
+
       .thank-you {
         font-size: 48px;
         @include font-barlow-condensed;
@@ -117,7 +117,7 @@
           margin-bottom: 32px;
         }
       }
-  
+
       .submitted-text {
         font-size: 20px;
         line-height: 20px;
@@ -131,7 +131,7 @@
           font-weight: 600;
         }
       }
-  
+
       .instructions {
         @include font-roboto;
         font-size: 16px;
@@ -142,7 +142,7 @@
           color: #2e55b9;
         }
       }
-  
+
       .complete-page-footer {
         justify-content: flex-start;
         @include mobile {

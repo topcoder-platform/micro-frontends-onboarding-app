@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { navigate } from "@reach/router";
-import Checkbox from 'rc-checkbox';
+import Checkbox from "rc-checkbox";
 
 import Page from "components/Page";
 import PageContent from "components/PageContent";
@@ -18,14 +18,14 @@ import IconBackArrow from "../../../assets/images/icon-back-arrow.svg";
 import PageFoot from "components/PageElements/PageFoot";
 
 import styles from "./styles.module.scss";
-import 'rc-checkbox/assets/index.css';
+import "rc-checkbox/assets/index.css";
 
 /**
  * Page shown to get the confirmation from the user on the tax form
- * @param {*} param0 
- * @returns 
+ * @param {*} param0
+ * @returns
  */
-const TaxConfirm = ({formName}) => {
+const TaxConfirm = ({ formName }) => {
   const authUser = useSelector((state) => state.authUser);
   const [completedForm, setCompletedForm] = useState(false);
   const formDetails = FORM_DETAILS[formName];
@@ -53,15 +53,19 @@ const TaxConfirm = ({formName}) => {
         <PageContent styleName="styles.page-content">
           <div styleName="styles.page-header">
             <div styleName="styles.left-pane">
-              <Button onClick={goToPaymentSetup} type={BUTTON_TYPE.SEGMENT} styleName="styles.back-button">
+              <Button
+                onClick={goToPaymentSetup}
+                type={BUTTON_TYPE.SEGMENT}
+                styleName="styles.back-button"
+              >
                 <div styleName="styles.back-icon-wrapper">
                   <BackIcon />
                 </div>
-                <span styleName="styles.button-text">
-                  Payment set-up
-                </span>
+                <span styleName="styles.button-text">Payment set-up</span>
               </Button>
-              <PageH2 styleName="styles.complete-tax-title">Complete tax form</PageH2>
+              <PageH2 styleName="styles.complete-tax-title">
+                Complete tax form
+              </PageH2>
             </div>
             <div styleName="styles.right-pane">
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="confirm" />
@@ -71,18 +75,26 @@ const TaxConfirm = ({formName}) => {
           <PageDivider styleName="styles.page-divider" />
           <PageH1 styleName="styles.tax-confirm-title">{`Form ${formName}`}</PageH1>
           <PageP styleName="styles.tax-confirm-description">
-            <div dangerouslySetInnerHTML={{__html: formDetails.description}} />
+            <div
+              dangerouslySetInnerHTML={{ __html: formDetails.description }}
+            />
           </PageP>
           <PageDivider styleName="styles.page-divider" />
 
-          <PageH1 styleName="styles.did-you-complete">Did you complete your DocuSign Tax Form?</PageH1>
+          <PageH1 styleName="styles.did-you-complete">
+            Did you complete your DocuSign Tax Form?
+          </PageH1>
 
           <div styleName="styles.container">
             <div styleName="styles.left-pane">
-              Great! Check that box and click CONTINUE. If not, <a href={formDetails.formUrl} target="_blank">{`please complete Form ${formName.toUpperCase()}`}</a>
+              Great! Check that box and click CONTINUE. If not,{" "}
+              <a
+                href={formDetails.formUrl}
+                target="_blank"
+              >{`please complete Form ${formName.toUpperCase()}`}</a>
             </div>
             <div styleName="styles.right-pane">
-              <label styleName="styles.form-input-checkbox" >
+              <label styleName="styles.form-input-checkbox">
                 <Checkbox
                   checked={completedForm}
                   className="confirm-tax-rc-checkbox"
@@ -96,12 +108,22 @@ const TaxConfirm = ({formName}) => {
           <PageDivider styleName="styles.page-divider" />
 
           <PageFoot styleName="styles.footer">
-            <Button onClick={onBack} styleName="styles.footer-back-button" type={BUTTON_TYPE.SECONDARY}>
+            <Button
+              onClick={onBack}
+              styleName="styles.footer-back-button"
+              type={BUTTON_TYPE.SECONDARY}
+            >
               <IconBackArrow />
               <span styleName="styles.footer-back-button-text">Back</span>
             </Button>
             <div styleName="styles.confirm-button-wrapper">
-              <Button onClick={onConfirm} disabled={!completedForm} styleName="styles.footer-confirm-button">Confirm</Button>
+              <Button
+                onClick={onConfirm}
+                disabled={!completedForm}
+                styleName="styles.footer-confirm-button"
+              >
+                Confirm
+              </Button>
             </div>
           </PageFoot>
         </PageContent>

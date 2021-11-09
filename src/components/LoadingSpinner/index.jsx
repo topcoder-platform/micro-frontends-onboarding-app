@@ -11,8 +11,10 @@ import PuffLoader from "react-spinners/PuffLoader";
 
 const LoadingSpinner = ({ show = false, styleName }) => {
   return (
-    <div styleName={cn("loading-spinner", show? "show": "hide", styleName || "" )}>
-      <PuffLoader color={'#2196f3'} loading={true} size={100} />
+    <div
+      styleName={cn("loading-spinner", show ? "show" : "hide", styleName || "")}
+    >
+      <PuffLoader color={"#2196f3"} loading={true} size={100} />
     </div>
   );
 };

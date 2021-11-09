@@ -1,4 +1,4 @@
-import { range, isUndefined, isNull } from "lodash";
+import { range, isUndefined, isNull, orderBy } from "lodash";
 
 /**
  * This file should contain all application constants which do not depend on the DEV/PROD environment.
@@ -29,7 +29,6 @@ export const interests = interests_list;
  */
 
 import timeZones_list from "./timezones.json";
-import { orderBy } from "lodash";
 export const timeZones = orderBy(timeZones_list, ["zoneName"], ["asc"]);
 
 /**
@@ -101,93 +100,127 @@ export const MAX_COMPLETED_STEP = "MAX_COMPLETED_STEP";
  * Map of payment method to the display name
  */
 export const PAYMENT_METHOD_MAP = {
-  "payoneer": "Payoneer",
-  "paypal": "Paypal",
+  payoneer: "Payoneer",
+  paypal: "Paypal",
   "western-union": "Western Union",
 };
-
 
 /**
  * Map of payment method to the display name for mobile view
  */
- export const PAYMENT_METHOD_MOBILE_MAP = {
-  "payoneer": "Payoneer",
-  "paypal": "Paypal",
+export const PAYMENT_METHOD_MOBILE_MAP = {
+  payoneer: "Payoneer",
+  paypal: "Paypal",
   "western-union": "WU",
 };
 
 /**
  * List of payment methods supported
  */
-export const PAYMENT_METHODS = [{
-  name: "payoneer",
-  fees: "$0–$3 + Currency Conversion Rates May Apply",
-  countries: 150,
-  speed: 1,
-}, {
-  name: "paypal",
-  fees: "3.49% + an international fee (non US) + a fixed fee depending upon currency",
-  countries: 150,
-  speed: 1,
-}, {
-  name: "western-union",
-  fees: "$8 per transaction(your bank may charge additional fees)",
-  countries: 150,
-  speed: 1,
-}];
+export const PAYMENT_METHODS = [
+  {
+    name: "payoneer",
+    fees: "$0–$3 + Currency Conversion Rates May Apply",
+    countries: 150,
+    speed: 1,
+  },
+  {
+    name: "paypal",
+    fees:
+      "3.49% + an international fee (non US) + a fixed fee depending upon currency",
+    countries: 150,
+    speed: 1,
+  },
+  {
+    name: "western-union",
+    fees: "$8 per transaction(your bank may charge additional fees)",
+    countries: 150,
+    speed: 1,
+  },
+];
 
 /**
  * The payment method details map
  */
 export const PAYMENT_METHOD_DETAILS_MAP = {
-  "payoneer": {
-    instructions: [{
-      label: "Email <a href='mailto: support@topcoder.com'>support@topcoder.com</a>",
-    }, {
-      label: "Subject Line: Topcoder Payment Provider",
-    }, {
-      label: "In the email include:",
-      children: ["Topcoder handle (your username when registering)", "Payoneer Customer ID", "Payoneer Email Address"]
-    }],
+  payoneer: {
+    instructions: [
+      {
+        label:
+          "Email <a href='mailto: support@topcoder.com'>support@topcoder.com</a>",
+      },
+      {
+        label: "Subject Line: Topcoder Payment Provider",
+      },
+      {
+        label: "In the email include:",
+        children: [
+          "Topcoder handle (your username when registering)",
+          "Payoneer Customer ID",
+          "Payoneer Email Address",
+        ],
+      },
+    ],
     conditions: `
       <p>You can elect to receive payments through Payoneer either to your Payoneer prepaid MasterCard or by using their Global Bank Transfer service. The Payoneer Bank Transfer Service offers a local bank transfer option (where available) and a wire transfer option. Certain fees may apply.</p>
     `,
-    important: "Important: After you create an account, please email support@topcoder.com with the information outlined",
+    important:
+      "Important: After you create an account, please email support@topcoder.com with the information outlined",
     url: "https://www.payoneer.com",
   },
-  "paypal": {
-    instructions: [{
-      label: "Email <a href='mailto: support@topcoder.com'>support@topcoder.com</a>",
-    }, {
-      label: "Subject Line: Topcoder Payment Provider",
-    }, {
-      label: "In the email include:",
-      children: ["Topcoder handle (your username when registering)", "PayPal Email Address"]
-    }, {
-      label: "Please DO NOT provider a link to your PayPal account. We only need your PayPal email address.",
-    }],
+  paypal: {
+    instructions: [
+      {
+        label:
+          "Email <a href='mailto: support@topcoder.com'>support@topcoder.com</a>",
+      },
+      {
+        label: "Subject Line: Topcoder Payment Provider",
+      },
+      {
+        label: "In the email include:",
+        children: [
+          "Topcoder handle (your username when registering)",
+          "PayPal Email Address",
+        ],
+      },
+      {
+        label:
+          "Please DO NOT provider a link to your PayPal account. We only need your PayPal email address.",
+      },
+    ],
     conditions: `
       <p>You can elect to receive payments deposited directly to your PayPal account. Certain fees may apply.</p>
     `,
-    important: "Important: After you create an account, please email support@topcoder.com with the information outlined",
+    important:
+      "Important: After you create an account, please email support@topcoder.com with the information outlined",
     url: "https://www.paypal.com",
   },
   "western-union": {
-    instructions: [{
-      label: "Email <a href='mailto: support@topcoder.com'>support@topcoder.com</a>",
-    }, {
-      label: "Subject Line: Topcoder Payment Provider",
-    }, {
-      label: "In the email include:",
-      children: ["Topcoder handle (your username when registering)", "Topcoder Email Address (the email address you used to register)"]
-    }],
+    instructions: [
+      {
+        label:
+          "Email <a href='mailto: support@topcoder.com'>support@topcoder.com</a>",
+      },
+      {
+        label: "Subject Line: Topcoder Payment Provider",
+      },
+      {
+        label: "In the email include:",
+        children: [
+          "Topcoder handle (your username when registering)",
+          "Topcoder Email Address (the email address you used to register)",
+        ],
+      },
+    ],
     conditions: `
       <p>You can elect to be paid via wire transfer through Western Union. There is a US $8 charge for each payment processed by Western Union, which will be deducted from the amount owed to you. You can elect to be paid in either USD or your local currency. However, Western Union does not disclose it’s fees to convert to your local currency so we recommend you choose to receive USD. You may then be subject to conversion fees by your local bank.</p>
       <p><strong>Important:</strong> Use your Topcoder handle as the Payee ID during registration. Use the Preferred Form of Payment as “Fastest,” rather than “Least Cost.” “Least Cost” uses ACH as a form of payment, which is not supported in all countries.</p>
       <p>If you elect to be paid by Western Union, your payment request will be queued and processed semi-monthly, on the 15th and last business day of the month. If the 15th or last day of the month falls on a weekend or holiday, Western Union payments will be processed the next business day.</p>
       <p>In order to be included in the semi-monthly payments, you need to select which payments you would like to be paid for by 10:00 AM EST on the day of the scheduled payment.</p>
     `,
-    important: "Important: After you create an account, please return to this screen and enter the appropriate account details.",
+    important:
+      "Important: After you create an account, please return to this screen and enter the appropriate account details.",
     url: "https://www.westernunion.com",
   },
 };
@@ -195,7 +228,7 @@ export const PAYMENT_METHOD_DETAILS_MAP = {
 /**
  * These are the list of steps in the payment
  */
- export const PAYMENT_STEPS = [
+export const PAYMENT_STEPS = [
   {
     id: "select",
     label: "Select",
@@ -215,16 +248,20 @@ export const PAYMENT_METHOD_DETAILS_MAP = {
  */
 export const FORM_DETAILS = {
   "w-9": {
-    description: "For individuals who are a US citizen or other US person (such as a resident alien). ",
-    answer: "Topcoder must receive your correctly completed W-9 to report to the IRS income paid to you. Topcoder’s policy is not to issue payments to US members until a properly completed Form W-9 is received from the member.",
-    formUrl: "https://community.topcoder.com/tc?module=SignDocument&templateId=2BA08E97-5707-4D6B-AFD3-27635B53D13A",
+    description:
+      "For individuals who are a US citizen or other US person (such as a resident alien). ",
+    answer:
+      "Topcoder must receive your correctly completed W-9 to report to the IRS income paid to you. Topcoder’s policy is not to issue payments to US members until a properly completed Form W-9 is received from the member.",
+    formUrl:
+      "https://community.topcoder.com/tc?module=SignDocument&templateId=2BA08E97-5707-4D6B-AFD3-27635B53D13A",
   },
   "w-8ben": {
     description: `
       <p>For individuals who are NOT a US citizen or other US person.</p>
       <p>Fill out Form W-8BEN if you are a foreign person, non-resident alien, or foreign national.</p>
     `,
-    answer: "Under current IRS guidance, foreign persons performing services outside of the U.S. are not subject to income tax withholding. However, Topcoder requires all such members to provide a properly filled out W-8BEN prior to issuing payment. In addition, prize money paid to foreign persons who are not performing services (such as winning an SRM competition) is subject to withholding taxes.",
+    answer:
+      "Under current IRS guidance, foreign persons performing services outside of the U.S. are not subject to income tax withholding. However, Topcoder requires all such members to provide a properly filled out W-8BEN prior to issuing payment. In addition, prize money paid to foreign persons who are not performing services (such as winning an SRM competition) is subject to withholding taxes.",
     infoLabel: "See Topcoder Tax Information for Form W-8BEN for details",
     extraDetails: `
       <p>
@@ -238,7 +275,8 @@ export const FORM_DETAILS = {
         Topcoder’s policy is not to issue payments to foreign members until a properly completed Form W-8BEN is received from the member.
       </p>
     `,
-    formUrl: "https://community.topcoder.com/tc?module=SignDocument&templateId=4640A329-F4D2-4D64-BAAF-C2F8A5C20289",
+    formUrl:
+      "https://community.topcoder.com/tc?module=SignDocument&templateId=4640A329-F4D2-4D64-BAAF-C2F8A5C20289",
   },
 };
 

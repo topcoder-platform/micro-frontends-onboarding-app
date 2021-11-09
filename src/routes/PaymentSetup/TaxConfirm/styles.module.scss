@@ -23,7 +23,7 @@
     @include mobile {
       padding: 16px 8px 16px 8px;
     }
-   .page-content {
+    .page-content {
       padding: 38px 32px 32px 32px;
       margin: 32px auto 50px auto;
       @include mobile {
@@ -56,7 +56,7 @@
               margin-bottom: 10px;
             }
             .button-text {
-              margin-left: 6px; 
+              margin-left: 6px;
             }
           }
           .complete-tax-title {
@@ -64,7 +64,7 @@
             @include font-barlow-condensed;
             font-size: 34px;
             font-weight: 500;
-  
+
             @include mobile {
               font-family: Barlow;
               font-weight: 600;
@@ -73,7 +73,7 @@
             }
           }
         }
-  
+
         .right-pane {
           width: 400px;
           display: flex;
@@ -173,8 +173,8 @@
           .form-input-checkbox {
             display: flex;
             align-items: center;
-            
-            .label{
+
+            .label {
               font-size: 16px;
               line-height: 26px;
               margin-left: 10px;
@@ -214,7 +214,7 @@
             }
           }
         }
-    
+
         .confirm-button-wrapper {
           flex: 1;
           display: flex;
@@ -238,7 +238,7 @@
           }
         }
       }
-      
+
       .page-divider {
         border-bottom: 2px solid $divider-color;
       }
@@ -252,8 +252,8 @@
       margin-top: 3px;
       &.rc-checkbox-checked {
         .rc-checkbox-inner {
-          background-color: #0AB88A;
-          border-color: #0AB88A;
+          background-color: #0ab88a;
+          border-color: #0ab88a;
         }
       }
       .rc-checkbox-inner {

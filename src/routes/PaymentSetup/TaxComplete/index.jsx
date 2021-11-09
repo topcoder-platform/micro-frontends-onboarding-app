@@ -18,12 +18,11 @@ import PageH3 from "components/PageElements/PageH3";
 
 import "./styles.module.scss";
 
-
 /**
  * Page shown after the successful completion of the tax form submission
- * @returns 
+ * @returns
  */
-const TaxComplete = ({formName}) => {
+const TaxComplete = ({ formName }) => {
   const authUser = useSelector((state) => state.authUser);
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
@@ -36,13 +35,15 @@ const TaxComplete = ({formName}) => {
         <PageContent styleName="page-content">
           <div styleName="page-header">
             <div styleName="left-pane">
-              <Button onClick={goToPaymentSetup} type={BUTTON_TYPE.SEGMENT} styleName="back-button">
+              <Button
+                onClick={goToPaymentSetup}
+                type={BUTTON_TYPE.SEGMENT}
+                styleName="back-button"
+              >
                 <div styleName="back-icon-wrapper">
                   <BackIcon />
                 </div>
-                <span styleName="button-text">
-                  Payment set-up
-                </span>
+                <span styleName="button-text">Payment set-up</span>
               </Button>
               <PageH2 styleName="complete-tax-title">Complete tax form</PageH2>
             </div>
@@ -58,11 +59,18 @@ const TaxComplete = ({formName}) => {
 
           <PageH3 styleName="information">{`Your ${formName} Tax Form was submitted via DocuSign.`}</PageH3>
           <PageP styleName="confirmation-text">
-            <p>You will receive confirmation from Topcoder via email to acknowledge receipt.</p>
-            After processing, your Member Profile will reflect that you have completed this step.
+            <p>
+              You will receive confirmation from Topcoder via email to
+              acknowledge receipt.
+            </p>
+            After processing, your Member Profile will reflect that you have
+            completed this step.
           </PageP>
           <PageFoot styleName="footer">
-            <Button onClick={goToPaymentSetup} styleName="footer-continue-button">
+            <Button
+              onClick={goToPaymentSetup}
+              styleName="footer-continue-button"
+            >
               Continue
             </Button>
           </PageFoot>

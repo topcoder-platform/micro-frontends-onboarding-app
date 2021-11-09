@@ -7,25 +7,31 @@ import PageH2 from "components/PageElements/PageH2";
 import Button from "components/Button";
 import BackIcon from "../../../assets/images/arrow-left-turquoise.svg";
 import IconBackArrow from "../../../assets/images/icon-back-arrow.svg";
-import { BUTTON_TYPE, PAYMENT_METHOD_MAP, PAYMENT_METHOD_DETAILS_MAP, PAYMENT_STEPS, PAYMENT_METHOD_MOBILE_MAP } from "constants";
+import {
+  BUTTON_TYPE,
+  PAYMENT_METHOD_MAP,
+  PAYMENT_METHOD_DETAILS_MAP,
+  PAYMENT_STEPS,
+  PAYMENT_METHOD_MOBILE_MAP,
+} from "constants";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
 import PageDivider from "components/PageDivider";
-import Checkbox from 'rc-checkbox';
+import Checkbox from "rc-checkbox";
 import EmailDetails from "components/EmailDetails";
 import PageFoot from "components/PageElements/PageFoot";
 import PageP from "components/PageElements/PageP";
 import StepsIndicator from "components/StepsIndicator";
 
-import 'rc-checkbox/assets/index.css';
+import "rc-checkbox/assets/index.css";
 import styles from "./styles.module.scss";
 import ScrollToBottom from "components/ScrollToBottom";
 
 /**
  * This page is shown when the user selects one of the payment methods from payment providers page
- * @returns 
+ * @returns
  */
-const PaymentMethod = ({paymentMethod}) => {
+const PaymentMethod = ({ paymentMethod }) => {
   const authUser = useSelector((state) => state.authUser);
   const [emailedDetails, setEmailedDetails] = useState(false);
 
@@ -33,8 +39,8 @@ const PaymentMethod = ({paymentMethod}) => {
     // Scroll to top on load of the page
     window.scroll({
       top: 0,
-      left: 0, 
-      behavior: 'smooth',
+      left: 0,
+      behavior: "smooth",
     });
   }, []);
 
@@ -50,15 +56,19 @@ const PaymentMethod = ({paymentMethod}) => {
     navigate("/onboard/payment-setup");
   };
 
-  const {important, conditions, url} = PAYMENT_METHOD_DETAILS_MAP[paymentMethod];
+  const { important, conditions, url } = PAYMENT_METHOD_DETAILS_MAP[
+    paymentMethod
+  ];
 
   const onVisitPaymentProvider = () => {
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   const onConfirm = () => {
     localStorage.setItem("payment_provider", paymentMethod);
-    navigate(`/onboard/payment-setup/payment-provider/${paymentMethod}/complete`);
+    navigate(
+      `/onboard/payment-setup/payment-provider/${paymentMethod}/complete`
+    );
   };
 
   return (
@@ -68,13 +78,17 @@ const PaymentMethod = ({paymentMethod}) => {
         <PageContent styleName="styles.page-content">
           <div styleName="styles.page-header">
             <div styleName="styles.left-pane">
-              <Button onClick={goToPaymentSetup} type={BUTTON_TYPE.SEGMENT} styleName="styles.back-button">
-              <BackIcon />
-              <span styleName="styles.button-text">
-                Payment set-up
-              </span>
-            </Button>
-            <PageH2 styleName="styles.payment-service-title">select your payment service</PageH2>
+              <Button
+                onClick={goToPaymentSetup}
+                type={BUTTON_TYPE.SEGMENT}
+                styleName="styles.back-button"
+              >
+                <BackIcon />
+                <span styleName="styles.button-text">Payment set-up</span>
+              </Button>
+              <PageH2 styleName="styles.payment-service-title">
+                select your payment service
+              </PageH2>
             </div>
             <div styleName="styles.right-pane">
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="confirm" />
@@ -86,31 +100,39 @@ const PaymentMethod = ({paymentMethod}) => {
           <div styleName="styles.container">
             <div styleName="styles.left-pane">
               <EmailDetails paymentMethod={paymentMethod} />
-              <label styleName="styles.form-input-checkbox" >
+              <label styleName="styles.form-input-checkbox">
                 <Checkbox
                   checked={emailedDetails}
                   className="payment-service-rc-checkbox"
                   onChange={onChange}
                 />
-                <span styleName="styles.label">Yes, I have emailed my details to <a styleName="styles.support-email">support@topcoder.com</a></span>
+                <span styleName="styles.label">
+                  Yes, I have emailed my details to{" "}
+                  <a styleName="styles.support-email">support@topcoder.com</a>
+                </span>
               </label>
               {emailedDetails && <ScrollToBottom />}
             </div>
             <div styleName="styles.right-pane">
               <PageH2 styleName="styles.title">{`Create ${PAYMENT_METHOD_MAP[paymentMethod]} account`}</PageH2>
               <PageP styleName="styles.important-text">{important}</PageP>
-              <div styleName="styles.condition-text" dangerouslySetInnerHTML={{__html: conditions}} />
+              <div
+                styleName="styles.condition-text"
+                dangerouslySetInnerHTML={{ __html: conditions }}
+              />
               <div styleName="styles.visit-button-wrapper">
                 <Button
                   styleName="styles.visit-button-desktop"
                   onClick={onVisitPaymentProvider}
-                  disabled={emailedDetails}>
+                  disabled={emailedDetails}
+                >
                   {`Visit ${PAYMENT_METHOD_MAP[paymentMethod]} to create an account`}
                 </Button>
                 <Button
                   styleName="styles.visit-button-mobile"
                   onClick={onVisitPaymentProvider}
-                  disabled={emailedDetails}>
+                  disabled={emailedDetails}
+                >
                   {`Visit ${PAYMENT_METHOD_MOBILE_MAP[paymentMethod]} to create an account`}
                 </Button>
               </div>
@@ -119,12 +141,22 @@ const PaymentMethod = ({paymentMethod}) => {
           <PageDivider styleName="styles.page-divider" />
 
           <PageFoot styleName="styles.footer">
-            <Button onClick={onBack} styleName="styles.footer-back-button" type={BUTTON_TYPE.SECONDARY}>
+            <Button
+              onClick={onBack}
+              styleName="styles.footer-back-button"
+              type={BUTTON_TYPE.SECONDARY}
+            >
               <IconBackArrow />
               <span styleName="styles.footer-back-button-text">Back</span>
             </Button>
             <div styleName="styles.confirm-button-wrapper">
-              <Button onClick={onConfirm} disabled={!emailedDetails} styleName="styles.footer-confirm-button">Confirm</Button>
+              <Button
+                onClick={onConfirm}
+                disabled={!emailedDetails}
+                styleName="styles.footer-confirm-button"
+              >
+                Confirm
+              </Button>
             </div>
           </PageFoot>
         </PageContent>

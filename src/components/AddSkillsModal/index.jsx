@@ -16,10 +16,8 @@ import Button from "components/Button";
 import Modal from "components/Modal";
 import Select from "components/ReactSelect";
 
-import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
-import { skills as allSkills } from "constants";
+import { BUTTON_SIZE, skills as allSkills } from "constants";
 
-import IconPlus from "../../assets/images/icon-plus.svg";
 import IconCross from "../../assets/images/icon-cross.svg";
 import _ from "lodash";
 
@@ -52,7 +50,7 @@ const AddSkillsModal = ({
     const skills = categorySkills
       .filter((skill) => selectedSkills.find((s) => s.name === skill.label))
       .map(({ label }) => ({ value: label, name: label }));
-    console.log(skills);
+
     setSelectedCategorySkills(skills);
   }, [categorySkills, show, selectedSkills]);
 
@@ -88,7 +86,6 @@ const AddSkillsModal = ({
     setSelectedSkills([...selectedSkills, selectedSkill]);
   };
   const handleSkillRemove = (target) => {
-    console.log(target);
     setSelectedSkills(
       selectedSkills.filter((skill) => skill.name !== target.name)
     );
@@ -154,7 +151,7 @@ const AddSkillsModal = ({
               return (
                 <div
                   styleName={cn("skill", "selected")}
-                  onClick={(e) => {
+                  onClick={() => {
                     handleSkillRemove(skill);
                   }}
                 >

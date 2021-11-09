@@ -12,11 +12,21 @@ import { interests as allInterests } from "constants";
 const InterestsList = ({ myInterests, onSelect }) => {
   return (
     <div styleName="interests-list">
-      {allInterests.map(interest => (
-        <div styleName={cn("interest",
-                           myInterests.find(myInterest => myInterest.name === interest.name) ? "selected" : "")}
-             onClick={e => {onSelect(interest);}}>{interest.name}</div>
-      )) }
+      {allInterests.map((interest) => (
+        <div
+          styleName={cn(
+            "interest",
+            myInterests.find((myInterest) => myInterest.name === interest.name)
+              ? "selected"
+              : ""
+          )}
+          onClick={(e) => {
+            onSelect(interest);
+          }}
+        >
+          {interest.name}
+        </div>
+      ))}
     </div>
   );
 };

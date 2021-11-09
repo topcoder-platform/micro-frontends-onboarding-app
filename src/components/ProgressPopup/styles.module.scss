@@ -10,7 +10,7 @@
   box-shadow: 0 0 6px #aaa;
   border-radius: 4px;
 
-  .level{
+  .level {
     margin: 20px 0;
     display: flex;
     align-items: center;
@@ -20,39 +20,39 @@
     }
   }
 
-  .level-check-icon{
+  .level-check-icon {
     width: 24px;
     height: 24px;
-    background: #F4F4F4;
+    background: #f4f4f4;
     // border: 2px solid #26e7b2;
     border-radius: 50%;
     margin-right: 10px;
-    &.done{
-      background: #06D6A0;
+    &.done {
+      background: #06d6a0;
       display: flex;
       align-items: center;
       justify-content: center;
-      .icon-check{
+      .icon-check {
         height: 14px;
         * {
-          fill: #FFFFFF;
+          fill: #ffffff;
         }
       }
     }
-    &.current{
-      border: 2px solid #06D6A0;
-      background: #FFFFFF;
+    &.current {
+      border: 2px solid #06d6a0;
+      background: #ffffff;
     }
   }
 
-  .close-btn{
+  .close-btn {
     position: absolute;
     top: 21px;
     right: 18px;
     cursor: pointer;
     height: 15px;
     width: 15px;
-    *{
+    * {
       stroke-width: 1px !important;
     }
   }

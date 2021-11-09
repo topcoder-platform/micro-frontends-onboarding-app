@@ -23,7 +23,7 @@
     @include mobile {
       padding: 16px 8px 16px 8px;
     }
-   .page-content {
+    .page-content {
       padding: 38px 32px 32px 32px;
       margin: 32px auto 50px auto;
       @include mobile {
@@ -56,7 +56,7 @@
               margin-bottom: 10px;
             }
             .button-text {
-              margin-left: 6px; 
+              margin-left: 6px;
             }
           }
           .complete-tax-title {
@@ -64,7 +64,7 @@
             @include font-barlow-condensed;
             font-size: 34px;
             font-weight: 500;
-  
+
             @include mobile {
               font-family: Barlow;
               font-weight: 600;
@@ -73,7 +73,7 @@
             }
           }
         }
-  
+
         .right-pane {
           width: 400px;
           display: flex;
@@ -287,7 +287,7 @@
           }
         }
       }
-      
+
       .page-divider {
         border-bottom: 2px solid $divider-color;
       }

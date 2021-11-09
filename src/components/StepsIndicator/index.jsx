@@ -33,7 +33,10 @@ const StepsIndicator = ({ steps, currentStep }) => {
           };
 
           const innerDotsstyles = {
-            left: position === 50 ?  `calc(${position}% + 4px)` : `calc(${position}% + 2px)`,
+            left:
+              position === 50
+                ? `calc(${position}% + 4px)`
+                : `calc(${position}% + 2px)`,
           };
 
           const isCompleted = index <= currentStepIndex;

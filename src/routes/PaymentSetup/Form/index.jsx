@@ -7,7 +7,13 @@ import PageH2 from "components/PageElements/PageH2";
 import Button from "components/Button";
 import BackIcon from "../../../assets/images/arrow-left-turquoise.svg";
 import ForwardIcon from "../../../assets/images/icon-forward.svg";
-import { BUTTON_TYPE, PAYMENT_STEPS, FORM_DETAILS, IRS_W9_URL, IRS_W8_BEN_URL } from "constants";
+import {
+  BUTTON_TYPE,
+  PAYMENT_STEPS,
+  FORM_DETAILS,
+  IRS_W9_URL,
+  IRS_W8_BEN_URL,
+} from "constants";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
 import PageDivider from "components/PageDivider";
@@ -21,16 +27,16 @@ import "./styles.module.scss";
 
 /**
  * This component shows the different tax forms available
- * @returns 
+ * @returns
  */
-const TaxForm = ({formName}) => {
+const TaxForm = ({ formName }) => {
   const authUser = useSelector((state) => state.authUser);
   const formDetails = FORM_DETAILS[formName];
 
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
   };
-  
+
   const onBack = () => {
     navigate("/onboard/payment-setup/tax-form");
   };
@@ -54,13 +60,15 @@ const TaxForm = ({formName}) => {
         <PageContent styleName="page-content">
           <div styleName="page-header">
             <div styleName="left-pane">
-              <Button onClick={goToPaymentSetup} type={BUTTON_TYPE.SEGMENT} styleName="back-button">
+              <Button
+                onClick={goToPaymentSetup}
+                type={BUTTON_TYPE.SEGMENT}
+                styleName="back-button"
+              >
                 <div styleName="back-icon-wrapper">
                   <BackIcon />
                 </div>
-                <span styleName="button-text">
-                  Payment set-up
-                </span>
+                <span styleName="button-text">Payment set-up</span>
               </Button>
               <PageH2 styleName="complete-tax-title">Complete tax form</PageH2>
             </div>
@@ -72,7 +80,9 @@ const TaxForm = ({formName}) => {
           <PageDivider styleName="page-divider" />
           <PageH1 styleName="tax-form-title">{`Form ${formName}`}</PageH1>
           <PageP styleName="tax-form-description">
-            <div dangerouslySetInnerHTML={{__html: formDetails.description}} />
+            <div
+              dangerouslySetInnerHTML={{ __html: formDetails.description }}
+            />
           </PageP>
           <PageDivider styleName="page-divider" />
 
@@ -81,33 +91,51 @@ const TaxForm = ({formName}) => {
           <div styleName="container">
             <div styleName="left-pane">
               <PageP styleName="answer">{formDetails.answer}</PageP>
-              {
-                formName === "w-8ben" && (
-                  <>
-                    <div onClick={onGotoTaxInfo} styleName="tax-info">
-                      <div styleName="button-text">
-                        {formDetails.infoLabel}
-                      </div>
-                      <div styleName="forward-icon-wrapper">
-                        <ForwardIcon />
-                      </div>
+              {formName === "w-8ben" && (
+                <>
+                  <div onClick={onGotoTaxInfo} styleName="tax-info">
+                    <div styleName="button-text">{formDetails.infoLabel}</div>
+                    <div styleName="forward-icon-wrapper">
+                      <ForwardIcon />
                     </div>
-                    <div styleName="extra-details" dangerouslySetInnerHTML={{__html: formDetails.extraDetails}}/>
-                  </>
-                )
-              }
+                  </div>
+                  <div
+                    styleName="extra-details"
+                    dangerouslySetInnerHTML={{
+                      __html: formDetails.extraDetails,
+                    }}
+                  />
+                </>
+              )}
             </div>
             <div styleName="right-pane">
-              <Button onClick={onSeeInstructions} styleName="see-instructions-desktop" type={BUTTON_TYPE.SECONDARY}>{`see instructions for form ${formName}`}</Button>
-              <Button onClick={onSeeInstructions} styleName="see-instructions-mobile" type={BUTTON_TYPE.SECONDARY}>see instructions</Button>
-              <Button onClick={onCompleteForm} styleName="complete-form-cta">{`COMPLETE FORM ${formName}`}</Button>
+              <Button
+                onClick={onSeeInstructions}
+                styleName="see-instructions-desktop"
+                type={BUTTON_TYPE.SECONDARY}
+              >{`see instructions for form ${formName}`}</Button>
+              <Button
+                onClick={onSeeInstructions}
+                styleName="see-instructions-mobile"
+                type={BUTTON_TYPE.SECONDARY}
+              >
+                see instructions
+              </Button>
+              <Button
+                onClick={onCompleteForm}
+                styleName="complete-form-cta"
+              >{`COMPLETE FORM ${formName}`}</Button>
             </div>
           </div>
 
           <PageDivider styleName="page-divider" />
 
           <PageFoot styleName="footer">
-            <Button onClick={onBack} styleName="footer-back-button" type={BUTTON_TYPE.SECONDARY}>
+            <Button
+              onClick={onBack}
+              styleName="footer-back-button"
+              type={BUTTON_TYPE.SECONDARY}
+            >
               <IconBackArrow />
               <span styleName="footer-back-button-text">Back</span>
             </Button>

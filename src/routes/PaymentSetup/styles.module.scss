@@ -1,4 +1,4 @@
-.payment-setup{
+.payment-setup {
   .cards {
     display: flex;
     flex: 1 1 0;
@@ -10,7 +10,7 @@
   .card {
     width: calc(50% - 12px);
     min-width: 300px;
-    background: #F4F4F4;
+    background: #f4f4f4;
     border-radius: 8px;
     padding: 24px;
     flex-grow: 1;
@@ -31,7 +31,7 @@
     margin-bottom: 48px;
   }
   .success-container {
-    background: linear-gradient(264.69deg, #017C6D 2.17%, #198807 97.49%);
+    background: linear-gradient(264.69deg, #017c6d 2.17%, #198807 97.49%);
     border-radius: 8px;
     display: flex;
     align-items: center;

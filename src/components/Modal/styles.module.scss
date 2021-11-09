@@ -5,8 +5,8 @@
   top: 0;
   bottom: 0;
   z-index: 1000;
-  
-  .modal-inner{
+
+  .modal-inner {
     width: 80%;
     max-width: 700px;
     min-height: 300px;
@@ -17,8 +17,8 @@
     padding: 0 26px 25px 26px;
     overflow: auto;
   }
-  
-  .modal-back{
+
+  .modal-back {
     background: #00000055;
     height: 100vh;
     position: fixed;
@@ -28,7 +28,7 @@
     bottom: 0;
     z-index: -1;
   }
-  .modal-close-btn{
+  .modal-close-btn {
     position: absolute;
     top: 23px;
     right: 20px;
@@ -36,7 +36,7 @@
     height: 15px;
     width: 15px;
   }
-  .modal-close-btn *{
+  .modal-close-btn * {
     stroke-width: 1px !important;
   }
 }

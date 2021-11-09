@@ -19,7 +19,7 @@ import "./styles.module.scss";
 
 /**
  * This component shows the different tax forms available
- * @returns 
+ * @returns
  */
 const TaxForm = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -31,7 +31,7 @@ const TaxForm = () => {
   const navigateToTaxForm = (name) => {
     navigate(`/onboard/payment-setup/tax-form/${name}`);
   };
-  
+
   return (
     <Page title="Payment Setup" styleName="page-wrapper">
       <div styleName="page-title">Member Onboarding</div>
@@ -39,15 +39,17 @@ const TaxForm = () => {
         <PageContent styleName="page-content">
           <div styleName="page-header">
             <div styleName="left-pane">
-              <Button onClick={goToPaymentSetup} type={BUTTON_TYPE.SEGMENT} styleName="back-button">
-              <div styleName="back-icon-wrapper">
-                <BackIcon />
-              </div>
-              <span styleName="button-text">
-                Payment set-up
-              </span>
-            </Button>
-            <PageH2 styleName="complete-tax-title">Complete tax form</PageH2>
+              <Button
+                onClick={goToPaymentSetup}
+                type={BUTTON_TYPE.SEGMENT}
+                styleName="back-button"
+              >
+                <div styleName="back-icon-wrapper">
+                  <BackIcon />
+                </div>
+                <span styleName="button-text">Payment set-up</span>
+              </Button>
+              <PageH2 styleName="complete-tax-title">Complete tax form</PageH2>
             </div>
             <div styleName="right-pane">
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="select" />
@@ -56,15 +58,36 @@ const TaxForm = () => {
           <div styleName="user-name">{authUser.handle}!</div>
           <PageDivider styleName="page-divider" />
           <PageH1 styleName="tax-form-title">Select a Tax Form</PageH1>
-          <PageP styleName="tax-form-description">All members need to have a tax form on file before they can be paid. There are two options: a W-9 or a W-8BEN. Select a form below for more information.</PageP>
+          <PageP styleName="tax-form-description">
+            All members need to have a tax form on file before they can be paid.
+            There are two options: a W-9 or a W-8BEN. Select a form below for
+            more information.
+          </PageP>
           <div styleName="forms-list">
             <div styleName={cn("form-item", "with-margin")}>
-              <Button onClick={() => navigateToTaxForm("w-9")} styleName="select-form">SELECT w-9</Button>
-              <PageP styleName="form-condition">For individuals who are a US citizen or other US person (such as a resident alien). </PageP>
+              <Button
+                onClick={() => navigateToTaxForm("w-9")}
+                styleName="select-form"
+              >
+                SELECT w-9
+              </Button>
+              <PageP styleName="form-condition">
+                For individuals who are a US citizen or other US person (such as
+                a resident alien).{" "}
+              </PageP>
             </div>
             <div styleName="form-item">
-              <Button onClick={() => navigateToTaxForm("w-8ben")} styleName="select-form">SELECT w-8ben</Button>
-              <PageP styleName="form-condition">For individuals who are NOT a US citizen or other US person (such as a foreign person, non-resident alien or foreign national). </PageP>
+              <Button
+                onClick={() => navigateToTaxForm("w-8ben")}
+                styleName="select-form"
+              >
+                SELECT w-8ben
+              </Button>
+              <PageP styleName="form-condition">
+                For individuals who are NOT a US citizen or other US person
+                (such as a foreign person, non-resident alien or foreign
+                national).{" "}
+              </PageP>
             </div>
           </div>
         </PageContent>

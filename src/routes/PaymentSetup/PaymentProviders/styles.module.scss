@@ -23,7 +23,7 @@
     @include mobile {
       padding: 16px 8px 16px 8px;
     }
-   .page-content {
+    .page-content {
       padding: 38px 32px 32px 32px;
       margin: 32px auto 50px auto;
       @include mobile {
@@ -56,7 +56,7 @@
               margin-bottom: 10px;
             }
             .button-text {
-              margin-left: 6px; 
+              margin-left: 6px;
             }
           }
           .payment-service-title {
@@ -64,7 +64,7 @@
             @include font-barlow-condensed;
             font-size: 34px;
             font-weight: 500;
-  
+
             @include mobile {
               font-family: Barlow;
               font-weight: 600;
@@ -73,7 +73,7 @@
             }
           }
         }
-  
+
         .right-pane {
           width: 400px;
           display: flex;
@@ -108,7 +108,7 @@
         margin-top: 32px;
         color: $grey-text;
         @include font-barlow-condensed;
-  
+
         @include mobile {
           font-family: Barlow;
           font-weight: 600;
@@ -125,7 +125,7 @@
         line-height: 26px;
         color: $grey-text;
       }
-  
+
       .select-info-desktop {
         font-weight: 500;
         font-size: 16px;
@@ -137,7 +137,7 @@
           display: none;
         }
       }
-  
+
       .select-info-mobile-part-one {
         font-weight: 500;
         font-size: 14px;
@@ -148,7 +148,7 @@
           display: none;
         }
       }
-  
+
       .select-info-mobile-part-two {
         font-weight: 500;
         font-size: 14px;
@@ -159,7 +159,7 @@
           display: none;
         }
       }
-  
+
       .footer-note {
         font-size: 12px;
         line-height: 16px;
@@ -172,7 +172,7 @@
           display: none;
         }
       }
-      
+
       .page-divider {
         border-bottom: 2px solid $divider-color;
       }

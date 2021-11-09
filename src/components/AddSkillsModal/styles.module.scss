@@ -1,11 +1,11 @@
 @import "styles/include";
 
 .add-skills {
-  @include desktop{
+  @include desktop {
     height: 350px;
   }
   display: flex;
-  @include mobile{
+  @include mobile {
     flex-direction: column;
   }
   @include desktop {
@@ -19,7 +19,7 @@
       padding-left: 20px;
     }
   }
-  @include mobile{
+  @include mobile {
     & > div {
       margin-bottom: 20px;
     }
@@ -32,21 +32,20 @@
   .category.active {
     color: $green1;
   }
-
 }
 
-.skills-list{
+.skills-list {
   display: flex;
   flex-wrap: wrap;
   max-height: 230px;
-  @include mobile{
+  @include mobile {
     max-height: 120px;
   }
   margin: 10px 0;
   overflow: auto;
   align-items: flex-start;
 
-  .skill{
+  .skill {
     border: 1px solid #333;
     border-radius: 4px;
     color: #333;
@@ -59,12 +58,12 @@
     align-items: center;
   }
 
-  .skill.selected{
+  .skill.selected {
     background: $blue1 !important;
     color: white;
   }
 
-  .skill:hover{
+  .skill:hover {
     background: #f6f9f9;
   }
 
@@ -74,13 +73,12 @@
     height: 20px;
   }
 
-  .skill-remove-icon{
+  .skill-remove-icon {
     margin-left: 10px;
     cursor: pointer;
   }
 
-  .skill-remove-icon *{
+  .skill-remove-icon * {
     stroke: white !important;
   }
-
 }

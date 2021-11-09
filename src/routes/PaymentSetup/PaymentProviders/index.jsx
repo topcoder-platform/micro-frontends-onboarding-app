@@ -19,14 +19,14 @@ import "./styles.module.scss";
 
 /**
  * The page shown where the payment providers are shown
- * @returns 
+ * @returns
  */
 const PaymentProviders = () => {
   const authUser = useSelector((state) => state.authUser);
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
   };
-  
+
   return (
     <Page title="Payment Setup" styleName="page-wrapper">
       <div styleName="page-title">Member Onboarding</div>
@@ -34,15 +34,19 @@ const PaymentProviders = () => {
         <PageContent styleName="page-content">
           <div styleName="page-header">
             <div styleName="left-pane">
-              <Button onClick={goToPaymentSetup} type={BUTTON_TYPE.SEGMENT} styleName="back-button">
-              <div styleName="back-icon-wrapper">
-                <BackIcon />
-              </div>
-              <span styleName="button-text">
-                Payment set-up
-              </span>
-            </Button>
-            <PageH2 styleName="payment-service-title">select your payment service</PageH2>
+              <Button
+                onClick={goToPaymentSetup}
+                type={BUTTON_TYPE.SEGMENT}
+                styleName="back-button"
+              >
+                <div styleName="back-icon-wrapper">
+                  <BackIcon />
+                </div>
+                <span styleName="button-text">Payment set-up</span>
+              </Button>
+              <PageH2 styleName="payment-service-title">
+                select your payment service
+              </PageH2>
             </div>
             <div styleName="right-pane">
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="select" />
@@ -51,25 +55,40 @@ const PaymentProviders = () => {
           <div styleName="user-name">{authUser.handle}!</div>
           <PageDivider styleName="page-divider" />
 
-          <PageH1 styleName="connect-service-title">Connect a Payment Service Provider</PageH1>
+          <PageH1 styleName="connect-service-title">
+            Connect a Payment Service Provider
+          </PageH1>
           <PageP styleName="description">
-            Topcoder currently supports 3 payment providers - Payoneer, PayPal, and Western Union. After you set up an account with a provider, you must complete the process by emailing the provider and account details to Topcoder support. See More Information about each provider below and at the provider’s website.
+            Topcoder currently supports 3 payment providers - Payoneer, PayPal,
+            and Western Union. After you set up an account with a provider, you
+            must complete the process by emailing the provider and account
+            details to Topcoder support. See More Information about each
+            provider below and at the provider’s website.
           </PageP>
           <PageP styleName="select-info-desktop">
-            Select a provider below to get more information to set up an account. Make sure your legal name and address are accurate in your profile in order to be paid.
+            Select a provider below to get more information to set up an
+            account. Make sure your legal name and address are accurate in your
+            profile in order to be paid.
           </PageP>
           <PageP styleName="select-info-mobile-part-one">
-            Select a provider below to get more information to set up an account.
+            Select a provider below to get more information to set up an
+            account.
           </PageP>
           <PageP styleName="select-info-mobile-part-two">
-            Make sure your legal name and address are accurate in your profile in order to be paid.
+            Make sure your legal name and address are accurate in your profile
+            in order to be paid.
           </PageP>
           <PaymentMethods />
-          <PageP styleName="footer-note">The information above is gathered from each payment provider's respective website. We encourage you to do any additional information gathering you see fit prior to making a payment provider decision. </PageP>
+          <PageP styleName="footer-note">
+            The information above is gathered from each payment provider's
+            respective website. We encourage you to do any additional
+            information gathering you see fit prior to making a payment provider
+            decision.{" "}
+          </PageP>
         </PageContent>
       </div>
     </Page>
-  )
+  );
 };
 
 export default withAuthentication(PaymentProviders);

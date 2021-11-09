@@ -10,7 +10,7 @@ import "./styles.module.scss";
 
 const PageUl = ({ children, styleName, ...props }) => {
   return (
-    <ul styleName={cn("page-ul", styleName || "" )} {...props}>
+    <ul styleName={cn("page-ul", styleName || "")} {...props}>
       {children}
     </ul>
   );

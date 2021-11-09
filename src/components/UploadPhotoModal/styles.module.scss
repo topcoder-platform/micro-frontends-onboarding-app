@@ -1,5 +1,5 @@
 @import "styles/include";
-.mute{
+.mute {
   color: #777;
 }
 .dropzone {
@@ -12,12 +12,12 @@
   border-radius: 4px;
   flex-direction: column;
   padding: 20px;
-  transition: border .24s ease-in-out;
-  p{
+  transition: border 0.24s ease-in-out;
+  p {
     text-align: center;
   }
 }
-.photo{
+.photo {
   justify-content: center;
   display: flex;
   align-items: center;

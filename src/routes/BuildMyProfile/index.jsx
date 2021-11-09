@@ -310,8 +310,8 @@ const BuildMyProfile = () => {
         industry: industry,
         position: position,
         cityTown: city,
-        timePeriodFrom: (startDate ? new Date(startDate).getTime() : ""),
-        timePeriodTo: (endDate ? new Date(endDate).getTime() : ""),
+        timePeriodFrom: startDate ? new Date(startDate).getTime() : "",
+        timePeriodTo: endDate ? new Date(endDate).getTime() : "",
         working: currentlyWorking,
       };
     });
@@ -336,8 +336,8 @@ const BuildMyProfile = () => {
       return {
         schoolCollegeName: collegeName,
         major: major,
-        timePeriodFrom: (startDate ? new Date(startDate).getTime() : ""),
-        timePeriodTo: (endDate ? new Date(endDate).getTime() : ""),
+        timePeriodFrom: startDate ? new Date(startDate).getTime() : "",
+        timePeriodTo: endDate ? new Date(endDate).getTime() : "",
         graduated: graduated,
       };
     });
