@@ -49,7 +49,7 @@ import _ from "lodash";
 import { getTraits } from "utils/";
 import { scrollToTop } from "utils/";
 import { isGetStartedFormDataEmpty } from "utils/";
-import { isSkillFormEmpty } from "utils/";
+import { isNullOrEmpty } from "utils/";
 
 const GetStarted = () => {
   // states
@@ -291,7 +291,7 @@ const GetStarted = () => {
     });
     // remove the ones that we dont know the legacy ids
     mySkillsLegacyIds = mySkillsLegacyIds.filter((s) => s);
-    if (isSkillFormEmpty(mySkillsLegacyIds)) {
+    if (!(isNullOrEmpty(mySkillsLegacyIds) && isNullOrEmpty(deletedSkillsLegacyIds))) {
       return updateMySkills(
         authUser.handle,
         mySkillsLegacyIds,
