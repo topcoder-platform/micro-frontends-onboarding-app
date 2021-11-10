@@ -520,6 +520,7 @@ const BuildMyProfile = () => {
                 endDate,
                 currentlyWorking,
               } = job;
+              console.log(currentlyWorking);
               const name = "jobs";
               return (
                 <div styleName="listinput-item">
@@ -621,6 +622,7 @@ const BuildMyProfile = () => {
                     </FormField>
                     <FormField label={"End Date"}>
                       <DateInput
+                        disabled={currentlyWorking}
                         value={endDate}
                         onChange={(v) => {
                           handleListInputChange(name, index, "endDate", v);
