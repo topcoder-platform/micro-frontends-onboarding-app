@@ -35,6 +35,7 @@ import {
   isAddressFormEmpty,
   isContactFormEmpty,
 } from "utils/";
+import { isNullOrEmpty } from "utils/";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -81,7 +82,7 @@ const ContactDetails = () => {
         }
       })
       .catch((e) => {
-        // toastr.error('Error', 'failed to get countries!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
 
@@ -96,7 +97,7 @@ const ContactDetails = () => {
         setMyProfileData(result);
       })
       .catch((e) => {
-        // toastr.error('Error', 'failed to get profile basic infos!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
   }, [authUser]);
@@ -148,7 +149,7 @@ const ContactDetails = () => {
       })
       .catch((e) => {
         setIsLoading(false);
-        // toastr.error('Error', 'failed to get my contact details!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
   }, []);
@@ -163,6 +164,10 @@ const ContactDetails = () => {
       stateCode: state || "",
       type: "HOME",
     };
+
+    if (!isNullOrEmpty(basicInfo.country) && !isNullOrEmpty(country)) {
+      addressMapped.country = country;
+    }
 
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     if (basicInfo == null && isAddressFormEmpty(addressMapped, basicInfo)) {
