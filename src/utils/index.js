@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { isArray } from "lodash";
 import { instanceOf } from "prop-types";
 
 /**
@@ -37,7 +37,6 @@ export function isProfileFormDataEmpty(type, data) {
         timePeriodFrom instanceof Date ||
         timePeriodTo instanceof Date;
 
-      console.log("response", response);
       return response;
     case "education":
       let { major, schoolCollegeName } = data;
@@ -81,8 +80,8 @@ export function isSkillFormEmpty(data) {
  *
  * @param data {Object}
  */
- export function isNullOrEmpty(data) {
-  return _.isNull(data) || data.length === 0;
+export function isNullOrEmpty(data) {
+  return _.isNull(data) || _.isUndefined(data) || data.length === 0;
 }
 
 /**
@@ -119,4 +118,17 @@ export function isContactFormEmpty(data) {
     data?.workingHourStart.length ||
     data?.zip.length
   );
+}
+
+/**
+ * Get traits from v3 response object to conform to v5 response
+ */
+export function extractTraitsFromV3(data) {
+  return isArray(data?.result?.content) ? data.result.content : [];
+}
+
+export function wrapV3(payload) {
+  return {
+    param: payload,
+  };
 }

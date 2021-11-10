@@ -20,24 +20,21 @@ import FormField from "components/FormElements/FormField";
 import FormInputText from "components/FormElements/FormInputText";
 import Select from "components/ReactSelect";
 import LoadingSpinner from "components/LoadingSpinner";
-import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
-
-import { timeZones } from "constants";
-import { workingHours } from "constants";
+import { BUTTON_SIZE, BUTTON_TYPE, workingHours, timeZones } from "constants";
 import { getAllCountries } from "services/countries";
-import {
-  addMyAddress,
-  updateMyAddress,
-} from "services/basicInfo";
+import { addMyAddress, updateMyAddress } from "services/basicInfo";
 import {
   getContactDetails,
   createContactDetails,
   updateContactDetails,
 } from "services/contactDetails";
-import { getTraits } from "utils/";
-import { scrollToTop } from "utils/";
-import { isAddressFormEmpty } from "utils/";
-import { isContactFormEmpty } from "utils/";
+
+import {
+  scrollToTop,
+  getTraits,
+  isAddressFormEmpty,
+  isContactFormEmpty,
+} from "utils/";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -159,25 +156,20 @@ const ContactDetails = () => {
   const saveMyAddress = (basicInfo) => {
     // update address
     let addressMapped = {
-      streetAddr1: addressLine1,
-      streetAddr2: addressLine2,
-      zip: zipCode,
-      city: city,
-      stateCode: state,
+      streetAddr1: addressLine1 || "",
+      streetAddr2: addressLine2 || "",
+      zip: zipCode || "",
+      city: city || "",
+      stateCode: state || "",
       type: "HOME",
     };
 
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     if (basicInfo == null && isAddressFormEmpty(addressMapped, basicInfo)) {
-      return addMyAddress(authUser.handle, addressMapped, country);
+      return addMyAddress(authUser.handle, addressMapped);
     } else {
       if (isAddressFormEmpty(addressMapped, basicInfo)) {
-        return updateMyAddress(
-          authUser.handle,
-          basicInfo,
-          addressMapped,
-          country
-        );
+        return updateMyAddress(authUser.handle, basicInfo, addressMapped);
       } else {
         return Promise.resolve();
       }
@@ -188,13 +180,13 @@ const ContactDetails = () => {
     // saving contact details
     // map data before passing to server
     let contactDetailsMapped = {
-      city: city,
-      state: state,
-      zip: zipCode,
-      country: country,
-      timeZone: timeZone,
-      workingHourStart: startTime,
-      workingHourEnd: endTime,
+      city: city || "",
+      state: state || "",
+      zip: zipCode || "",
+      country: country || "",
+      timeZone: timeZone || "",
+      workingHourStart: startTime || "",
+      workingHourEnd: endTime || "",
     };
     // check if contact details already exists. if so, update(put data). otherwise, post data.
     if (
@@ -202,11 +194,14 @@ const ContactDetails = () => {
       isContactFormEmpty(contactDetailsMapped)
     ) {
       createContactDetails(authUser.handle, contactDetailsMapped);
-      updateContactDetails(authUser.handle, contactDetailsMapped);
       return Promise.resolve();
     } else {
       if (isContactFormEmpty(contactDetailsMapped)) {
-        return updateContactDetails(authUser.handle, contactDetailsMapped);
+        return updateContactDetails(
+          authUser.handle,
+          contactDetailsOnServer,
+          contactDetailsMapped
+        );
       } else {
         return Promise.resolve();
       }
@@ -222,15 +217,17 @@ const ContactDetails = () => {
     e.preventDefault();
 
     const result = await getContactDetails(authUser.handle);
-    const contactDetailsOnServer = result?.data?.find(
+    const contactDetails = result?.data?.find(
       (t) => t.traitId === "connect_info"
     );
+    const contactDetailsTraits = getTraits(contactDetails);
+
     const basicInfo = result?.data?.find((t) => t.traitId === "basic_info");
     const basicInfoTraits = getTraits(basicInfo);
 
     saveMyAddress(basicInfoTraits)
       .then(() => {
-        return saveContactDetails(contactDetailsOnServer);
+        return saveContactDetails(contactDetailsTraits);
       })
       .then(() => {
         setIsLoading(false);

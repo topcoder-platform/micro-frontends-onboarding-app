@@ -3,14 +3,21 @@
  */
 import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
+import { extractTraitsFromV3 } from "utils/";
 
 /**
  * Get build my profile datas
  */
-export function getBuildProfile(myusername) {
-  return axios.get(
-    `${config.API.V5}/members/${myusername}/traits?traitIds=basic_info,work,education,languages`
-  );
+export async function getBuildProfile(myusername) {
+  try {
+    const response = await axios.get(
+      `${config.API.V3}/members/${myusername}/traits`
+    ); // TODO: add ?traitIds=basic_info,work,education,languages
+
+    return { data: extractTraitsFromV3(response.data) };
+  } catch (err) {
+    return { data: [] };
+  }
 }
 
 /**
