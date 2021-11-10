@@ -43,7 +43,9 @@ const DateInput = (props) => {
         onFocus={props.onFocus}
         showYearDropdown
         onCalendarOpen={() => setOpen(true)}
-        maxDate={moment().subtract(1, "days").toDate()}
+        maxDate={
+          props.allowFutureDate ? null : moment().subtract(1, "days").toDate()
+        }
         disabled={props.disabled}
       />
       <div
@@ -69,6 +71,7 @@ DateInput.propTypes = {
   className: PT.string,
   style2: PT.bool,
   disabled: PT.bool,
+  allowFutureDate: PT.bool,
 };
 
 export default DateInput;

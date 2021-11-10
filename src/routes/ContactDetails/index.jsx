@@ -34,8 +34,8 @@ import {
   getTraits,
   isAddressFormEmpty,
   isContactFormEmpty,
+  isNullOrEmpty,
 } from "utils/";
-import { isNullOrEmpty } from "utils/";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -165,16 +165,17 @@ const ContactDetails = () => {
       type: "HOME",
     };
 
-    if (!isNullOrEmpty(basicInfo.country) && !isNullOrEmpty(country)) {
-      addressMapped.country = country;
-    }
-
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     if (basicInfo == null && isAddressFormEmpty(addressMapped, basicInfo)) {
-      return addMyAddress(authUser.handle, addressMapped);
+      return addMyAddress(authUser.handle, addressMapped, country);
     } else {
       if (isAddressFormEmpty(addressMapped, basicInfo)) {
-        return updateMyAddress(authUser.handle, basicInfo, addressMapped);
+        return updateMyAddress(
+          authUser.handle,
+          basicInfo,
+          addressMapped,
+          country
+        );
       } else {
         return Promise.resolve();
       }

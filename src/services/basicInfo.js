@@ -80,7 +80,7 @@ export function updateMyPrimaryInterests(
 /**
  * Add my address, if the basicInfo not exists
  */
-export function addMyAddress(myusername, address) {
+export function addMyAddress(myusername, address, country) {
   return axios.post(
     `${config.API.V3}/members/${myusername}/traits`,
     wrapV3([
@@ -90,6 +90,7 @@ export function addMyAddress(myusername, address) {
         traits: {
           data: [
             {
+              country,
               addresses: [address],
             },
           ],
@@ -102,7 +103,7 @@ export function addMyAddress(myusername, address) {
 /**
  * Update my address
  */
-export function updateMyAddress(myusername, prevBasicInfo, address) {
+export function updateMyAddress(myusername, prevBasicInfo, address, country) {
   return axios.put(
     `${config.API.V3}/members/${myusername}/traits`,
     wrapV3([
@@ -113,6 +114,7 @@ export function updateMyAddress(myusername, prevBasicInfo, address) {
           data: [
             {
               ...prevBasicInfo,
+              country,
               addresses: [address],
             },
           ],
