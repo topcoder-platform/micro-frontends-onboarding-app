@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
-import { Router } from "@reach/router";
+import { Router, useLocation } from "@reach/router";
 import ReactHeap from 'reactjs-heap';
 import ReduxToastr from "react-redux-toastr";
 import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
@@ -22,6 +22,28 @@ if (HEAP_ANALYTICS_KEY) {
   console.log('heap analytics key missing');
 }
 
+function TrackPageDuration() {
+  const previousPath = React.useRef();
+  const location = useLocation();
+  React.useEffect(() => {
+    if (window.heap && previousPath.current) {
+      window.heap.track('pageExited', {
+        path: previousPath,
+        to: location.pathname
+      });
+    }
+    previousPath.current = location.pathname;
+  }, [location.pathname]);
+  React.useEffect(() => {
+    window.addEventListener('beforeunload', () => {
+      window.heap.track('pageExited', {
+        path: previousPath,
+      });
+    })
+  }, []);
+  return null;
+}
+
 export default function Root() {
   useEffect(() => {
     disableSidebarForRoute("/onboard");
@@ -34,6 +56,9 @@ export default function Root() {
   return (
     <div className={styles["topcoder-micro-frontends-onboarding-app"]}>
       <Provider store={store}>
+        <Router primary={false}>
+          <TrackPageDuration default={true} />
+        </Router>
         <Router>
           <GetStarted path="/onboard" />
           <ContactDetails path="/onboard/contact-details" />
