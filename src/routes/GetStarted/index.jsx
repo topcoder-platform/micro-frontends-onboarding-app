@@ -259,17 +259,12 @@ const GetStarted = () => {
         ) {
           if (isNullOrEmpty(basicInfoTraits.country)) {
             const response = await getAllCountries();
-            console.log("response", response);
-            console.log("home country code", basicInfoTraits.homeCountryCode);
-
             const country = response.data?.result.content.find(
               (country) =>
                 country.countryCode == basicInfoTraits.homeCountryCode
             );
             if (country != null) {
               basicInfoTraits.country = country.country;
-            } else {
-              console.log("country not found");
             }
           }
           return addMyPrimaryInterests(

@@ -1,21 +1,17 @@
 /** Build My Profile page */
 import React, { useState, useEffect } from "react";
-import PT from "prop-types";
 import "./styles.module.scss";
 import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
-import { toastr } from "react-redux-toastr";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 // import components and other stuffs
 import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
-import PageH1 from "components/PageElements/PageH1";
 import PageH2 from "components/PageElements/PageH2";
 import PageH3 from "components/PageElements/PageH3";
 import PageP from "components/PageElements/PageP";
-import PageUl from "components/PageElements/PageUl";
 import PageRow from "components/PageElements/PageRow";
 import PageFoot from "components/PageElements/PageFoot";
 import PageCard from "components/PageElements/PageCard";
@@ -29,7 +25,6 @@ import FormInputTextArea from "components/FormElements/FormInputTextArea";
 import Select from "components/ReactSelect";
 import DateInput from "components/DateInput";
 import LoadingSpinner from "components/LoadingSpinner";
-import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
 import ImgTestimonial2 from "../../assets/images/testimonial-2.png";
 import IconCross from "../../assets/images/icon-cross.svg";
 
@@ -38,6 +33,8 @@ import {
   languages as languagesList,
   spokenLevels,
   writtenLevels,
+  BUTTON_SIZE,
+  BUTTON_TYPE,
 } from "constants";
 import { addMyTitleAndBio, updateMyTitleAndBio } from "services/basicInfo";
 import {
@@ -49,11 +46,10 @@ import {
   createLanguageExperiences,
   updateLanguageExperiences,
 } from "services/buildMyProfile";
-import { getTraits } from "utils/";
-import { scrollToTop } from "utils/";
+import { getTraits, scrollToTop, isProfileFormDataEmpty } from "utils/";
+
 import moment from "moment";
 import _ from "lodash";
-import { isProfileFormDataEmpty } from "utils/";
 
 const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -436,21 +432,34 @@ const BuildMyProfile = () => {
     const basicInfo = result?.data?.find((t) => t.traitId === "basic_info");
     const basicInfoTraits = getTraits(basicInfo);
 
-    saveMyTitleAndBio(basicInfoTraits)
-      .then(() => {
-        return saveJobs(workExperience);
-      })
-      .then(() => {
-        return saveEducations(educationExperience);
-      })
-      .then(() => {
-        return saveLanguages(languageExperience);
-      })
-      .then(() => {
-        setIsLoading(false);
-        // toastr.success("Success", "Successfully saved profile!");
-        navigate("/onboard/complete");
-      });
+    try {
+      await saveMyTitleAndBio(basicInfoTraits);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
+
+    try {
+      await saveJobs(workExperience);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
+    try {
+      await saveEducations(educationExperience);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
+    try {
+      await saveLanguages(languageExperience);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
+
+    setIsLoading(false);
+    navigate("/onboard/complete");
   };
 
   return (
