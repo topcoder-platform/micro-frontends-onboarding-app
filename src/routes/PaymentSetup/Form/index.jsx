@@ -48,6 +48,7 @@ const TaxForm = ({ formName }) => {
   };
 
   const onCompleteForm = () => {
+    window.open(formDetails.formUrl);
     navigate(`/onboard/payment-setup/tax-form/${formName}/confirm`);
   };
 
