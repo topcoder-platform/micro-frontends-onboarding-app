@@ -25,18 +25,33 @@ const UploadPhotoModal = ({
   onPhotoSaved = (f) => f,
 }) => {
   // react dropzone hooks
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const {
+    acceptedFiles,
+    fileRejections,
+    getRootProps,
+    getInputProps,
+  } = useDropzone({
     multiple: false,
     accept: "image/jpg, image/jpeg, image/png",
     minSize: 1,
     maxSize: 2097152,
   });
   const [photoSrc, setPhotoSrc] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   useEffect(() => {
     if (acceptedFiles && acceptedFiles.length) {
       setPhotoSrc(URL.createObjectURL(acceptedFiles[0]));
     }
   }, [acceptedFiles]);
+
+  useEffect(() => {
+    if (fileRejections && fileRejections.length) {
+      setErrorMessage("Oops! Please upload required size of image.");
+    } else {
+      setErrorMessage("");
+    }
+  }, [fileRejections]);
+
   const handleBackClick = (e) => {
     if (!photoSrc) handleClose(e);
     else setPhotoSrc("");
@@ -83,13 +98,16 @@ const UploadPhotoModal = ({
         >
           {"< "}Back
         </Button>
-        <Button
-          size={BUTTON_SIZE.MEDIUM}
-          disabled={!photoSrc}
-          onClick={handleSaveClick}
-        >
-          Save
-        </Button>
+        <div styleName="right-content">
+          {errorMessage && <p styleName="error-message">{errorMessage}</p>}
+          <Button
+            size={BUTTON_SIZE.MEDIUM}
+            disabled={!photoSrc}
+            onClick={handleSaveClick}
+          >
+            Save
+          </Button>
+        </div>
       </PageFoot>
     </Modal>
   );
