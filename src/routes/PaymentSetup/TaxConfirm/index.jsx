@@ -20,6 +20,7 @@ import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import styles from "./styles.module.scss";
 import "rc-checkbox/assets/index.css";
+import { TAX_FORM } from "constants/";
 
 /**
  * Page shown to get the confirmation from the user on the tax form
@@ -44,7 +45,7 @@ const TaxConfirm = ({ formName }) => {
   };
 
   const onConfirm = () => {
-    localStorage.setItem("tax_form", formName);
+    localStorage.setItem(TAX_FORM, formName);
     navigate(`/onboard/payment-setup/tax-form/${formName}/complete`);
   };
 

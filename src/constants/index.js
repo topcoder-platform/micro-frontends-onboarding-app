@@ -95,6 +95,8 @@ export const ACTION_TYPE = {
 };
 
 export const MAX_COMPLETED_STEP = "MAX_COMPLETED_STEP";
+export const PAYMENT_PROVIDER = "payment_provider";
+export const TAX_FORM = "tax_form";
 
 /**
  * Map of payment method to the display name

@@ -27,6 +27,7 @@ import "rc-checkbox/assets/index.css";
 import styles from "./styles.module.scss";
 import ScrollToBottom from "components/ScrollToBottom";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import { PAYMENT_PROVIDER } from "constants/";
 
 /**
  * This page is shown when the user selects one of the payment methods from payment providers page
@@ -67,7 +68,7 @@ const PaymentMethod = ({ paymentMethod }) => {
   };
 
   const onConfirm = () => {
-    localStorage.setItem("payment_provider", paymentMethod);
+    localStorage.setItem(PAYMENT_PROVIDER, paymentMethod);
     navigate(
       `/onboard/payment-setup/payment-provider/${paymentMethod}/complete`
     );
