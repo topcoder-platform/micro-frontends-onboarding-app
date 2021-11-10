@@ -1,13 +1,14 @@
 /** Get Started page */
 import React, { useState, useEffect } from "react";
-import PT from "prop-types";
 import "./styles.module.scss";
 import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
-import { setUserProfilePhoto } from "@topcoder/micro-frontends-navbar-app";
-import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
-import { toastr } from "react-redux-toastr";
+import {
+  setUserProfilePhoto,
+  getAuthUserProfile,
+} from "@topcoder/micro-frontends-navbar-app";
+
 // import components and other stuffs
 import Page from "components/Page";
 import PageContent from "components/PageContent";
@@ -23,19 +24,19 @@ import PageCard from "components/PageElements/PageCard";
 import InterestsList from "components/InterestsList";
 import SkillsList from "components/SkillsList";
 import Button from "components/Button";
-import Modal from "components/Modal";
 import OnboardProgress from "components/OnboardProgress";
 import UploadPhotoModal from "components/UploadPhotoModal";
 import AddSkillsModal from "components/AddSkillsModal";
 import LoadingSpinner from "components/LoadingSpinner";
 
-import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
-import { skills as allSkills } from "constants";
-import { interests as allInterests } from "constants";
+import {
+  BUTTON_SIZE,
+  skills as allSkills,
+  interests as allInterests,
+} from "constants";
 
 import IconEdit from "../../assets/images/icon-edit.svg";
 import IconUpload from "../../assets/images/icon-upload.svg";
-import IconDelete from "../../assets/images/icon-delete.svg";
 import ImgTestimonial1 from "../../assets/images/testimonial-1.png";
 
 import { getAllSkills, getMemberSkills, updateMySkills } from "services/skills";
@@ -46,10 +47,13 @@ import {
 } from "services/basicInfo";
 import { getMemberData, uploadProfilePhoto } from "services/memberData";
 import _ from "lodash";
-import { getTraits } from "utils/";
-import { scrollToTop } from "utils/";
-import { isGetStartedFormDataEmpty } from "utils/";
-import { isNullOrEmpty } from "utils/";
+import {
+  getTraits,
+  scrollToTop,
+  isGetStartedFormDataEmpty,
+  isNullOrEmpty,
+} from "utils/";
+import { getAllCountries } from "services/countries";
 
 const GetStarted = () => {
   // states
@@ -177,7 +181,6 @@ const GetStarted = () => {
       .catch((e) => {
         setIsLoading(false);
         // toastr.error('Error', 'failed to get profile skills!');
-        console.log(e);
       });
   }, [authUser, allSkillsLive]);
 
@@ -247,14 +250,33 @@ const GetStarted = () => {
       .join(", ");
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     return getMyBasicInfo(authUser.handle)
-      .then((result) => {
+      .then(async (result) => {
         const basicInfoTraits = getTraits(result?.data[0]);
-
         if (
-          basicInfoTraits == null &&
+          // v3 requires a create call (for traitId = "basic_info") if country is missing
+          (basicInfoTraits == null || isNullOrEmpty(basicInfoTraits.country)) &&
           isGetStartedFormDataEmpty(myInterestsFlat)
         ) {
-          return addMyPrimaryInterests(authUser.handle, myInterestsFlat);
+          if (isNullOrEmpty(basicInfoTraits.country)) {
+            const response = await getAllCountries();
+            console.log("response", response);
+            console.log("home country code", basicInfoTraits.homeCountryCode);
+
+            const country = response.data?.result.content.find(
+              (country) =>
+                country.countryCode == basicInfoTraits.homeCountryCode
+            );
+            if (country != null) {
+              basicInfoTraits.country = country.country;
+            } else {
+              console.log("country not found");
+            }
+          }
+          return addMyPrimaryInterests(
+            authUser.handle,
+            basicInfoTraits, // we could get here if basicInfoTraits.country == null
+            myInterestsFlat
+          );
         } else {
           if (isGetStartedFormDataEmpty(myInterestsFlat)) {
             return updateMyPrimaryInterests(
@@ -291,7 +313,12 @@ const GetStarted = () => {
     });
     // remove the ones that we dont know the legacy ids
     mySkillsLegacyIds = mySkillsLegacyIds.filter((s) => s);
-    if (!(isNullOrEmpty(mySkillsLegacyIds) && isNullOrEmpty(deletedSkillsLegacyIds))) {
+    if (
+      !(
+        isNullOrEmpty(mySkillsLegacyIds) &&
+        isNullOrEmpty(deletedSkillsLegacyIds)
+      )
+    ) {
       return updateMySkills(
         authUser.handle,
         mySkillsLegacyIds,

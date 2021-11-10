@@ -3,6 +3,7 @@
  */
 import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
+import { extractTraitsFromV3, wrapV3 } from "utils/";
 
 const TRAIT_BASIC_INFO = "basic_info";
 const CATEGORY_NAME = "Basic Info";
@@ -10,29 +11,43 @@ const CATEGORY_NAME = "Basic Info";
 /**
  * Loads my basic info (To get interests)
  */
-export function getMyBasicInfo(myusername) {
-  return axios.get(
-    `${config.API.V5}/members/${myusername}/traits?traitIds=basic_info`
-  );
+export async function getMyBasicInfo(myusername) {
+  try {
+    const response = await axios.get(
+      `${config.API.V3}/members/${myusername}/traits?traitIds=basic_info`
+    );
+
+    return { data: extractTraitsFromV3(response.data) };
+  } catch (err) {
+    return { data: [] };
+  }
 }
 
 /**
  * Add my interests
  */
-export function addMyPrimaryInterests(myusername, interestsFlat) {
-  return axios.post(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      categoryName: CATEGORY_NAME,
-      traitId: TRAIT_BASIC_INFO,
-      traits: {
-        data: [
-          {
-            primaryInterestInTopcoder: interestsFlat,
-          },
-        ],
+export function addMyPrimaryInterests(
+  myusername,
+  previousBasicInfo,
+  interestsFlat
+) {
+  return axios.post(
+    `${config.API.V3}/members/${myusername}/traits`,
+    wrapV3([
+      {
+        traitId: TRAIT_BASIC_INFO,
+        categoryName: CATEGORY_NAME,
+        traits: {
+          data: [
+            {
+              ...previousBasicInfo,
+              primaryInterestInTopcoder: interestsFlat,
+            },
+          ],
+        },
       },
-    },
-  ]);
+    ])
+  );
 }
 
 /**
@@ -43,94 +58,107 @@ export function updateMyPrimaryInterests(
   prevBasicInfo,
   interestsFlat
 ) {
-  return axios.put(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      categoryName: CATEGORY_NAME,
-      traitId: TRAIT_BASIC_INFO,
-      traits: {
-        data: [
-          {
-            ...prevBasicInfo,
-            primaryInterestInTopcoder: interestsFlat,
-          },
-        ],
+  return axios.put(
+    `${config.API.V3}/members/${myusername}/traits`,
+    wrapV3([
+      {
+        traitId: TRAIT_BASIC_INFO,
+        categoryName: CATEGORY_NAME,
+        traits: {
+          data: [
+            {
+              ...prevBasicInfo,
+              primaryInterestInTopcoder: interestsFlat,
+            },
+          ],
+        },
       },
-    },
-  ]);
+    ])
+  );
 }
 
 /**
  * Add my address, if the basicInfo not exists
  */
-export function addMyAddress(myusername, address, country) {
-  return axios.post(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      categoryName: CATEGORY_NAME,
-      traitId: TRAIT_BASIC_INFO,
-      traits: {
-        data: [
-          {
-            addresses: [address],
-            country,
-          },
-        ],
+export function addMyAddress(myusername, address) {
+  return axios.post(
+    `${config.API.V3}/members/${myusername}/traits`,
+    wrapV3([
+      {
+        traitId: TRAIT_BASIC_INFO,
+        categoryName: CATEGORY_NAME,
+        traits: {
+          data: [
+            {
+              addresses: [address],
+            },
+          ],
+        },
       },
-    },
-  ]);
+    ])
+  );
 }
 
 /**
  * Update my address
  */
-export function updateMyAddress(myusername, prevBasicInfo, address, country) {
-  return axios.put(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      categoryName: CATEGORY_NAME,
-      traitId: TRAIT_BASIC_INFO,
-      traits: {
-        data: [
-          {
-            ...prevBasicInfo,
-            addresses: [address],
-            country,
-          },
-        ],
+export function updateMyAddress(myusername, prevBasicInfo, address) {
+  return axios.put(
+    `${config.API.V3}/members/${myusername}/traits`,
+    wrapV3([
+      {
+        traitId: TRAIT_BASIC_INFO,
+        categoryName: CATEGORY_NAME,
+        traits: {
+          data: [
+            {
+              ...prevBasicInfo,
+              addresses: [address],
+            },
+          ],
+        },
       },
-    },
-  ]);
+    ])
+  );
 }
 
 /**
  * Add my title and bio, if the basicInfo not exists
  */
 export function addMyTitleAndBio(myusername, data) {
-  return axios.post(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      categoryName: CATEGORY_NAME,
-      traitId: TRAIT_BASIC_INFO,
-      traits: {
-        data: [data],
+  return axios.post(
+    `${config.API.V3}/members/${myusername}/traits`,
+    wrapV3([
+      {
+        traitId: TRAIT_BASIC_INFO,
+        categoryName: CATEGORY_NAME,
+        traits: {
+          data: [data],
+        },
       },
-    },
-  ]);
+    ])
+  );
 }
 
 /**
  * Update my title and bio
  */
 export function updateMyTitleAndBio(myusername, prevBasicInfo, data) {
-  return axios.put(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      categoryName: CATEGORY_NAME,
-      traitId: TRAIT_BASIC_INFO,
-      traits: {
-        data: [
-          {
-            ...prevBasicInfo,
-            ...data,
-          },
-        ],
+  return axios.put(
+    `${config.API.V3}/members/${myusername}/traits`,
+    wrapV3([
+      {
+        traitId: TRAIT_BASIC_INFO,
+        categoryName: CATEGORY_NAME,
+        traits: {
+          data: [
+            {
+              ...prevBasicInfo,
+              ...data,
+            },
+          ],
+        },
       },
-    },
-  ]);
+    ])
+  );
 }
