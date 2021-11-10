@@ -79,8 +79,8 @@ const TaxForm = () => {
           <PageH1 styleName="tax-form-title">Select a Tax Form</PageH1>
           <PageP styleName="tax-form-description">
             All members need to have a tax form on file before they can be paid.
-            There are two options: a W-9 or a W-8BEN. Select a form below for
-            more information.
+            There are two options: a W-9 or a W-8BEN. <br /> Select a form below
+            for more information.
           </PageP>
           <div styleName="forms-list">
             <div styleName={cn("form-item", "with-margin")}>
