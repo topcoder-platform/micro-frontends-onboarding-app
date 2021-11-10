@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CalendarIcon from "../../assets/images/icon-calendar.svg";
 import ArrowIcon from "../../assets/images/icon-arrow.svg";
 import styles from "./styles.module.scss";
+import moment from "moment";
 
 const DateInput = (props) => {
   const [open, setOpen] = useState(false);
@@ -42,6 +43,8 @@ const DateInput = (props) => {
         onFocus={props.onFocus}
         showYearDropdown
         onCalendarOpen={() => setOpen(true)}
+        maxDate={moment().subtract(1, "days").toDate()}
+        disabled={props.disabled}
       />
       <div
         styleName={cn(
@@ -65,6 +68,7 @@ DateInput.propTypes = {
   onFocus: PT.func,
   className: PT.string,
   style2: PT.bool,
+  disabled: PT.bool,
 };
 
 export default DateInput;
