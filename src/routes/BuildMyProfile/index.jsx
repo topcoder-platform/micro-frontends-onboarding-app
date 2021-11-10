@@ -50,6 +50,7 @@ import { getTraits, scrollToTop, isProfileFormDataEmpty } from "utils/";
 
 import moment from "moment";
 import _ from "lodash";
+import { createTraits, updateTraits } from "services/traits";
 
 const formatDate = (date) => {
   let ret = new Date(
@@ -278,7 +279,7 @@ const BuildMyProfile = () => {
   }, []);
 
   // save title / bio
-  const saveMyTitleAndBio = (basicInfo) => {
+  const getTitleAndBioData = (basicInfo) => {
     const { title, bio } = formData;
     // mapped data
     let data = {
@@ -287,18 +288,43 @@ const BuildMyProfile = () => {
     };
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     if (basicInfo == null && isProfileFormDataEmpty("bio", data)) {
-      return addMyTitleAndBio(authUser.handle, data);
+      return {
+        action: "create",
+        data: {
+          categoryName: "Basic Info",
+          traitId: "basic_info",
+          traits: {
+            data: [data],
+          },
+        },
+      };
+      // return addMyTitleAndBio(authUser.handle, data);
     } else {
       if (isProfileFormDataEmpty("bio", data)) {
-        return updateMyTitleAndBio(authUser.handle, basicInfo, data);
+        // return updateMyTitleAndBio(authUser.handle, basicInfo, data);
+        return {
+          action: "update",
+          data: {
+            categoryName: "Basic Info",
+            traitId: "basic_info",
+            traits: {
+              data: [
+                {
+                  ...basicInfo,
+                  ...data,
+                },
+              ],
+            },
+          },
+        };
       } else {
-        return Promise.resolve();
+        return null;
       }
     }
   };
 
   // save jobs
-  const saveJobs = (workExp) => {
+  const getJobsData = (workExp) => {
     // mapped data
     let data = jobs.map((job) => {
       const {
@@ -321,20 +347,31 @@ const BuildMyProfile = () => {
       };
     });
 
+    const payload = {
+      categoryName: "Work",
+      traitId: "work",
+      traits: {
+        data: data,
+      },
+    };
+
     // create if not exists, update if exists
     if (!workExp && isProfileFormDataEmpty("work", data[0])) {
-      return createWorkExperiences(authUser.handle, data);
+      // return createWorkExperiences(authUser.handle, data);
+      return { action: "create", data: payload };
     } else {
       if (isProfileFormDataEmpty("work", data[0])) {
-        return updateWorkExperiences(authUser.handle, data);
+        // return updateWorkExperiences(authUser.handle, data);
+        return { action: "update", data: payload };
       } else {
-        return Promise.resolve();
+        // return Promise.resolve();
+        return null;
       }
     }
   };
 
   // save educations
-  const saveEducations = (educationExp) => {
+  const getEducationData = (educationExp) => {
     // mapped data
     let data = educations.map((education) => {
       const { collegeName, major, startDate, endDate, graduated } = education;
@@ -347,20 +384,33 @@ const BuildMyProfile = () => {
       };
     });
 
+    const payload = {
+      categoryName: "Education",
+      traitId: "education",
+      traits: {
+        data: data,
+      },
+    };
+
     // create if not exists, update if exists
     if (!educationExp && isProfileFormDataEmpty("education", data[0])) {
-      return createEducationExperiences(authUser.handle, data);
+      // return createEducationExperiences(authUser.handle, data);
+      return { action: "create", data: payload };
     } else {
       if (isProfileFormDataEmpty("education", data[0])) {
-        return updateEducationExperiences(authUser.handle, data);
+        // return updateEducationExperiences(authUser.handle, data);
+        return {
+          action: "update",
+          data: payload,
+        };
       } else {
-        return Promise.resolve();
+        return null;
       }
     }
   };
 
   // save languages
-  const saveLanguages = (languagesExp) => {
+  const getLanguagesData = (languagesExp) => {
     // mapped data
     let data = languages.map((language_) => {
       const { language, spokenLevel, writtenLevel } = language_;
@@ -371,14 +421,28 @@ const BuildMyProfile = () => {
       };
     });
 
+    const payload = {
+      categoryName: "Languages",
+      traitId: "languages",
+      traits: {
+        data: data,
+      },
+    };
+
     // create if not exists, update if exists
     if (!languagesExp && isProfileFormDataEmpty("language", data[0])) {
-      return createLanguageExperiences(authUser.handle, data);
+      // return createLanguageExperiences(authUser.handle, data);
+      return { action: "create", data: payload };
     } else {
       if (isProfileFormDataEmpty("language", data[0])) {
-        return updateLanguageExperiences(authUser.handle, data);
+        // return updateLanguageExperiences(authUser.handle, data);
+        return {
+          action: "update",
+          data: payload,
+        };
       } else {
-        return Promise.resolve();
+        // return Promise.resolve();
+        return null;
       }
     }
   };
@@ -416,30 +480,55 @@ const BuildMyProfile = () => {
     const basicInfo = result?.data?.find((t) => t.traitId === "basic_info");
     const basicInfoTraits = getTraits(basicInfo);
 
-    try {
-      await saveMyTitleAndBio(basicInfoTraits);
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
+    const traitsToCreate = [];
+    const traitsToUpdate = [];
+
+    const functions = [
+      {
+        val: basicInfoTraits,
+        func: getTitleAndBioData,
+      },
+      {
+        val: workExperience,
+        func: getJobsData,
+      },
+      {
+        val: educationExperience,
+        func: getEducationData,
+      },
+      {
+        val: languageExperience,
+        func: getLanguagesData,
+      },
+    ];
+
+    for (let f of functions) {
+      let data = f.func(basicInfoTraits);
+      if (data != null) {
+        if (data.action === "create") {
+          traitsToCreate.push(data.data);
+        } else {
+          traitsToUpdate.push(data.data);
+        }
+      }
     }
 
-    try {
-      await saveJobs(workExperience);
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
+    if (traitsToCreate.length > 0) {
+      try {
+        await createTraits(authUser.handle, traitsToCreate);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log("Failed to create traits", err);
+      }
     }
-    try {
-      await saveEducations(educationExperience);
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
-    }
-    try {
-      await saveLanguages(languageExperience);
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
+
+    if (traitsToUpdate.length > 0) {
+      try {
+        await updateTraits(authUser.handle, traitsToUpdate);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log("Failed to update traits", err);
+      }
     }
 
     setIsLoading(false);
