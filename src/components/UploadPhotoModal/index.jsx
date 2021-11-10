@@ -28,6 +28,8 @@ const UploadPhotoModal = ({
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: "image/jpg, image/jpeg, image/png",
+    minSize: 1,
+    maxSize: 2097152,
   });
   const [photoSrc, setPhotoSrc] = useState("");
   useEffect(() => {
