@@ -14,6 +14,7 @@ import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
 import PaymentMethods from "components/PaymentMethods";
 import StepsIndicator from "components/StepsIndicator";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
 
@@ -23,9 +24,24 @@ import "./styles.module.scss";
  */
 const PaymentProviders = () => {
   const authUser = useSelector((state) => state.authUser);
+  const [myProfileData, setMyProfileData] = React.useState({});
+
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
   };
+
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
 
   return (
     <Page title="Payment Setup" styleName="page-wrapper">
@@ -52,9 +68,12 @@ const PaymentProviders = () => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="select" />
             </div>
           </div>
-          <div styleName="user-name">{authUser.handle}!</div>
+          <div styleName="user-name">
+            {`${myProfileData?.firstName || ""} ${
+              myProfileData?.lastName || ""
+            } | ${myProfileData?.handle || ""}`}
+          </div>
           <PageDivider styleName="page-divider" />
-
           <PageH1 styleName="connect-service-title">
             Connect a Payment Service Provider
           </PageH1>

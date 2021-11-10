@@ -311,8 +311,20 @@ const BuildMyProfile = () => {
         industry: industry,
         position: position,
         cityTown: city,
-        timePeriodFrom: startDate ? new Date(`${startDate.getMonth() + 1} ${startDate.getDay()} ${startDate.getFullYear()} 06:00 UTC`).getTime() : "",
-        timePeriodTo: endDate ? new Date(`${endDate.getMonth() + 1} ${endDate.getDay()} ${endDate.getFullYear()} 06:00 UTC`).getTime() : "",
+        timePeriodFrom: startDate
+          ? new Date(
+              `${
+                startDate.getMonth() + 1
+              } ${startDate.getDay()} ${startDate.getFullYear()} 06:00 UTC`
+            ).getTime()
+          : "",
+        timePeriodTo: endDate
+          ? new Date(
+              `${
+                endDate.getMonth() + 1
+              } ${endDate.getDay()} ${endDate.getFullYear()} 06:00 UTC`
+            ).getTime()
+          : "",
         working: currentlyWorking,
       };
     });
@@ -337,8 +349,20 @@ const BuildMyProfile = () => {
       return {
         schoolCollegeName: collegeName,
         major: major,
-        timePeriodFrom: startDate ? new Date(`${startDate.getMonth() + 1} ${startDate.getDay()} ${startDate.getFullYear()} 06:00 UTC`).getTime() : "",
-        timePeriodTo: endDate ? new Date(`${endDate.getMonth() + 1} ${endDate.getDay()} ${endDate.getFullYear()} 06:00 UTC`).getTime() : "",
+        timePeriodFrom: startDate
+          ? new Date(
+              `${
+                startDate.getMonth() + 1
+              } ${startDate.getDay()} ${startDate.getFullYear()} 06:00 UTC`
+            ).getTime()
+          : "",
+        timePeriodTo: endDate
+          ? new Date(
+              `${
+                endDate.getMonth() + 1
+              } ${endDate.getDay()} ${endDate.getFullYear()} 06:00 UTC`
+            ).getTime()
+          : "",
         graduated: graduated,
       };
     });
@@ -520,6 +544,7 @@ const BuildMyProfile = () => {
                 endDate,
                 currentlyWorking,
               } = job;
+              console.log(currentlyWorking);
               const name = "jobs";
               return (
                 <div styleName="listinput-item">
@@ -621,6 +646,7 @@ const BuildMyProfile = () => {
                     </FormField>
                     <FormField label={"End Date"}>
                       <DateInput
+                        disabled={currentlyWorking}
                         value={endDate}
                         onChange={(v) => {
                           handleListInputChange(name, index, "endDate", v);
@@ -890,11 +916,7 @@ const BuildMyProfile = () => {
           <PageDivider />
           <PageFoot></PageFoot>
           <PageFoot align="between">
-            {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
-            {/* <Link to="/onboard/payment-setup">
-              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>{"< "}Back</Button>
-            </Link> */}
-            <Link to="/onboard/contact-details">
+            <Link to="/onboard/payment-setup">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
                 {"< "}Back
               </Button>
@@ -911,7 +933,7 @@ const BuildMyProfile = () => {
               </Button>
             </Link>
           </PageFoot>
-          <OnboardProgress level={3} />
+          <OnboardProgress level={4} />
         </PageContent>
       </Page>
     </>

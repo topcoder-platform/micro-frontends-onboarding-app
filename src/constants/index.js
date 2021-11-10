@@ -59,7 +59,7 @@ export const writtenLevels = writtenLevel.map((v) => v.name);
 export const ProgressLevels = [
   { label: "Get Started", url: "/onboard" },
   { label: "Contact Details", url: "/onboard/contact-details" },
-  // "Payment Setup", {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
+  { label: "Payment Setup", url: "/onboard/payment-setup" },
   { label: "Building My Profile", url: "/onboard/build-my-profile" },
   { label: "Complete", url: "/onboard/complete" },
 ];
@@ -128,14 +128,14 @@ export const PAYMENT_METHODS = [
     name: "paypal",
     fees:
       "3.49% + an international fee (non US) + a fixed fee depending upon currency",
-    countries: 150,
+    countries: 200,
     speed: 1,
   },
   {
     name: "western-union",
-    fees: "$8 per transaction(your bank may charge additional fees)",
-    countries: 150,
-    speed: 1,
+    fees: "$8 per transaction (your bank may charge additional fees)",
+    countries: 200,
+    speed: 3,
   },
 ];
 
@@ -186,7 +186,7 @@ export const PAYMENT_METHOD_DETAILS_MAP = {
       },
       {
         label:
-          "Please DO NOT provider a link to your PayPal account. We only need your PayPal email address.",
+          "Please DO NOT provide a link to your PayPal account. We only need your PayPal email address.",
       },
     ],
     conditions: `

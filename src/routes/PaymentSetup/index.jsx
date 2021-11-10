@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import PT from "prop-types";
 import "./styles.module.scss";
-import { Link } from "@reach/router";
+import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
 // import components and other stuffs
@@ -16,38 +16,54 @@ import PageP from "components/PageElements/PageP";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import IconCheck from "../../assets/images/check.svg";
 
 const PaymentSetup = () => {
   const authUser = useSelector((state) => state.authUser);
+  const navigate = useNavigate();
 
   const [isTaxFormCompleted, setIsTaxFormCompleted] = useState(false);
   const [isPaymentServiceSelected, setIsPaymentServiceSelected] = useState(
     false
   );
+  const [myProfileData, setMyProfileData] = useState({});
 
   function completeTaxForm() {
-    localStorage.setItem("tax_form", "W-9");
-    setIsTaxFormCompleted(true);
+    navigate("/onboard/payment-setup/tax-form");
   }
 
   function selectPaymentService() {
-    localStorage.setItem("payment_service", "Payoneer");
-    setIsPaymentServiceSelected(true);
+    navigate("/onboard/payment-setup/payment-provider");
   }
 
   React.useEffect(() => {
     setIsTaxFormCompleted(!!localStorage.getItem("tax_form"));
-    setIsPaymentServiceSelected(!!localStorage.getItem("payment_service"));
+    setIsPaymentServiceSelected(!!localStorage.getItem("payment_provider"));
   }, []);
+
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
 
   return (
     <>
       <Page title="Payment Setup" styleName="payment-setup">
         <PageContent>
           <PageH2>Payment Setup</PageH2>
-          {authUser.handle}!
+          {`${myProfileData?.firstName || ""} ${
+            myProfileData?.lastName || ""
+          } | ${myProfileData?.handle || ""}`}
           <PageDivider />
           <PageH1>Get paid for your work.</PageH1>
           <PageP styleName="para">
@@ -95,13 +111,19 @@ const PaymentSetup = () => {
               </div>
             )}
             {isPaymentServiceSelected && (
-              <SuccessMessage message="You have submitted account details  to use Payoneer as your Payment Service Provider." />
+              <SuccessMessage message="You have submitted account details to use Payoneer as your Payment Service Provider." />
             )}
           </div>
           <PageP styleName="para">
             Once Payments Set-up has been completed, you will be able to manage
-            payments from your Topcoder account. For more information, see:
-            Topcoder Payment Policies
+            payments from your Topcoder account. For more information, see:{" "}
+            <a
+              href="https://www.topcoder.com/thrive/articles/payment-policies-and-instructions"
+              styleName="link"
+              target="_blank"
+            >
+              Topcoder Payment Policies
+            </a>
           </PageP>
           <PageDivider />
           <PageFoot align="between">

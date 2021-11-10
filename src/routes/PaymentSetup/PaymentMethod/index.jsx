@@ -26,6 +26,7 @@ import StepsIndicator from "components/StepsIndicator";
 import "rc-checkbox/assets/index.css";
 import styles from "./styles.module.scss";
 import ScrollToBottom from "components/ScrollToBottom";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 /**
  * This page is shown when the user selects one of the payment methods from payment providers page
@@ -34,6 +35,7 @@ import ScrollToBottom from "components/ScrollToBottom";
 const PaymentMethod = ({ paymentMethod }) => {
   const authUser = useSelector((state) => state.authUser);
   const [emailedDetails, setEmailedDetails] = useState(false);
+  const [myProfileData, setMyProfileData] = React.useState({});
 
   useEffect(() => {
     // Scroll to top on load of the page
@@ -71,6 +73,19 @@ const PaymentMethod = ({ paymentMethod }) => {
     );
   };
 
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
+
   return (
     <Page title="Payment Setup" styleName="styles.page-wrapper">
       <div styleName="styles.page-title">Member Onboarding</div>
@@ -94,7 +109,11 @@ const PaymentMethod = ({ paymentMethod }) => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="confirm" />
             </div>
           </div>
-          <div styleName="styles.user-name">{authUser.handle}!</div>
+          <div styleName="styles.user-name">
+            {`${myProfileData?.firstName || ""} ${
+              myProfileData?.lastName || ""
+            } | ${myProfileData?.handle || ""}`}
+          </div>
           <PageDivider styleName="styles.page-divider" />
 
           <div styleName="styles.container">
@@ -108,7 +127,12 @@ const PaymentMethod = ({ paymentMethod }) => {
                 />
                 <span styleName="styles.label">
                   Yes, I have emailed my details to{" "}
-                  <a styleName="styles.support-email">support@topcoder.com</a>
+                  <a
+                    href="mailto:support@topcoder.com"
+                    styleName="styles.support-email"
+                  >
+                    support@topcoder.com
+                  </a>
                 </span>
               </label>
               {emailedDetails && <ScrollToBottom />}

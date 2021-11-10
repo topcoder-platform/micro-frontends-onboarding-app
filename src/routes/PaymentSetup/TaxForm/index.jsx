@@ -14,6 +14,7 @@ import PageDivider from "components/PageDivider";
 import StepsIndicator from "components/StepsIndicator";
 import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
 
@@ -23,6 +24,7 @@ import "./styles.module.scss";
  */
 const TaxForm = () => {
   const authUser = useSelector((state) => state.authUser);
+  const [myProfileData, setMyProfileData] = React.useState({});
 
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
@@ -31,6 +33,19 @@ const TaxForm = () => {
   const navigateToTaxForm = (name) => {
     navigate(`/onboard/payment-setup/tax-form/${name}`);
   };
+
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
 
   return (
     <Page title="Payment Setup" styleName="page-wrapper">
@@ -55,13 +70,17 @@ const TaxForm = () => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="select" />
             </div>
           </div>
-          <div styleName="user-name">{authUser.handle}!</div>
+          <div styleName="user-name">
+            {`${myProfileData?.firstName || ""} ${
+              myProfileData?.lastName || ""
+            } | ${myProfileData?.handle || ""}`}
+          </div>
           <PageDivider styleName="page-divider" />
           <PageH1 styleName="tax-form-title">Select a Tax Form</PageH1>
           <PageP styleName="tax-form-description">
             All members need to have a tax form on file before they can be paid.
-            There are two options: a W-9 or a W-8BEN. Select a form below for
-            more information.
+            There are two options: a W-9 or a W-8BEN. <br /> Select a form below
+            for more information.
           </PageP>
           <div styleName="forms-list">
             <div styleName={cn("form-item", "with-margin")}>

@@ -58,10 +58,6 @@ const Complete = () => {
               CONGRATULATIONS!
             </PageH2>
             <PageP>
-              Almost done! Be sure to go set up your payment so you can get paid
-              for your work
-            </PageP>
-            <PageP>
               Now it's time to put your skills to good use. Go explore your new
               Topcoder home and discover the ways you can earn, learn, and
               connect with great people in the Topcoder Community.
@@ -73,7 +69,7 @@ const Complete = () => {
               </Button>
             </a>
           </div>
-          <OnboardProgress level={4} />
+          <OnboardProgress level={5} />
         </PageContent>
       </Page>
     </>

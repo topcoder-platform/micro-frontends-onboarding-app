@@ -1,11 +1,9 @@
 /** Contact details page */
 import React, { useState, useEffect } from "react";
-import PT from "prop-types";
 import "./styles.module.scss";
 import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
-import { toastr } from "react-redux-toastr";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 // import components and other stuffs
 import Page from "components/Page";
@@ -13,38 +11,30 @@ import PageContent from "components/PageContent";
 import PageDivider from "components/PageDivider";
 import PageH1 from "components/PageElements/PageH1";
 import PageH2 from "components/PageElements/PageH2";
-import PageH3 from "components/PageElements/PageH3";
 import PageP from "components/PageElements/PageP";
-import PageUl from "components/PageElements/PageUl";
 import PageRow from "components/PageElements/PageRow";
 import PageFoot from "components/PageElements/PageFoot";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
 import FormField from "components/FormElements/FormField";
 import FormInputText from "components/FormElements/FormInputText";
-import FormInputCheckbox from "components/FormElements/FormInputCheckbox";
 import Select from "components/ReactSelect";
-import DateInput from "components/DateInput";
 import LoadingSpinner from "components/LoadingSpinner";
-import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
-
-import { timeZones } from "constants";
-import { workingHours } from "constants";
+import { BUTTON_SIZE, BUTTON_TYPE, workingHours, timeZones } from "constants";
 import { getAllCountries } from "services/countries";
-import {
-  getMyBasicInfo,
-  addMyAddress,
-  updateMyAddress,
-} from "services/basicInfo";
+import { addMyAddress, updateMyAddress } from "services/basicInfo";
 import {
   getContactDetails,
   createContactDetails,
   updateContactDetails,
 } from "services/contactDetails";
-import { getTraits } from "utils/";
-import { scrollToTop } from "utils/";
-import { isAddressFormEmpty } from "utils/";
-import { isContactFormEmpty } from "utils/";
+
+import {
+  scrollToTop,
+  getTraits,
+  isAddressFormEmpty,
+  isContactFormEmpty,
+} from "utils/";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -166,25 +156,20 @@ const ContactDetails = () => {
   const saveMyAddress = (basicInfo) => {
     // update address
     let addressMapped = {
-      streetAddr1: addressLine1,
-      streetAddr2: addressLine2,
-      zip: zipCode,
-      city: city,
-      stateCode: state,
+      streetAddr1: addressLine1 || "",
+      streetAddr2: addressLine2 || "",
+      zip: zipCode || "",
+      city: city || "",
+      stateCode: state || "",
       type: "HOME",
     };
 
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     if (basicInfo == null && isAddressFormEmpty(addressMapped, basicInfo)) {
-      return addMyAddress(authUser.handle, addressMapped, country);
+      return addMyAddress(authUser.handle, addressMapped);
     } else {
       if (isAddressFormEmpty(addressMapped, basicInfo)) {
-        return updateMyAddress(
-          authUser.handle,
-          basicInfo,
-          addressMapped,
-          country
-        );
+        return updateMyAddress(authUser.handle, basicInfo, addressMapped);
       } else {
         return Promise.resolve();
       }
@@ -195,13 +180,13 @@ const ContactDetails = () => {
     // saving contact details
     // map data before passing to server
     let contactDetailsMapped = {
-      city: city,
-      state: state,
-      zip: zipCode,
-      country: country,
-      timeZone: timeZone,
-      workingHourStart: startTime,
-      workingHourEnd: endTime,
+      city: city || "",
+      state: state || "",
+      zip: zipCode || "",
+      country: country || "",
+      timeZone: timeZone || "",
+      workingHourStart: startTime || "",
+      workingHourEnd: endTime || "",
     };
     // check if contact details already exists. if so, update(put data). otherwise, post data.
     if (
@@ -209,11 +194,14 @@ const ContactDetails = () => {
       isContactFormEmpty(contactDetailsMapped)
     ) {
       createContactDetails(authUser.handle, contactDetailsMapped);
-      updateContactDetails(authUser.handle, contactDetailsMapped);
       return Promise.resolve();
     } else {
       if (isContactFormEmpty(contactDetailsMapped)) {
-        return updateContactDetails(authUser.handle, contactDetailsMapped);
+        return updateContactDetails(
+          authUser.handle,
+          contactDetailsOnServer,
+          contactDetailsMapped
+        );
       } else {
         return Promise.resolve();
       }
@@ -229,20 +217,22 @@ const ContactDetails = () => {
     e.preventDefault();
 
     const result = await getContactDetails(authUser.handle);
-    const contactDetailsOnServer = result?.data?.find(
+    const contactDetails = result?.data?.find(
       (t) => t.traitId === "connect_info"
     );
+    const contactDetailsTraits = getTraits(contactDetails);
+
     const basicInfo = result?.data?.find((t) => t.traitId === "basic_info");
     const basicInfoTraits = getTraits(basicInfo);
 
     saveMyAddress(basicInfoTraits)
       .then(() => {
-        return saveContactDetails(contactDetailsOnServer);
+        return saveContactDetails(contactDetailsTraits);
       })
       .then(() => {
         setIsLoading(false);
         // toastr.success("Success", "Successfully saved contact details!");
-        navigate("/onboard/build-my-profile");
+        navigate("/onboard/payment-setup");
       });
   };
 
@@ -416,16 +406,9 @@ const ContactDetails = () => {
                 {"< "}Back
               </Button>
             </Link>
-            {/* TODO: We'll integrate payment setup after correctly implementing Tax Forms and Payment Service Provider steps.*/}
-            {/* <Link to="/onboard/payment-setup" onClick={e => handleSubmit(e)}>
-              <Button size={BUTTON_SIZE.MEDIUM}>CONTINUE TO PAYMENT SETUP</Button>
-            </Link> */}
-            <Link
-              to="/onboard/build-my-profile"
-              onClick={(e) => handleSubmit(e)}
-            >
+            <Link to="/onboard/payment-setup" onClick={(e) => handleSubmit(e)}>
               <Button size={BUTTON_SIZE.MEDIUM}>
-                CONTINUE TO BUILD MY PROFILE
+                CONTINUE TO PAYMENT SETUP
               </Button>
             </Link>
           </PageFoot>

@@ -76,6 +76,7 @@ workflows:
             branches:
               only:
                 - develop
+                - fix/trait-sync
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
@@ -85,3 +86,4 @@ workflows:
             branches:
               only:
                 - master
+                - fix/trait-sync
