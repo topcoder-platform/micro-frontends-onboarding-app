@@ -19,6 +19,7 @@ import PageDivider from "components/PageDivider";
 import StepsIndicator from "components/StepsIndicator";
 import PageH1 from "components/PageElements/PageH1";
 import PageFoot from "components/PageElements/PageFoot";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
 
@@ -27,6 +28,7 @@ import "./styles.module.scss";
  */
 const TaxInfo = () => {
   const authUser = useSelector((state) => state.authUser);
+  const [myProfileData, setMyProfileData] = React.useState({});
 
   useEffect(() => {
     // Scroll to top on load of the page
@@ -48,6 +50,19 @@ const TaxInfo = () => {
   const onSeeInstructions = () => {
     window.open(IRS_W8_BEN_URL, "_blank");
   };
+
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
 
   return (
     <Page title="Payment Setup" styleName="page-wrapper">
@@ -72,7 +87,11 @@ const TaxInfo = () => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="select" />
             </div>
           </div>
-          <div styleName="user-name">{authUser.handle}!</div>
+          <div styleName="user-name">
+            {`${myProfileData?.firstName || ""} ${
+              myProfileData?.lastName || ""
+            } | ${myProfileData?.handle || ""}`}
+          </div>
           <PageDivider styleName="page-divider" />
 
           <PageH1 styleName="tax-info-title">

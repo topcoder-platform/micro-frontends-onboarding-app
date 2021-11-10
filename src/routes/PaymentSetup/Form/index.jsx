@@ -22,6 +22,7 @@ import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
 import IconBackArrow from "../../../assets/images/icon-back-arrow.svg";
 import PageFoot from "components/PageElements/PageFoot";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
 
@@ -32,6 +33,7 @@ import "./styles.module.scss";
 const TaxForm = ({ formName }) => {
   const authUser = useSelector((state) => state.authUser);
   const formDetails = FORM_DETAILS[formName];
+  const [myProfileData, setMyProfileData] = React.useState({});
 
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
@@ -52,6 +54,19 @@ const TaxForm = ({ formName }) => {
   const onSeeInstructions = () => {
     window.open(formName === "w-9" ? IRS_W9_URL : IRS_W8_BEN_URL, "_blank");
   };
+
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
 
   return (
     <Page title="Payment Setup" styleName="page-wrapper">
@@ -76,7 +91,11 @@ const TaxForm = ({ formName }) => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="select" />
             </div>
           </div>
-          <div styleName="user-name">{authUser.handle}!</div>
+          <div styleName="user-name">
+            {`${myProfileData?.firstName || ""} ${
+              myProfileData?.lastName || ""
+            } | ${myProfileData?.handle || ""}`}
+          </div>
           <PageDivider styleName="page-divider" />
           <PageH1 styleName="tax-form-title">{`Form ${formName}`}</PageH1>
           <PageP styleName="tax-form-description">

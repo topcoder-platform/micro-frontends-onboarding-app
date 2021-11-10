@@ -16,6 +16,7 @@ import PageP from "components/PageElements/PageP";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import IconCheck from "../../assets/images/check.svg";
 
@@ -27,6 +28,7 @@ const PaymentSetup = () => {
   const [isPaymentServiceSelected, setIsPaymentServiceSelected] = useState(
     false
   );
+  const [myProfileData, setMyProfileData] = useState({});
 
   function completeTaxForm() {
     navigate("/onboard/payment-setup/tax-form");
@@ -41,12 +43,27 @@ const PaymentSetup = () => {
     setIsPaymentServiceSelected(!!localStorage.getItem("payment_provider"));
   }, []);
 
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
+
   return (
     <>
       <Page title="Payment Setup" styleName="payment-setup">
         <PageContent>
           <PageH2>Payment Setup</PageH2>
-          {authUser.handle}!
+          {`${myProfileData?.firstName || ""} ${
+            myProfileData?.lastName || ""
+          } | ${myProfileData?.handle || ""}`}
           <PageDivider />
           <PageH1>Get paid for your work.</PageH1>
           <PageP styleName="para">
@@ -102,6 +119,7 @@ const PaymentSetup = () => {
             payments from your Topcoder account. For more information, see:{" "}
             <a
               href="https://www.topcoder.com/thrive/articles/payment-policies-and-instructions"
+              styleName="link"
               target="_blank"
             >
               Topcoder Payment Policies

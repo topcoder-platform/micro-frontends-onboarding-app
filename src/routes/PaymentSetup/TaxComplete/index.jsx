@@ -15,6 +15,7 @@ import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
 import PageFoot from "components/PageElements/PageFoot";
 import PageH3 from "components/PageElements/PageH3";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
 
@@ -24,9 +25,24 @@ import "./styles.module.scss";
  */
 const TaxComplete = ({ formName }) => {
   const authUser = useSelector((state) => state.authUser);
+  const [myProfileData, setMyProfileData] = React.useState({});
+
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
   };
+
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
 
   return (
     <Page title="Payment Setup" styleName="page-wrapper">
@@ -51,12 +67,14 @@ const TaxComplete = ({ formName }) => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="complete" />
             </div>
           </div>
-          <div styleName="user-name">{authUser.handle}!</div>
+          <div styleName="user-name">
+            {`${myProfileData?.firstName || ""} ${
+              myProfileData?.lastName || ""
+            } | ${myProfileData?.handle || ""}`}
+          </div>
           <PageDivider styleName="page-divider" />
           <PageH1 styleName="tax-complete-title">Thank You!</PageH1>
-
           <PageDivider styleName="page-divider" />
-
           <PageH3 styleName="information">{`Your ${formName} Tax Form was submitted via DocuSign.`}</PageH3>
           <PageP styleName="confirmation-text">
             <p>

@@ -16,6 +16,7 @@ import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
 import IconBackArrow from "../../../assets/images/icon-back-arrow.svg";
 import PageFoot from "components/PageElements/PageFoot";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import styles from "./styles.module.scss";
 import "rc-checkbox/assets/index.css";
@@ -28,6 +29,7 @@ import "rc-checkbox/assets/index.css";
 const TaxConfirm = ({ formName }) => {
   const authUser = useSelector((state) => state.authUser);
   const [completedForm, setCompletedForm] = useState(false);
+  const [myProfileData, setMyProfileData] = useState({});
   const formDetails = FORM_DETAILS[formName];
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
@@ -45,6 +47,19 @@ const TaxConfirm = ({ formName }) => {
     localStorage.setItem("tax_form", formName);
     navigate(`/onboard/payment-setup/tax-form/${formName}/complete`);
   };
+
+  // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
+  React.useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
 
   return (
     <Page title="Payment Setup" styleName="styles.page-wrapper">
@@ -71,7 +86,11 @@ const TaxConfirm = ({ formName }) => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="confirm" />
             </div>
           </div>
-          <div styleName="styles.user-name">{authUser.handle}!</div>
+          <div styleName="styles.user-name">
+            {`${myProfileData?.firstName || ""} ${
+              myProfileData?.lastName || ""
+            } | ${myProfileData?.handle || ""}`}
+          </div>
           <PageDivider styleName="styles.page-divider" />
           <PageH1 styleName="styles.tax-confirm-title">{`Form ${formName}`}</PageH1>
           <PageP styleName="styles.tax-confirm-description">
