@@ -45,7 +45,7 @@ import {
   addMyPrimaryInterests,
   updateMyPrimaryInterests,
 } from "services/basicInfo";
-import { getMemberData, uploadProfilePhoto } from "services/memberData";
+import { uploadProfilePhoto } from "services/memberData";
 import _ from "lodash";
 import {
   getTraits,
@@ -60,7 +60,6 @@ const GetStarted = () => {
   const authUser = useSelector((state) => state.authUser);
   const [isLoading, setIsLoading] = useState(false);
   const [allSkillsLive, setAllSkillsLive] = useState([]);
-  const [myBasicInfo, setMyBasicInfo] = useState({});
   const [myProfileData, setMyProfileData] = useState({});
   const [myInterests, setMyInterests] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -136,7 +135,7 @@ const GetStarted = () => {
       })
       .catch((e) => {
         setIsLoading(false);
-        // toastr.error('Error', 'failed to get skills!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
   }, []);
@@ -152,7 +151,7 @@ const GetStarted = () => {
       })
       .catch((e) => {
         setIsLoading(false);
-        // toastr.error('Error', 'failed to get profile basic infos!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
   }, [authUser]);
@@ -237,6 +236,7 @@ const GetStarted = () => {
           // toastr.error('Error', 'failed to save profile photo!');
           // revert image to last image
           setProfilePhotoSrc(profilePhotoSrcBeforeSave);
+          // eslint-disable-next-line no-console
           console.log(e);
         });
     }
