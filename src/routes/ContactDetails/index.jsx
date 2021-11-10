@@ -225,15 +225,23 @@ const ContactDetails = () => {
     const basicInfo = result?.data?.find((t) => t.traitId === "basic_info");
     const basicInfoTraits = getTraits(basicInfo);
 
-    saveMyAddress(basicInfoTraits)
-      .then(() => {
-        return saveContactDetails(contactDetailsTraits);
-      })
-      .then(() => {
-        setIsLoading(false);
-        // toastr.success("Success", "Successfully saved contact details!");
-        navigate("/onboard/payment-setup");
-      });
+    try {
+      await saveMyAddress(basicInfoTraits);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log("Failed to save address in basic_info", err);
+    }
+
+    try {
+      await saveContactDetails(contactDetailsTraits);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log("Failed to save address in connect_info", err);
+    }
+
+    setIsLoading(false);
+    // toastr.success("Success", "Successfully saved contact details!");
+    navigate("/onboard/payment-setup");
   };
 
   return (
