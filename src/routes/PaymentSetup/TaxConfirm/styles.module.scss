@@ -159,6 +159,7 @@
           margin-right: 48px;
           font-size: 16px;
           line-height: 26px;
+          white-space: nowrap;
           @include font-roboto;
           a {
             color: #2e55b9;
@@ -166,6 +167,7 @@
           @include mobile {
             margin-right: 0;
             margin-bottom: 32px;
+            white-space: pre-wrap;
           }
         }
         .right-pane {

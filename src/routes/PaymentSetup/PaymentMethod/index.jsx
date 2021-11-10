@@ -3,6 +3,7 @@ import { navigate } from "@reach/router";
 import Page from "components/Page";
 import PageContent from "components/PageContent";
 import PageH2 from "components/PageElements/PageH2";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import Button from "components/Button";
 import BackIcon from "../../../assets/images/arrow-left-turquoise.svg";
@@ -34,6 +35,19 @@ import ScrollToBottom from "components/ScrollToBottom";
 const PaymentMethod = ({ paymentMethod }) => {
   const authUser = useSelector((state) => state.authUser);
   const [emailedDetails, setEmailedDetails] = useState(false);
+  const [myProfileData, setMyProfileData] = useState();
+
+  useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
 
   useEffect(() => {
     // Scroll to top on load of the page
@@ -94,7 +108,7 @@ const PaymentMethod = ({ paymentMethod }) => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="confirm" />
             </div>
           </div>
-          <div styleName="styles.user-name">{authUser.handle}!</div>
+          {myProfileData && authUser && <div styleName="styles.user-name">{`${myProfileData.firstName} ${myProfileData.lastName} | `}{authUser.handle}</div>}
           <PageDivider styleName="styles.page-divider" />
 
           <div styleName="styles.container">
@@ -108,7 +122,7 @@ const PaymentMethod = ({ paymentMethod }) => {
                 />
                 <span styleName="styles.label">
                   Yes, I have emailed my details to{" "}
-                  <a styleName="styles.support-email">support@topcoder.com</a>
+                  <a href='mailto: support@topcoder.com' styleName="styles.support-email">support@topcoder.com</a>
                 </span>
               </label>
               {emailedDetails && <ScrollToBottom />}

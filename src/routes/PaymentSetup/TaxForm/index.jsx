@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import cn from "classnames";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import Page from "components/Page";
 import PageContent from "components/PageContent";
@@ -23,6 +24,21 @@ import "./styles.module.scss";
  */
 const TaxForm = () => {
   const authUser = useSelector((state) => state.authUser);
+
+  const [myProfileData, setMyProfileData] = useState();
+
+  useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
+  
 
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
@@ -55,7 +71,7 @@ const TaxForm = () => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="select" />
             </div>
           </div>
-          <div styleName="user-name">{authUser.handle}!</div>
+          {myProfileData && authUser && <div styleName="user-name">{`${myProfileData.firstName} ${myProfileData.lastName} | `}{authUser.handle}</div>}
           <PageDivider styleName="page-divider" />
           <PageH1 styleName="tax-form-title">Select a Tax Form</PageH1>
           <PageP styleName="tax-form-description">

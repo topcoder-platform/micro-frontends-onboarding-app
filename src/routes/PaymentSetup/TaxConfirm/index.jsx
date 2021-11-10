@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { navigate } from "@reach/router";
 import Checkbox from "rc-checkbox";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import Page from "components/Page";
 import PageContent from "components/PageContent";
@@ -28,7 +29,21 @@ import "rc-checkbox/assets/index.css";
 const TaxConfirm = ({ formName }) => {
   const authUser = useSelector((state) => state.authUser);
   const [completedForm, setCompletedForm] = useState(false);
+  const [myProfileData, setMyProfileData] = useState();
   const formDetails = FORM_DETAILS[formName];
+
+  useEffect(() => {
+    if (!authUser || !authUser.handle) return;
+    getAuthUserProfile()
+      .then((result) => {
+        setMyProfileData(result);
+      })
+      .catch((e) => {
+        // toastr.error('Error', 'failed to get profile basic infos!');
+        console.log(e);
+      });
+  }, [authUser]);
+
   const goToPaymentSetup = () => {
     navigate("/onboard/payment-setup");
   };
@@ -71,7 +86,7 @@ const TaxConfirm = ({ formName }) => {
               <StepsIndicator steps={PAYMENT_STEPS} currentStep="confirm" />
             </div>
           </div>
-          <div styleName="styles.user-name">{authUser.handle}!</div>
+          {myProfileData && authUser && <div styleName="styles.user-name">{`${myProfileData.firstName} ${myProfileData.lastName} | `}{authUser.handle}</div>}
           <PageDivider styleName="styles.page-divider" />
           <PageH1 styleName="styles.tax-confirm-title">{`Form ${formName}`}</PageH1>
           <PageP styleName="styles.tax-confirm-description">
