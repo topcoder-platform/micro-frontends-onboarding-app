@@ -36,16 +36,8 @@ import {
   BUTTON_SIZE,
   BUTTON_TYPE,
 } from "constants";
-import { addMyTitleAndBio, updateMyTitleAndBio } from "services/basicInfo";
-import {
-  getBuildProfile,
-  createWorkExperiences,
-  updateWorkExperiences,
-  createEducationExperiences,
-  updateEducationExperiences,
-  createLanguageExperiences,
-  updateLanguageExperiences,
-} from "services/buildMyProfile";
+
+import { getBuildProfile } from "services/buildMyProfile";
 import { getTraits, scrollToTop, isProfileFormDataEmpty } from "utils/";
 
 import moment from "moment";
@@ -503,7 +495,7 @@ const BuildMyProfile = () => {
     ];
 
     for (let f of functions) {
-      let data = f.func(basicInfoTraits);
+      let data = f.func(f.val);
       if (data != null) {
         if (data.action === "create") {
           traitsToCreate.push(data.data);
@@ -755,7 +747,11 @@ const BuildMyProfile = () => {
                   <br />
                   {jobs.length > 1 && (
                     <div styleName="remove-listinput-item-button">
-                      <div onClick={(e) => removeListInputItem(name, index)}>
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        onClick={(_e) => removeListInputItem(name, index)}
+                      >
                         <IconCross styleName="icon-remove" />
                         <span>Delete This Job</span>
                       </div>
@@ -871,7 +867,11 @@ const BuildMyProfile = () => {
                   <br />
                   {educations.length > 1 && (
                     <div styleName="remove-listinput-item-button">
-                      <div onClick={(e) => removeListInputItem(name, index)}>
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        onClick={(e) => removeListInputItem(name, index)}
+                      >
                         <IconCross styleName="icon-remove" />
                         <span>Delete This School / Degree</span>
                       </div>
@@ -984,7 +984,11 @@ const BuildMyProfile = () => {
                   </PageRow>
                   {languages.length > 1 && (
                     <div styleName="remove-listinput-item-button">
-                      <div onClick={(e) => removeListInputItem(name, index)}>
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        onClick={(_) => removeListInputItem(name, index)}
+                      >
                         <IconCross styleName="icon-remove" />
                         <span>Delete This Language</span>
                       </div>
