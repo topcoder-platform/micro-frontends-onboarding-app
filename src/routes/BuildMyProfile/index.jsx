@@ -51,6 +51,14 @@ import { getTraits, scrollToTop, isProfileFormDataEmpty } from "utils/";
 import moment from "moment";
 import _ from "lodash";
 
+const formatDate = (date) => {
+  let ret = new Date(
+    `${date.getMonth() + 1} ${date.getDate()} ${date.getFullYear()} 06:00 UTC`
+  ).getTime();
+
+  return ret;
+};
+
 const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
   const [isLoading, setIsLoading] = useState(false);
@@ -188,7 +196,7 @@ const BuildMyProfile = () => {
         setMyProfileData(result);
       })
       .catch((e) => {
-        // toastr.error('Error', 'failed to get profile basic infos!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
   }, [authUser]);
@@ -263,7 +271,7 @@ const BuildMyProfile = () => {
       })
       .catch((e) => {
         setIsLoading(false);
-        // toastr.error('Error', 'failed to get profile datas!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
     scrollToTop();
@@ -307,20 +315,8 @@ const BuildMyProfile = () => {
         industry: industry,
         position: position,
         cityTown: city,
-        timePeriodFrom: startDate
-          ? new Date(
-              `${
-                startDate.getMonth() + 1
-              } ${startDate.getDay()} ${startDate.getFullYear()} 06:00 UTC`
-            ).getTime()
-          : "",
-        timePeriodTo: endDate
-          ? new Date(
-              `${
-                endDate.getMonth() + 1
-              } ${endDate.getDay()} ${endDate.getFullYear()} 06:00 UTC`
-            ).getTime()
-          : "",
+        timePeriodFrom: startDate ? formatDate(startDate) : "",
+        timePeriodTo: endDate ? formatDate(endDate) : "",
         working: currentlyWorking,
       };
     });
@@ -345,20 +341,8 @@ const BuildMyProfile = () => {
       return {
         schoolCollegeName: collegeName,
         major: major,
-        timePeriodFrom: startDate
-          ? new Date(
-              `${
-                startDate.getMonth() + 1
-              } ${startDate.getDay()} ${startDate.getFullYear()} 06:00 UTC`
-            ).getTime()
-          : "",
-        timePeriodTo: endDate
-          ? new Date(
-              `${
-                endDate.getMonth() + 1
-              } ${endDate.getDay()} ${endDate.getFullYear()} 06:00 UTC`
-            ).getTime()
-          : "",
+        timePeriodFrom: startDate ? formatDate(startDate) : "",
+        timePeriodTo: endDate ? formatDate(endDate) : "",
         graduated: graduated,
       };
     });
@@ -553,7 +537,6 @@ const BuildMyProfile = () => {
                 endDate,
                 currentlyWorking,
               } = job;
-              console.log(currentlyWorking);
               const name = "jobs";
               return (
                 <div styleName="listinput-item">
