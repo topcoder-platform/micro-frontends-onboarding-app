@@ -111,7 +111,7 @@ const PaymentSetup = () => {
               </div>
             )}
             {isPaymentServiceSelected && (
-              <SuccessMessage message="You have submitted account details  to use Payoneer as your Payment Service Provider." />
+              <SuccessMessage message="You have submitted account details to use Payoneer as your Payment Service Provider." />
             )}
           </div>
           <PageP styleName="para">
