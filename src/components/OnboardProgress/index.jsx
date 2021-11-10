@@ -10,8 +10,7 @@ import "./styles.module.scss";
 import ProgressDonutChart from "components/ProgressDonutChart";
 import ProgressPopup from "components/ProgressPopup";
 import IconThreeDots from "../../assets/images/icon-three-dots-vertical.svg";
-import { ProgressLevels as levels } from "constants";
-import { MAX_COMPLETED_STEP } from "constants";
+import { ProgressLevels as levels, MAX_COMPLETED_STEP } from "constants";
 import _ from "lodash";
 
 const OnboardProgress = ({ level, styleName, ...props }) => {

@@ -19,6 +19,9 @@ import OnboardProgress from "components/OnboardProgress";
 import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
 import config from "../../../config";
 import { scrollToTop } from "utils/";
+import { MAX_COMPLETED_STEP } from "constants/";
+import { PAYMENT_PROVIDER } from "constants/";
+import { TAX_FORM } from "constants/";
 
 const Complete = () => {
   const [myProfileData, setMyProfileData] = useState({});
@@ -64,7 +67,15 @@ const Complete = () => {
             </PageP>
             <br />
             <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
-              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+              <Button
+                onClick={() => {
+                  localStorage.removeItem(MAX_COMPLETED_STEP);
+                  localStorage.removeItem(PAYMENT_PROVIDER);
+                  localStorage.removeItem(TAX_FORM);
+                }}
+                size={BUTTON_SIZE.MEDIUM}
+                type={BUTTON_TYPE.SECONDARY}
+              >
                 EXPLORE TOPCODER HOME
               </Button>
             </a>

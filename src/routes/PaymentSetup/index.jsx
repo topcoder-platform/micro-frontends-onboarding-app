@@ -1,10 +1,10 @@
 /** Payment setup page */
 import React, { useState } from "react";
-import PT from "prop-types";
 import "./styles.module.scss";
 import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
+
 // import components and other stuffs
 import Page from "components/Page";
 import PageContent from "components/PageContent";
@@ -19,6 +19,8 @@ import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import IconCheck from "../../assets/images/check.svg";
+import { PAYMENT_PROVIDER } from "constants/";
+import { TAX_FORM } from "constants/";
 
 const PaymentSetup = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -39,8 +41,8 @@ const PaymentSetup = () => {
   }
 
   React.useEffect(() => {
-    setIsTaxFormCompleted(!!localStorage.getItem("tax_form"));
-    setIsPaymentServiceSelected(!!localStorage.getItem("payment_provider"));
+    setIsTaxFormCompleted(!!localStorage.getItem(TAX_FORM));
+    setIsPaymentServiceSelected(!!localStorage.getItem(PAYMENT_PROVIDER));
   }, []);
 
   // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData

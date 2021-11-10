@@ -468,7 +468,7 @@ const BuildMyProfile = () => {
               </PageP>
             </PageCard>
             <PageCard colorStyle="secondary" hasImage={true}>
-              <img src={ImgTestimonial2} alt={"Testimonial image"} />
+              <img src={ImgTestimonial2} alt={"Testimonial"} />
               <div>
                 <PageH3>
                   "It's the opportunity to work with large global companies on
