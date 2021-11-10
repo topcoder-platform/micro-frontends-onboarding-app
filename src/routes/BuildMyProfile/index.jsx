@@ -850,6 +850,7 @@ const BuildMyProfile = () => {
                         }}
                         style2={true}
                         placeholder={"Select end date"}
+                        allowFutureDate
                       />
                     </FormField>
                   </PageRow>
