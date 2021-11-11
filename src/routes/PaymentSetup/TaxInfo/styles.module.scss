@@ -1,7 +1,6 @@
 @import "styles/include";
 
 .page-wrapper {
-  padding: 0 96px 32px 96px;
   @include mobile {
     padding: 0;
   }
@@ -25,7 +24,6 @@
     }
     .page-content {
       padding: 38px 32px 32px 32px;
-      margin: 32px auto 50px auto;
       @include mobile {
         padding: 16px 19px;
         margin: 0;
