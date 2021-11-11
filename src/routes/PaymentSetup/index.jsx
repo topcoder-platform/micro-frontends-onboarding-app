@@ -122,7 +122,7 @@ const PaymentSetup = () => {
             )}
             {isPaymentServiceSelected && (
               <SuccessMessage
-                message={`You have submitted account details <br/> to use ${PAYMENT_METHOD_MAP[paymentService]} as your Payment <br/> Service Provider.`}
+                message={`You have submitted account details to use ${PAYMENT_METHOD_MAP[paymentService]} as your Payment Service Provider.`}
               />
             )}
           </div>
@@ -161,7 +161,7 @@ function SuccessMessage({ message }) {
   return (
     <div styleName="success-container">
       <IconCheck />
-      <div dangerouslySetInnerHTML={{ __html: message }}></div>
+      <div>{message}</div>
     </div>
   );
 }
