@@ -15,12 +15,11 @@ import PageFoot from "components/PageElements/PageFoot";
 import PageP from "components/PageElements/PageP";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
-import { BUTTON_SIZE, BUTTON_TYPE } from "constants";
+import { BUTTON_SIZE, BUTTON_TYPE, TAX_FORM } from "constants";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import IconCheck from "../../assets/images/check.svg";
 import { PAYMENT_PROVIDER } from "constants/";
-import { TAX_FORM } from "constants/";
 
 const PaymentSetup = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -31,6 +30,7 @@ const PaymentSetup = () => {
     false
   );
   const [myProfileData, setMyProfileData] = useState({});
+  const taxForm = localStorage.getItem(TAX_FORM);
 
   function completeTaxForm() {
     navigate("/onboard/payment-setup/tax-form");
@@ -90,7 +90,9 @@ const PaymentSetup = () => {
               </div>
             )}
             {isTaxFormCompleted && (
-              <SuccessMessage message="You have submitted a W-9 Tax Form." />
+              <SuccessMessage
+                message={`You have submitted a ${taxForm.toUpperCase()} Tax Form.`}
+              />
             )}
             {!isPaymentServiceSelected && (
               <div styleName="card">
