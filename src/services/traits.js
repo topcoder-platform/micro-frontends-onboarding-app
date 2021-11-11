@@ -18,3 +18,20 @@ export function createTraits(handle, data) {
 export function updateTraits(handle, data) {
   return axios.put(`${config.API.V3}/members/${handle}/traits`, wrapV3(data));
 }
+
+export async function checkUserTrait(handle, traitId) {
+  let isExists = false;
+  let response = await axios.get(
+    `${config.API.V3}/members/${handle}/traits?traitIds=${traitId}`
+  );
+  const dataResponse = response.data;
+
+  if (dataResponse.result && dataResponse.result.content.length > 0) {
+    const trait = dataResponse.result.content[0];
+    if (trait.createdAt) {
+      isExists = true;
+    }
+  }
+
+  return isExists;
+}

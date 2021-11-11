@@ -37,6 +37,7 @@ import {
   isNullOrEmpty,
 } from "utils/";
 import { sortBy } from "lodash";
+import { checkUserTrait } from "services/traits";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -173,14 +174,14 @@ const ContactDetails = () => {
       });
   }, [countries, authUser]);
 
-  const saveMyAddress = (basicInfo) => {
+  const saveMyAddress = async (basicInfo) => {
     // update address
     let addressMapped = {
       streetAddr1: addressLine1 || "",
       streetAddr2: addressLine2 || "",
-      zip: zipCode || "",
       city: city || "",
       stateCode: state || "",
+      zip: zipCode || "",
       type: "HOME",
     };
 
@@ -198,16 +199,17 @@ const ContactDetails = () => {
       }
     }
 
-    // check if basic info already exists. if so, update(put data). otherwise, post data.
-    if (basicInfo == null && isAddressFormEmpty(addressMapped, basicInfo)) {
-      return addMyAddress(
+    // hack to check if the user has an existing basic_info trait object
+    const exists = await checkUserTrait(authUser.handle, "basic_info");
+    if (!exists) {
+      await addMyAddress(
         authUser.handle,
         addressMapped,
         country != null ? countryObj : null
       );
     } else {
       if (isAddressFormEmpty(addressMapped, basicInfo)) {
-        return updateMyAddress(
+        await updateMyAddress(
           authUser.handle,
           basicInfo,
           addressMapped,
@@ -219,7 +221,7 @@ const ContactDetails = () => {
     }
   };
 
-  const saveContactDetails = (contactDetailsOnServer) => {
+  const saveContactDetails = async (contactDetailsOnServer) => {
     // saving contact details
     // map data before passing to server
     let contactDetailsMapped = {
@@ -236,11 +238,10 @@ const ContactDetails = () => {
       contactDetailsOnServer == null &&
       isContactFormEmpty(contactDetailsMapped)
     ) {
-      createContactDetails(authUser.handle, contactDetailsMapped);
-      return Promise.resolve();
+      await createContactDetails(authUser.handle, contactDetailsMapped);
     } else {
       if (isContactFormEmpty(contactDetailsMapped)) {
-        return updateContactDetails(
+        await updateContactDetails(
           authUser.handle,
           contactDetailsOnServer,
           contactDetailsMapped
