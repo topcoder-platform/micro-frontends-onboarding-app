@@ -512,6 +512,13 @@ const BuildMyProfile = () => {
         // eslint-disable-next-line no-console
         console.log("Failed to create traits", err);
       }
+
+      try {
+        await updateTraits(authUser.handle, traitsToCreate);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log("Failed to create traits", err);
+      }
     }
 
     if (traitsToUpdate.length > 0) {
