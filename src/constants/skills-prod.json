@@ -1061,7 +1061,7 @@
     "label": "Talend",
     "category": "Data Science",
     "legacyId": 585,
-    "rank": 2
+    "rank": 2222
   },
   {
     "id": "9133c0e9-a71f-45f7-acbf-1025bee06b0b",
@@ -1873,7 +1873,7 @@
     "label": "IBM Watson",
     "category": "Development",
     "legacyId": 43,
-    "rank": 9
+    "rank": 999
   },
   {
     "id": "4ab145ee-693e-4e36-aa8b-fe56f5f671c3",
@@ -2748,7 +2748,7 @@
     "label": "PostgreSQL",
     "category": "Development",
     "legacyId": 306,
-    "rank": 17
+    "rank": 9
   },
   {
     "id": "308a2e37-9619-419a-a1ee-8c00a7f53a6d",
@@ -2825,7 +2825,7 @@
     "label": "Data Visualization",
     "category": "Data Science",
     "legacyId": 595,
-    "rank": 296
+    "rank": 28
   },
   {
     "id": "2d8f1c6c-5f86-4858-b616-5cbdb965220b",
