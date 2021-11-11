@@ -22,13 +22,15 @@ import PageFoot from "components/PageElements/PageFoot";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
+import { FORM_DETAILS } from "constants/";
 
 /**
  * The page shows the information on w-8ben tax form
  */
-const TaxInfo = () => {
+const TaxInfo = ({ formName }) => {
   const authUser = useSelector((state) => state.authUser);
   const [myProfileData, setMyProfileData] = React.useState({});
+  const formDetails = FORM_DETAILS[formName];
 
   useEffect(() => {
     // Scroll to top on load of the page
@@ -44,6 +46,7 @@ const TaxInfo = () => {
   };
 
   const onCompleteForm = () => {
+    window.open(formDetails.formUrl);
     navigate("/onboard/payment-setup/tax-form/w-8ben/confirm");
   };
 
