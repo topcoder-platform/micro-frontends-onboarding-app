@@ -90,7 +90,7 @@ export function addMyAddress(myusername, address, country) {
         traits: {
           data: [
             {
-              country,
+              ...country,
               addresses: [address],
             },
           ],
@@ -114,7 +114,7 @@ export function updateMyAddress(myusername, prevBasicInfo, address, country) {
           data: [
             {
               ...prevBasicInfo,
-              country,
+              ...country,
               addresses: [address],
             },
           ],

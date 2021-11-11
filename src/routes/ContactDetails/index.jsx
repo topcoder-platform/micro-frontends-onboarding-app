@@ -36,6 +36,7 @@ import {
   isContactFormEmpty,
   isNullOrEmpty,
 } from "utils/";
+import { sortBy } from "lodash";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -77,8 +78,8 @@ const ContactDetails = () => {
       .then((result) => {
         let res = result?.data?.result?.content;
         if (res) {
-          res = res.map((c) => c.country);
-          setCountries(_.sortBy(res));
+          // res = res.map((c) => c.country);
+          setCountries(sortBy(res, "country"));
         }
       })
       .catch((e) => {
@@ -110,20 +111,30 @@ const ContactDetails = () => {
         setIsLoading(false);
         // find datas we need
         let traits = result?.data;
+
         let basicInfo = traits.find((t) => t.traitId === "basic_info");
         let connectInfo = traits.find((t) => t.traitId === "connect_info");
+
         let address = basicInfo?.traits?.data[0].addresses;
         if (address?.length) address = address[0];
         let contactDetails = connectInfo?.traits?.data[0];
+
+        let memberHomeCountry = contactDetails?.country;
+
+        if (isNullOrEmpty(memberHomeCountry)) {
+          memberHomeCountry = basicInfo?.traits?.data[0].country;
+        }
+
         if (address) {
           // store the fetched datas in state
           const { streetAddr1, streetAddr2 } = address;
-          setFormData((formDate) => ({
-            ...formDate,
+          setFormData((formData) => ({
+            ...formData,
             addressLine1: streetAddr1,
             addressLine2: streetAddr2,
           }));
         }
+
         if (contactDetails) {
           // store the fetched datas in state
           const {
@@ -135,8 +146,9 @@ const ContactDetails = () => {
             workingHourStart,
             workingHourEnd,
           } = contactDetails;
-          setFormData((formDate) => ({
-            ...formDate,
+
+          setFormData((formData) => ({
+            ...formData,
             city: city,
             state: state,
             zipCode: zip,
@@ -146,13 +158,20 @@ const ContactDetails = () => {
             endTime: workingHourEnd,
           }));
         }
+
+        if (memberHomeCountry != null) {
+          setFormData((formData) => ({
+            ...formData,
+            country: memberHomeCountry,
+          }));
+        }
       })
       .catch((e) => {
         setIsLoading(false);
         // eslint-disable-next-line no-console
         console.log(e);
       });
-  }, []);
+  }, [countries, authUser]);
 
   const saveMyAddress = (basicInfo) => {
     // update address
@@ -165,16 +184,34 @@ const ContactDetails = () => {
       type: "HOME",
     };
 
+    let countryObj = {
+      country,
+      competitionCountryCode: null,
+      homeCountryCode: null,
+    };
+
+    if (!isNullOrEmpty(country)) {
+      const code = countries.find((c) => c.country == country);
+      if (code != null) {
+        countryObj.competitionCountryCode = code.countryCode;
+        countryObj.homeCountryCode = code.countryCode;
+      }
+    }
+
     // check if basic info already exists. if so, update(put data). otherwise, post data.
     if (basicInfo == null && isAddressFormEmpty(addressMapped, basicInfo)) {
-      return addMyAddress(authUser.handle, addressMapped, country);
+      return addMyAddress(
+        authUser.handle,
+        addressMapped,
+        country != null ? countryObj : null
+      );
     } else {
       if (isAddressFormEmpty(addressMapped, basicInfo)) {
         return updateMyAddress(
           authUser.handle,
           basicInfo,
           addressMapped,
-          country
+          country != null ? countryObj : null
         );
       } else {
         return Promise.resolve();
@@ -249,6 +286,9 @@ const ContactDetails = () => {
     // toastr.success("Success", "Successfully saved contact details!");
     navigate("/onboard/payment-setup");
   };
+
+  const selectedCountryObj =
+    country != null ? countries.find((c) => c.country == country) : null;
 
   return (
     <>
@@ -328,15 +368,19 @@ const ContactDetails = () => {
                 <FormField label={"Country"}>
                   <Select
                     value={
-                      country && {
-                        value: countries.find((v) => v === country),
-                        label: countries.find((v) => v === country),
+                      country &&
+                      selectedCountryObj && {
+                        value: selectedCountryObj.country,
+                        label: selectedCountryObj.country,
                       }
                     }
                     onChange={(option) =>
                       handleInputChange("country", option.value)
                     }
-                    options={countries.map((v) => ({ value: v, label: v }))}
+                    options={countries.map((v) => ({
+                      value: v.country,
+                      label: v.country,
+                    }))}
                     style2={true}
                     placeholder={"Select country"}
                   />
