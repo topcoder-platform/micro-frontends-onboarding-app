@@ -251,7 +251,15 @@ const ContactDetails = () => {
       contactDetailsOnServer == null &&
       isContactFormEmpty(contactDetailsMapped)
     ) {
-      await createContactDetails(authUser.handle, contactDetailsMapped);
+      try {
+        await createContactDetails(authUser.handle, contactDetailsMapped);
+      } catch (err) {
+        await updateContactDetails(
+          authUser.handle,
+          contactDetailsOnServer,
+          contactDetailsMapped
+        );
+      }
     } else {
       if (isContactFormEmpty(contactDetailsMapped)) {
         await updateContactDetails(
