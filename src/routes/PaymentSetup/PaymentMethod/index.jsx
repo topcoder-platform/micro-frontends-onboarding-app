@@ -68,7 +68,10 @@ const PaymentMethod = ({ paymentMethod }) => {
   };
 
   const onConfirm = () => {
-    localStorage.setItem(PAYMENT_PROVIDER, paymentMethod);
+    localStorage.setItem(
+      `${authUser?.handle}_${PAYMENT_PROVIDER}`,
+      paymentMethod
+    );
     navigate(
       `/onboard/payment-setup/payment-provider/${paymentMethod}/complete`
     );

@@ -70,8 +70,10 @@ const Complete = () => {
               <Button
                 onClick={() => {
                   localStorage.removeItem(MAX_COMPLETED_STEP);
-                  localStorage.removeItem(PAYMENT_PROVIDER);
-                  localStorage.removeItem(TAX_FORM);
+                  localStorage.removeItem(
+                    `${authUser?.handle}_${PAYMENT_PROVIDER}`
+                  );
+                  localStorage.removeItem(`${authUser?.handle}_${TAX_FORM}`);
                 }}
                 size={BUTTON_SIZE.MEDIUM}
                 type={BUTTON_TYPE.SECONDARY}

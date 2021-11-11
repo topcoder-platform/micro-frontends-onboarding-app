@@ -45,7 +45,7 @@ const TaxConfirm = ({ formName }) => {
   };
 
   const onConfirm = () => {
-    localStorage.setItem(TAX_FORM, formName);
+    localStorage.setItem(`${authUser?.handle}_${TAX_FORM}`, formName);
     navigate(`/onboard/payment-setup/tax-form/${formName}/complete`);
   };
 
