@@ -201,12 +201,25 @@ const ContactDetails = () => {
 
     // hack to check if the user has an existing basic_info trait object
     const exists = await checkUserTrait(authUser.handle, "basic_info");
-    if (!exists) {
-      await addMyAddress(
-        authUser.handle,
-        addressMapped,
-        country != null ? countryObj : null
-      );
+    if (
+      isAddressFormEmpty(addressMapped, basicInfo) &&
+      (!exists || basicInfo.primaryInterestInTopcoder == null) // we created primaryInterestInTopcoder in the previous step
+    ) {
+      try {
+        await addMyAddress(
+          authUser.handle,
+          addressMapped,
+          country != null ? countryObj : null
+        );
+      } catch (err) {
+        // try updating if create fails
+        await updateMyAddress(
+          authUser.handle,
+          basicInfo,
+          addressMapped,
+          country != null ? countryObj : null
+        );
+      }
     } else {
       if (isAddressFormEmpty(addressMapped, basicInfo)) {
         await updateMyAddress(

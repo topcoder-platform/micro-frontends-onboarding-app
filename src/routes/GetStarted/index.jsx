@@ -241,7 +241,7 @@ const GetStarted = () => {
           console.log(e);
         });
     }
-  }, [profilePhotoFile]);
+  }, [profilePhotoFile, authUser]);
 
   const saveMyInterests = () => {
     // saving myInterests
@@ -253,14 +253,11 @@ const GetStarted = () => {
     return getMyBasicInfo(authUser.handle)
       .then(async (result) => {
         const basicInfoTraits = getTraits(result?.data[0]);
-        const exists = result?.data[0].createdAt != null;
 
         if (
           // v3 requires a create call (for traitId = "basic_info") if country is missing
-          !exists ||
-          ((basicInfoTraits == null ||
-            isNullOrEmpty(basicInfoTraits.country)) &&
-            isGetStartedFormDataEmpty(myInterestsFlat))
+          (basicInfoTraits == null || isNullOrEmpty(basicInfoTraits.country)) &&
+          isGetStartedFormDataEmpty(myInterestsFlat)
         ) {
           if (isNullOrEmpty(basicInfoTraits.country)) {
             const response = await getAllCountries();
