@@ -209,7 +209,7 @@ const GetStarted = () => {
       })
       .catch((e) => {
         setIsLoading(false);
-        // toastr.error('Error', 'failed to get profile interests!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
   }, [authUser]);
@@ -287,6 +287,7 @@ const GetStarted = () => {
       .catch((e) => {
         setIsLoading(false);
         // toastr.error('Error', 'failed to save profile interests!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
   };
@@ -321,6 +322,7 @@ const GetStarted = () => {
       ).catch((e) => {
         setIsLoading(false);
         // toastr.error('Error', 'failed to save my skills!');
+        // eslint-disable-next-line no-console
         console.log(e);
       });
     } else {
@@ -366,7 +368,7 @@ const GetStarted = () => {
               </PageP>
             </PageCard>
             <PageCard colorStyle="secondary" hasImage={true}>
-              <img src={ImgTestimonial1} alt={"Testimonial image"} />
+              <img src={ImgTestimonial1} alt={"Testimonial"} />
               <div>
                 <PageH2>
                   "Topcoder is the best place to learn from the best of the
