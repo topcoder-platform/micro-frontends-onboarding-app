@@ -35,8 +35,10 @@ const PaymentSetup = () => {
     false
   );
   const [myProfileData, setMyProfileData] = useState({});
-  const taxForm = localStorage.getItem(TAX_FORM);
-  const paymentService = localStorage.getItem(PAYMENT_PROVIDER);
+  const taxForm = localStorage.getItem(`${authUser?.handle}_${TAX_FORM}`);
+  const paymentService = localStorage.getItem(
+    `${authUser?.handle}_${PAYMENT_PROVIDER}`
+  );
 
   function completeTaxForm() {
     navigate("/onboard/payment-setup/tax-form");
@@ -47,8 +49,12 @@ const PaymentSetup = () => {
   }
 
   React.useEffect(() => {
-    setIsTaxFormCompleted(!!localStorage.getItem(TAX_FORM));
-    setIsPaymentServiceSelected(!!localStorage.getItem(PAYMENT_PROVIDER));
+    setIsTaxFormCompleted(
+      !!localStorage.getItem(`${authUser?.handle}_${TAX_FORM}`)
+    );
+    setIsPaymentServiceSelected(
+      !!localStorage.getItem(`${authUser?.handle}_${PAYMENT_PROVIDER}`)
+    );
   }, []);
 
   // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
