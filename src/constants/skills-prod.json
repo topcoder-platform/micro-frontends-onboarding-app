@@ -11,7 +11,7 @@
     "label": "SWT",
     "category": "Development",
     "legacyId": 366,
-    "rank": 7
+    "rank": 22
   },
   {
     "id": "d84b5fb9-dd26-4516-9b04-e53b46484c57",
@@ -60,7 +60,7 @@
     "label": "Elasticsearch",
     "category": "Data Science",
     "legacyId": 171,
-    "rank": 153
+    "rank": 28
   },
   {
     "id": "2d80fd8b-ad6b-42dd-b7c8-50ca64aeb3a9",
@@ -158,7 +158,7 @@
     "label": "Website Design",
     "category": "Design/UX",
     "legacyId": 388,
-    "rank": 228
+    "rank": 15
   },
   {
     "id": "8c96f865-da88-47d0-858c-13f9df83a182",
@@ -207,14 +207,14 @@
     "label": "Bootstrap",
     "category": "Design/UX",
     "legacyId": 128,
-    "rank": 275
+    "rank": 19
   },
   {
     "id": "638acfb6-5068-45bb-88c8-88126b01b54f",
     "label": "Infographic",
     "category": "Design/UX",
     "legacyId": 239,
-    "rank": 13
+    "rank": 139
   },
   {
     "id": "3ab34b19-9aae-4287-875a-6f7d417d6f03",
@@ -228,7 +228,7 @@
     "label": "Perl",
     "category": "Development",
     "legacyId": 299,
-    "rank": 5
+    "rank": 511
   },
   {
     "id": "75f464ea-15a6-4e9a-9296-4a36faa82102",
@@ -242,7 +242,7 @@
     "label": "Cisco",
     "category": "Development",
     "legacyId": 139,
-    "rank": 2
+    "rank": 200
   },
   {
     "id": "84a3780d-6d21-4eac-bbc6-10da9a2402ca",
@@ -326,7 +326,7 @@
     "label": "React.js",
     "category": "Development",
     "legacyId": 315,
-    "rank": 69
+    "rank": 3
   },
   {
     "id": "f87ec1fe-2db3-4f9e-80fa-ae59d89fb939",
@@ -508,7 +508,7 @@
     "label": "CSS",
     "category": "Design/UX",
     "legacyId": 153,
-    "rank": 87
+    "rank": 14
   },
   {
     "id": "5318d1a3-9ed6-40f6-93f3-17531a691a46",
@@ -536,7 +536,7 @@
     "label": "JavaScript",
     "category": "Development",
     "legacyId": 248,
-    "rank": 28
+    "rank": 1
   },
   {
     "id": "d09a1eee-e4b0-48be-98a1-839c659c070c",
@@ -704,14 +704,14 @@
     "label": "Java",
     "category": "Development",
     "legacyId": 247,
-    "rank": 242
+    "rank": 5
   },
   {
     "id": "735e7aed-42d1-448f-ade0-e7d38e5c0888",
     "label": "AngularJS",
     "category": "Development",
     "legacyId": 110,
-    "rank": 117
+    "rank": 6
   },
   {
     "id": "b2dddefa-bc85-446c-9f9d-83c66375bf2d",
@@ -767,7 +767,7 @@
     "label": "Node.js",
     "category": "Development",
     "legacyId": 286,
-    "rank": 101
+    "rank": 2
   },
   {
     "id": "fefbd310-9721-43f7-b7c9-729923992b75",
@@ -802,7 +802,7 @@
     "label": "SQL",
     "category": "Data Science",
     "legacyId": 355,
-    "rank": 100
+    "rank": 24
   },
   {
     "id": "9af09228-8160-4b4d-8b36-5532c036b949",
@@ -1047,7 +1047,7 @@
     "label": "Hadoop",
     "category": "Data Science",
     "legacyId": 207,
-    "rank": 75
+    "rank": 18
   },
   {
     "id": "8e975f43-1272-4dfa-a2ce-039b83bd7045",
@@ -1061,7 +1061,7 @@
     "label": "Talend",
     "category": "Data Science",
     "legacyId": 585,
-    "rank": 229
+    "rank": 2
   },
   {
     "id": "9133c0e9-a71f-45f7-acbf-1025bee06b0b",
@@ -1110,7 +1110,7 @@
     "label": "Databasedotcom",
     "category": "Data Science",
     "legacyId": 160,
-    "rank": 24
+    "rank": 240
   },
   {
     "id": "4e993413-1a5e-4cfe-9b07-03211a0434d2",
@@ -1159,7 +1159,7 @@
     "label": "Predix",
     "category": "Development",
     "legacyId": 31,
-    "rank": 8
+    "rank": 800
   },
   {
     "id": "88bf2be8-82ea-4be4-aefe-ac72703263e3",
@@ -1306,7 +1306,7 @@
     "label": "Adobe XD",
     "category": "Design/UX",
     "legacyId": 615,
-    "rank": 95
+    "rank": 13
   },
   {
     "id": "4d4e82d2-f4d7-44f0-9d6e-e74d176f8592",
@@ -1355,7 +1355,7 @@
     "label": "User Experience (Ux)",
     "category": "Design/UX",
     "legacyId": 375,
-    "rank": 76
+    "rank": 17
   },
   {
     "id": "ee7c7991-4e02-43c7-890f-639a388996e2",
@@ -1754,7 +1754,7 @@
     "label": "Power BI",
     "category": "Data Science",
     "legacyId": 583,
-    "rank": 163
+    "rank": 25
   },
   {
     "id": "1aa9f384-4be7-4fd7-a38d-3415e6dd32f8",
@@ -1936,14 +1936,14 @@
     "label": "Figma",
     "category": "Design/UX",
     "legacyId": 614,
-    "rank": 163
+    "rank": 12
   },
   {
     "id": "2472520d-c737-4abe-bf38-93a3f5643e45",
     "label": "UI Prototype",
     "category": "Design/UX",
     "legacyId": 24,
-    "rank": 275
+    "rank": 10
   },
   {
     "id": "f33ccf29-2ba4-4e6f-abfc-fcf9e75354ac",
@@ -2216,7 +2216,7 @@
     "label": "String Parsing",
     "category": "Development",
     "legacyId": 361,
-    "rank": 6
+    "rank": 611
   },
   {
     "id": "04ef98d5-11be-4bfb-bfc1-5e2c9ca5302c",
@@ -2265,7 +2265,7 @@
     "label": "Sketch",
     "category": "Design/UX",
     "legacyId": 351,
-    "rank": 64
+    "rank": 16
   },
   {
     "id": "13273a5a-72a4-4ec4-922b-7266791777e3",
@@ -2587,7 +2587,7 @@
     "label": "Compression",
     "category": "Development",
     "legacyId": 173,
-    "rank": 3
+    "rank": 322
   },
   {
     "id": "0075bcc0-293f-4689-b49e-2f6fcd8cdbe1",
@@ -2636,7 +2636,7 @@
     "label": "Flash",
     "category": "Development",
     "legacyId": 181,
-    "rank": 8
+    "rank": 80
   },
   {
     "id": "c76d7849-75ba-4999-a4fe-2b3f8fea2c9f",
@@ -2664,7 +2664,7 @@
     "label": "BigQuery",
     "category": "Data Science",
     "legacyId": 126,
-    "rank": 146
+    "rank": 3
   },
   {
     "id": "15b50d16-b628-4565-845a-14f7e86cfb8f",
@@ -2746,9 +2746,9 @@
   {
     "id": "2a3242cb-9362-4685-9ad1-c73ff8052b3a",
     "label": "PostgreSQL",
-    "category": "Data Science",
+    "category": "Development",
     "legacyId": 306,
-    "rank": 209
+    "rank": 17
   },
   {
     "id": "308a2e37-9619-419a-a1ee-8c00a7f53a6d",
@@ -2769,7 +2769,7 @@
     "label": "Golang",
     "category": "Development",
     "legacyId": 581,
-    "rank": 166
+    "rank": 8
   },
   {
     "id": "fecb6ffb-bf30-4ce9-a002-498abb2b5971",
@@ -2881,7 +2881,7 @@
     "label": "Microservices",
     "category": "Development",
     "legacyId": 49,
-    "rank": 92
+    "rank": 9
   },
   {
     "id": "4e78919b-d9f0-4432-a83f-c9876862fcea",
