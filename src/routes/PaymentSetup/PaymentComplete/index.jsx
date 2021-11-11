@@ -64,9 +64,11 @@ const PaymentComplete = () => {
             </div>
           </div>
 
-          {`${myProfileData?.firstName || ""} ${
-            myProfileData?.lastName || ""
-          } | ${myProfileData?.handle || ""}`}
+          <div styleName="user-name">
+            {`${myProfileData?.firstName || ""} ${
+              myProfileData?.lastName || ""
+            } | ${myProfileData?.handle || ""}`}
+          </div>
           <PageDivider styleName="page-divider" />
           <PageH1 styleName="thank-you">Thank You!</PageH1>
           <PageDivider styleName="page-divider" />
