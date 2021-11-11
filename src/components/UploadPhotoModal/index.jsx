@@ -25,18 +25,34 @@ const UploadPhotoModal = ({
   onPhotoSaved = (f) => f,
 }) => {
   // react dropzone hooks
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const {
+    acceptedFiles,
+    fileRejections,
+    getRootProps,
+    getInputProps,
+  } = useDropzone({
     multiple: false,
     accept: "image/jpg, image/jpeg, image/png",
     minSize: 1,
     maxSize: 2097152,
   });
   const [photoSrc, setPhotoSrc] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     if (acceptedFiles && acceptedFiles.length) {
       setPhotoSrc(URL.createObjectURL(acceptedFiles[0]));
     }
   }, [acceptedFiles]);
+
+  useEffect(() => {
+    if (fileRejections && fileRejections.length) {
+      setErrorMessage("(Maximum File Size: 2MB)");
+    } else {
+      setErrorMessage("");
+    }
+  }, [fileRejections]);
+
   const handleBackClick = (e) => {
     if (!photoSrc) handleClose(e);
     else setPhotoSrc("");
@@ -68,6 +84,7 @@ const UploadPhotoModal = ({
               OR
               <br />
               choose a photo to upload
+              {errorMessage && <p styleName="error-message">{errorMessage}</p>}
             </p>
             <br />
             <Button size={BUTTON_SIZE.MEDIUM}>BROWSE FILES</Button>
