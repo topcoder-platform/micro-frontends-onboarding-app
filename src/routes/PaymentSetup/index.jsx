@@ -15,11 +15,16 @@ import PageFoot from "components/PageElements/PageFoot";
 import PageP from "components/PageElements/PageP";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
-import { BUTTON_SIZE, BUTTON_TYPE, TAX_FORM } from "constants";
+import {
+  BUTTON_SIZE,
+  BUTTON_TYPE,
+  TAX_FORM,
+  PAYMENT_PROVIDER,
+  PAYMENT_METHOD_MAP,
+} from "constants";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import IconCheck from "../../assets/images/check.svg";
-import { PAYMENT_PROVIDER } from "constants/";
 
 const PaymentSetup = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -31,6 +36,7 @@ const PaymentSetup = () => {
   );
   const [myProfileData, setMyProfileData] = useState({});
   const taxForm = localStorage.getItem(TAX_FORM);
+  const paymentService = localStorage.getItem(PAYMENT_PROVIDER);
 
   function completeTaxForm() {
     navigate("/onboard/payment-setup/tax-form");
@@ -115,7 +121,9 @@ const PaymentSetup = () => {
               </div>
             )}
             {isPaymentServiceSelected && (
-              <SuccessMessage message="You have submitted account details to use Payoneer as your Payment Service Provider." />
+              <SuccessMessage
+                message={`You have submitted account details to use ${PAYMENT_METHOD_MAP[paymentService]} as your Payment Service Provider.`}
+              />
             )}
           </div>
           <PageP styleName="para">
