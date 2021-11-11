@@ -16,6 +16,6 @@ module.exports = {
 
   COMMUNITY_ADMIN_URL: "https://tc-micro-community-admin.herokuapp.com",
   HEAP_ANALYTICS_KEY: process.env.HEAP_ANALYTICS_KEY,
-  ONBOARD_FLOW: true,
+  ONBOARD_FLOW: false,
   TOPCODER_START_URL: "https://topcoder-dev.com/start",
 };
