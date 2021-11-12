@@ -55,6 +55,8 @@ import {
 } from "utils/";
 import { getAllCountries } from "services/countries";
 import { checkUserTrait } from "services/traits";
+import { trackEvent } from "services/analytics";
+import { EVENT_TYPE } from "constants/";
 
 const GetStarted = () => {
   // states
@@ -269,6 +271,7 @@ const GetStarted = () => {
               basicInfoTraits.country = country.country;
             }
           }
+
           return addMyPrimaryInterests(
             authUser.handle,
             basicInfoTraits, // we could get here if basicInfoTraits.country == null
