@@ -196,7 +196,7 @@ export const PAYMENT_METHOD_DETAILS_MAP = {
     `,
     important:
       "Important: After you create an account, please email support@topcoder.com with the information outlined",
-    url: "https://www.paypal.com",
+    url: "https://www.paypal.com/cgi-bin/webscr?cmd=_registration-run",
   },
   "western-union": {
     instructions: [
@@ -223,7 +223,8 @@ export const PAYMENT_METHOD_DETAILS_MAP = {
     `,
     important:
       "Important: After you create an account, please return to this screen and enter the appropriate account details.",
-    url: "https://www.westernunion.com",
+    url:
+      "https://payee.globalpay.westernunion.com/PayeeManager/BeneficiaryEnrollment/SpecifyPayeeID.aspx?id=9E63C90B520F830246DA2FD728CDAEBF",
   },
 };
 
