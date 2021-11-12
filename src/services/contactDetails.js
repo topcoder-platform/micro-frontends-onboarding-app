@@ -4,6 +4,8 @@
 import { axiosInstance as axios } from "./requestInterceptor";
 import config from "../../config";
 import { extractTraitsFromV3, wrapV3 } from "utils/";
+import { trackEvent } from "./analytics";
+import { EVENT_TYPE } from "constants/";
 
 const TRAIT_CONNECT_INFO = "connect_info";
 const CATEGORY_NAME = "Connect User Information";
@@ -32,6 +34,11 @@ export async function getContactDetails(myusername) {
  * CreateContactDetails
  */
 export function createContactDetails(myusername, contactDetails) {
+  trackEvent(EVENT_TYPE.SAVE_TRAITS, {
+    trait: TRAIT_CONNECT_INFO,
+    data: { ...contactDetails },
+  });
+
   return axios.post(`${config.API.V5}/members/${myusername}/traits`, [
     {
       categoryName: CATEGORY_NAME,
@@ -51,6 +58,11 @@ export function updateContactDetails(
   contactDetailsOnServer,
   contactDetails
 ) {
+  trackEvent(EVENT_TYPE.SAVE_TRAITS, {
+    trait: TRAIT_CONNECT_INFO,
+    data: { ...contactDetails },
+  });
+
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [
     {
       categoryName: CATEGORY_NAME,

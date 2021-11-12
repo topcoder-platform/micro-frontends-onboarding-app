@@ -354,3 +354,7 @@ export const TAX_INFO_CONTENT = `
 // The urls for the tax instructions for both W8 and W9
 export const IRS_W8_BEN_URL = "http://www.irs.gov/pub/irs-pdf/iw8.pdf";
 export const IRS_W9_URL = "http://www.irs.gov/pub/irs-pdf/iw9.pdf";
+
+export const EVENT_TYPE = {
+  SAVE_TRAITS: "Onboarding Flow - Save Traits",
+};
