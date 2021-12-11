@@ -195,30 +195,27 @@ const PaymentSetup = () => {
                 {"< "}
               </Button>
             </Link>
-              {!isTaxFormCompleted && !isPaymentServiceSelected &&(
-                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
-                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                    FINISH LATER
-                  </Button>
-                </a>
-              )}
-              {isTaxFormCompleted && !isPaymentServiceSelected &&(
-                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
-                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                    FINISH LATER
-                  </Button>
-                </a>
-              )}
-              {!isTaxFormCompleted && isPaymentServiceSelected &&(
-                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
-                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                    Finish Later
-                  </Button>
-                </a>
-              )}
-              {isTaxFormCompleted && isPaymentServiceSelected &&(
-                <a></a>
-              )}
+            {!isTaxFormCompleted && !isPaymentServiceSelected &&(
+              <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                  FINISH LATER
+                </Button>
+              </a>
+            )}
+            {isTaxFormCompleted && !isPaymentServiceSelected &&(
+              <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                  FINISH LATER
+                </Button>
+              </a>
+            )}
+            {!isTaxFormCompleted && isPaymentServiceSelected &&(
+              <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                  Finish Later
+                </Button>
+              </a>
+            )}
             <Link to="/onboard/build-my-profile">
               <Button size={BUTTON_SIZE.MEDIUM}>
                 NEXT
