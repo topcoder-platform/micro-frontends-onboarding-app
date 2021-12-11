@@ -29,6 +29,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 import ImgTestimonial2 from "../../assets/images/testimonial-2.png";
 import IconCross from "../../assets/images/icon-cross.svg";
 import config from "../../../config";
+import { MAX_COMPLETED_STEP } from "constants/";
 
 import {
   industries,
@@ -533,7 +534,7 @@ const BuildMyProfile = () => {
     }
 
     setIsLoading(false);
-    navigate("/onboard/complete");
+    navigate(config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home");
   };
 
   return (
@@ -1023,6 +1024,13 @@ const BuildMyProfile = () => {
               <Button
                 disabled={errors && !canSubmit()}
                 size={BUTTON_SIZE.MEDIUM}
+                onClick={() => {
+                  localStorage.removeItem(MAX_COMPLETED_STEP);
+                  localStorage.removeItem(
+                    `${authUser?.handle}_${PAYMENT_PROVIDER}`
+                  );
+                  localStorage.removeItem(`${authUser?.handle}_${TAX_FORM}`);
+                }}
               >
                 ALL DONE
               </Button>
