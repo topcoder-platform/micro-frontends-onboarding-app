@@ -14,6 +14,7 @@ import PageH2 from "components/PageElements/PageH2";
 import PageP from "components/PageElements/PageP";
 import PageRow from "components/PageElements/PageRow";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
 import FormField from "components/FormElements/FormField";
@@ -492,6 +493,18 @@ const ContactDetails = () => {
               </Button>
             </Link>
           </PageFoot>
+          <MobileFoot align="between">
+            <Link to="/onboard">
+              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                {"< "}Back
+              </Button>
+            </Link>
+            <Link to="/onboard/payment-setup" onClick={(e) => handleSubmit(e)}>
+              <Button size={BUTTON_SIZE.MEDIUM}>
+                CONTINUE TO PAYMENT SETUP
+              </Button>
+            </Link>
+          </MobileFoot>
           <OnboardProgress level={2} />
         </PageContent>
       </Page>

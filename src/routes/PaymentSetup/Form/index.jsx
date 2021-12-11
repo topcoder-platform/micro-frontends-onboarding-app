@@ -22,6 +22,7 @@ import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
 import IconBackArrow from "../../../assets/images/icon-back-arrow.svg";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
@@ -160,6 +161,16 @@ const TaxForm = ({ formName }) => {
               <span styleName="footer-back-button-text">Back</span>
             </Button>
           </PageFoot>
+          <MobileFoot styleName="footer">
+            <Button
+              onClick={onBack}
+              styleName="footer-back-button"
+              type={BUTTON_TYPE.SECONDARY}
+            >
+              <IconBackArrow />
+              <span styleName="footer-back-button-text">Back</span>
+            </Button>
+          </MobileFoot>
         </PageContent>
       </div>
     </Page>

@@ -16,6 +16,7 @@ import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
 import IconBackArrow from "../../../assets/images/icon-back-arrow.svg";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import styles from "./styles.module.scss";
@@ -146,6 +147,25 @@ const TaxConfirm = ({ formName }) => {
               </Button>
             </div>
           </PageFoot>
+          <MobileFoot styleName="styles.footer">
+            <Button
+              onClick={onBack}
+              styleName="styles.footer-back-button"
+              type={BUTTON_TYPE.SECONDARY}
+            >
+              <IconBackArrow />
+              <span styleName="styles.footer-back-button-text">Back</span>
+            </Button>
+            <div styleName="styles.confirm-button-wrapper">
+              <Button
+                onClick={onConfirm}
+                disabled={!completedForm}
+                styleName="styles.footer-confirm-button"
+              >
+                Confirm
+              </Button>
+            </div>
+          </MobileFoot>
         </PageContent>
       </div>
     </Page>

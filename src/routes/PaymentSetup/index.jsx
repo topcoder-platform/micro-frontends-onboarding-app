@@ -8,13 +8,16 @@ import withAuthentication from "hoc/withAuthentication";
 // import components and other stuffs
 import Page from "components/Page";
 import PageContent from "components/PageContent";
+import PageRow from "components/PageElements/PageRow";
 import PageH1 from "components/PageElements/PageH1";
 import PageH2 from "components/PageElements/PageH2";
 import PageDivider from "components/PageDivider";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import PageP from "components/PageElements/PageP";
 import Button from "components/Button";
 import OnboardProgress from "components/OnboardProgress";
+import config from "../../../config";
 import {
   BUTTON_SIZE,
   BUTTON_TYPE,
@@ -134,7 +137,9 @@ const PaymentSetup = () => {
           </div>
           <PageP styleName="para">
             Once Payments Set-up has been completed, you will be able to manage
-            payments from your Topcoder account. For more information, see:{" "}
+            payments from your Topcoder account.
+            <br></br>
+            For more information, see:{" "}
             <a
               href="https://www.topcoder.com/thrive/articles/payment-policies-and-instructions"
               styleName="link"
@@ -145,17 +150,81 @@ const PaymentSetup = () => {
           </PageP>
           <PageDivider />
           <PageFoot align="between">
+            <PageRow>
+              <Link to="/onboard/contact-details">
+                <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                  {"< "}Back
+                </Button>
+              </Link>
+            </PageRow>
+            <PageRow>
+              {!isTaxFormCompleted && !isPaymentServiceSelected &&(
+                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                    Finish Later
+                  </Button>
+                </a>
+              )}
+              {isTaxFormCompleted && !isPaymentServiceSelected &&(
+                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                    Finish Later
+                  </Button>
+                </a>
+              )}
+              {!isTaxFormCompleted && isPaymentServiceSelected &&(
+                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                    Finish Later
+                  </Button>
+                </a>
+              )}
+              {isTaxFormCompleted && isPaymentServiceSelected &&(
+                <a></a>
+              )}
+              <Link to="/onboard/build-my-profile">
+                <Button size={BUTTON_SIZE.MEDIUM}>
+                  CONTINUE TO BUILD MY PROFILE
+                </Button>
+              </Link>
+            </PageRow>
+          </PageFoot>
+          <MobileFoot align="between">
             <Link to="/onboard/contact-details">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                {"< "}Back
+                {"< "}
               </Button>
             </Link>
+              {!isTaxFormCompleted && !isPaymentServiceSelected &&(
+                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                    FINISH LATER
+                  </Button>
+                </a>
+              )}
+              {isTaxFormCompleted && !isPaymentServiceSelected &&(
+                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                    FINISH LATER
+                  </Button>
+                </a>
+              )}
+              {!isTaxFormCompleted && isPaymentServiceSelected &&(
+                <a href={config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"}>
+                  <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                    Finish Later
+                  </Button>
+                </a>
+              )}
+              {isTaxFormCompleted && isPaymentServiceSelected &&(
+                <a></a>
+              )}
             <Link to="/onboard/build-my-profile">
               <Button size={BUTTON_SIZE.MEDIUM}>
-                CONTINUE TO BUILD MY PROFILE
+                NEXT
               </Button>
             </Link>
-          </PageFoot>
+          </MobileFoot>
           <OnboardProgress level={3} />
         </PageContent>
       </Page>

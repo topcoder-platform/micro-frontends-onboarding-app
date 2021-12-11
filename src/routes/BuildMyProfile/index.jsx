@@ -14,6 +14,7 @@ import PageH3 from "components/PageElements/PageH3";
 import PageP from "components/PageElements/PageP";
 import PageRow from "components/PageElements/PageRow";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import PageCard from "components/PageElements/PageCard";
 import PageListInput from "components/PageListInput";
 import Button from "components/Button";
@@ -27,6 +28,7 @@ import DateInput from "components/DateInput";
 import LoadingSpinner from "components/LoadingSpinner";
 import ImgTestimonial2 from "../../assets/images/testimonial-2.png";
 import IconCross from "../../assets/images/icon-cross.svg";
+import config from "../../../config";
 
 import {
   industries,
@@ -1014,18 +1016,36 @@ const BuildMyProfile = () => {
                 {"< "}Back
               </Button>
             </Link>
-            <Link
-              to={errors && canSubmit() ? "/onboard/complete" : "#"}
+            <a
+              href={errors && canSubmit() ? config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home" : "#"}
               onClick={(e) => handleSubmit(e)}
             >
               <Button
                 disabled={errors && !canSubmit()}
                 size={BUTTON_SIZE.MEDIUM}
               >
-                COMPLETE YOUR PROFILE
+                ALL DONE
+              </Button>
+            </a>
+          </PageFoot>
+          <MobileFoot align="between">
+            <Link to="/onboard/payment-setup">
+              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                {"< "}Back
               </Button>
             </Link>
-          </PageFoot>
+            <a
+              href={errors && canSubmit() ? config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home" : "#"}
+              onClick={(e) => handleSubmit(e)}
+            >
+              <Button
+                disabled={errors && !canSubmit()}
+                size={BUTTON_SIZE.MEDIUM}
+              >
+                ALL DONE
+              </Button>
+            </a>
+          </MobileFoot>
           <OnboardProgress level={4} />
         </PageContent>
       </Page>

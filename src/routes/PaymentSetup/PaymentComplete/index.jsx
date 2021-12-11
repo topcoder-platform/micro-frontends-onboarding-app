@@ -14,6 +14,7 @@ import PageH1 from "components/PageElements/PageH1";
 import PageH3 from "components/PageElements/PageH3";
 import PageP from "components/PageElements/PageP";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import StepsIndicator from "components/StepsIndicator";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
@@ -93,6 +94,11 @@ const PaymentComplete = () => {
               Continue
             </Button>
           </PageFoot>
+          <MobileFoot styleName="complete-page-footer">
+            <Button onClick={goToPaymentSetup} styleName="continue-button">
+              Continue
+            </Button>
+          </MobileFoot>
         </PageContent>
       </div>
     </Page>

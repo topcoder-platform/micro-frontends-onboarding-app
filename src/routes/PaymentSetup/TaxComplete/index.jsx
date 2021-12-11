@@ -14,6 +14,7 @@ import StepsIndicator from "components/StepsIndicator";
 import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import PageH3 from "components/PageElements/PageH3";
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
@@ -92,6 +93,14 @@ const TaxComplete = ({ formName }) => {
               Continue
             </Button>
           </PageFoot>
+          <MobileFoot styleName="footer">
+            <Button
+              onClick={goToPaymentSetup}
+              styleName="footer-continue-button"
+            >
+              Continue
+            </Button>
+          </MobileFoot>
         </PageContent>
       </div>
     </Page>

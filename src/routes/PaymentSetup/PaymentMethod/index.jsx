@@ -20,6 +20,7 @@ import PageDivider from "components/PageDivider";
 import Checkbox from "rc-checkbox";
 import EmailDetails from "components/EmailDetails";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import PageP from "components/PageElements/PageP";
 import StepsIndicator from "components/StepsIndicator";
 
@@ -187,6 +188,25 @@ const PaymentMethod = ({ paymentMethod }) => {
               </Button>
             </div>
           </PageFoot>
+          <MobileFoot styleName="styles.footer">
+            <Button
+              onClick={onBack}
+              styleName="styles.footer-back-button"
+              type={BUTTON_TYPE.SECONDARY}
+            >
+              <IconBackArrow />
+              <span styleName="styles.footer-back-button-text">Back</span>
+            </Button>
+            <div styleName="styles.confirm-button-wrapper">
+              <Button
+                onClick={onConfirm}
+                disabled={!emailedDetails}
+                styleName="styles.footer-confirm-button"
+              >
+                Confirm
+              </Button>
+            </div>
+          </MobileFoot>
         </PageContent>
       </div>
     </Page>

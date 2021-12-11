@@ -20,6 +20,7 @@ import PageP from "components/PageElements/PageP";
 import PageUl from "components/PageElements/PageUl";
 import PageRow from "components/PageElements/PageRow";
 import PageFoot from "components/PageElements/PageFoot";
+import MobileFoot from "components/PageElements/MobileFoot";
 import PageCard from "components/PageElements/PageCard";
 import InterestsList from "components/InterestsList";
 import SkillsList from "components/SkillsList";
@@ -480,6 +481,16 @@ const GetStarted = () => {
               </Button>
             </Link>
           </PageFoot>
+          <MobileFoot>
+            <Link
+              to="/onboard/contact-details"
+              onClick={(e) => handleSubmit(e)}
+            >
+              <Button size={BUTTON_SIZE.MEDIUM}>
+                CONTINUE TO CONTACT DETAILS
+              </Button>
+            </Link>
+          </MobileFoot>
           <OnboardProgress level={1} />
         </PageContent>
       </Page>
