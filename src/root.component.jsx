@@ -11,7 +11,6 @@ import PaymentProviders from "./routes/PaymentSetup/PaymentProviders";
 import PaymentMethod from "./routes/PaymentSetup/PaymentMethod";
 import PaymentComplete from "./routes/PaymentSetup/PaymentComplete";
 import BuildMyProfile from "./routes/BuildMyProfile";
-import Complete from "./routes/Complete";
 import TaxForm from "./routes/PaymentSetup/TaxForm";
 import Form from "./routes/PaymentSetup/Form";
 import TaxInfo from "./routes/PaymentSetup/TaxInfo";
@@ -38,7 +37,6 @@ export default function Root() {
     disableSidebarForRoute("/onboard/contact-details");
     disableSidebarForRoute("/onboard/payment-setup");
     disableSidebarForRoute("/onboard/build-my-profile");
-    disableSidebarForRoute("/onboard/complete");
     disableSidebarForRoute("/onboard/payment-setup/payment-provider");
     disableSidebarForRoute("/onboard/payment-setup/payment-provider/paypal");
     disableSidebarForRoute("/onboard/payment-setup/payment-provider/payoneer");
@@ -84,8 +82,6 @@ export default function Root() {
           <TaxComplete path="/onboard/payment-setup/tax-form/:formName/complete" />
 
           <BuildMyProfile path="/onboard/build-my-profile" />
-
-          <Complete path="/onboard/complete" />
         </Router>
 
         {/* Global config for Toastr popups */}

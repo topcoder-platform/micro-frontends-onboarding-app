@@ -78,7 +78,8 @@ const PaymentComplete = () => {
           </PageH3>
           <PageP styleName="instructions">
             Once Payments Set-up has been confirmed, you will be able to manage
-            payments from your Topcoder account. For more information, see:{" "}
+            payments from your Topcoder account. <br /> For more information,
+            see:{" "}
             <a
               href="https://www.topcoder.com/thrive/articles/payment-policies-and-instructions"
               target="_blank"
