@@ -39,6 +39,7 @@ const PaymentSetup = () => {
   const paymentService = localStorage.getItem(
     `${authUser?.handle}_${PAYMENT_PROVIDER}`
   );
+  const isNextButtonDisabled = !isTaxFormCompleted || !isPaymentServiceSelected;
 
   function completeTaxForm() {
     navigate("/onboard/payment-setup/tax-form");
@@ -134,7 +135,8 @@ const PaymentSetup = () => {
           </div>
           <PageP styleName="para">
             Once Payments Set-up has been completed, you will be able to manage
-            payments from your Topcoder account. For more information, see:{" "}
+            payments from your Topcoder account. <br /> For more information,
+            see:{" "}
             <a
               href="https://www.topcoder.com/thrive/articles/payment-policies-and-instructions"
               styleName="link"
@@ -144,17 +146,38 @@ const PaymentSetup = () => {
             </a>
           </PageP>
           <PageDivider />
-          <PageFoot align="between">
+          <PageFoot align="between" styleName="page-footer">
             <Link to="/onboard/contact-details">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                {"< "}Back
+                {"< "}
+                <span styleName="back-button-text">Back</span>
               </Button>
             </Link>
-            <Link to="/onboard/build-my-profile">
-              <Button size={BUTTON_SIZE.MEDIUM}>
-                CONTINUE TO BUILD MY PROFILE
-              </Button>
-            </Link>
+            <div styleName="footer-btns">
+              {isNextButtonDisabled && (
+                <Link to="/onboard/build-my-profile">
+                  <Button
+                    size={BUTTON_SIZE.MEDIUM}
+                    type={BUTTON_TYPE.SECONDARY}
+                  >
+                    SKIP
+                  </Button>
+                </Link>
+              )}
+              <Link
+                to={isNextButtonDisabled ? "#" : "/onboard/build-my-profile"}
+              >
+                <Button
+                  size={BUTTON_SIZE.MEDIUM}
+                  disabled={isNextButtonDisabled}
+                >
+                  <span styleName="next-button-lg">
+                    CONTINUE TO BUILD MY PROFILE
+                  </span>
+                  <span styleName="next-button-sm">NEXT</span>
+                </Button>
+              </Link>
+            </div>
           </PageFoot>
           <OnboardProgress level={3} />
         </PageContent>

@@ -35,6 +35,22 @@
     color: #2e55b9;
   }
 
+  .footer-btns {
+    display: flex;
+
+    & > a {
+      margin-right: 15px;
+    }
+  }
+
+  .next-button-lg {
+    display: inline;
+  }
+
+  .next-button-sm {
+    display: none;
+  }
+
   .success-container {
     background: linear-gradient(264.69deg, #017c6d 2.17%, #198807 97.49%);
     border-radius: 8px;
@@ -63,6 +79,30 @@
     }
     .card {
       width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    .back-button-text {
+      display: none;
+    }
+
+    .next-button-lg {
+      display: none;
+    }
+
+    .next-button-sm {
+      display: inline;
+    }
+
+    .page-footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between !important;
+    }
+
+    .footer-btns > a {
+      margin-right: 5px;
     }
   }
 }

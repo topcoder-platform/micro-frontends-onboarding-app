@@ -27,6 +27,8 @@ import DateInput from "components/DateInput";
 import LoadingSpinner from "components/LoadingSpinner";
 import ImgTestimonial2 from "../../assets/images/testimonial-2.png";
 import IconCross from "../../assets/images/icon-cross.svg";
+import config from "../../../config";
+import { MAX_COMPLETED_STEP, PAYMENT_PROVIDER, TAX_FORM } from "constants/";
 
 import {
   industries,
@@ -531,7 +533,7 @@ const BuildMyProfile = () => {
     }
 
     setIsLoading(false);
-    navigate("/onboard/complete");
+    window.location.href = config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home";
   };
 
   return (
@@ -1014,17 +1016,28 @@ const BuildMyProfile = () => {
                 {"< "}Back
               </Button>
             </Link>
-            <Link
-              to={errors && canSubmit() ? "/onboard/complete" : "#"}
+            <a
+              href={
+                errors && canSubmit()
+                  ? config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"
+                  : "#"
+              }
               onClick={(e) => handleSubmit(e)}
             >
               <Button
+                onClick={() => {
+                  localStorage.removeItem(MAX_COMPLETED_STEP);
+                  localStorage.removeItem(
+                    `${authUser?.handle}_${PAYMENT_PROVIDER}`
+                  );
+                  localStorage.removeItem(`${authUser?.handle}_${TAX_FORM}`);
+                }}
                 disabled={errors && !canSubmit()}
                 size={BUTTON_SIZE.MEDIUM}
               >
-                COMPLETE YOUR PROFILE
+                ALL DONE
               </Button>
-            </Link>
+            </a>
           </PageFoot>
           <OnboardProgress level={4} />
         </PageContent>

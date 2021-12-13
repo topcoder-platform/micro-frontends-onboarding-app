@@ -61,7 +61,6 @@ export const ProgressLevels = [
   { label: "Contact Details", url: "/onboard/contact-details" },
   { label: "Payment Setup", url: "/onboard/payment-setup" },
   { label: "Building My Profile", url: "/onboard/build-my-profile" },
-  { label: "Complete", url: "/onboard/complete" },
 ];
 
 /**
