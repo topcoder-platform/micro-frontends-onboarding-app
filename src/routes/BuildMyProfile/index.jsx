@@ -27,6 +27,7 @@ import DateInput from "components/DateInput";
 import LoadingSpinner from "components/LoadingSpinner";
 import ImgTestimonial2 from "../../assets/images/testimonial-2.png";
 import IconCross from "../../assets/images/icon-cross.svg";
+import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
 import config from "../../../config";
 import { MAX_COMPLETED_STEP, PAYMENT_PROVIDER, TAX_FORM } from "constants/";
 
@@ -1010,10 +1011,11 @@ const BuildMyProfile = () => {
 
           <PageDivider />
           <PageFoot></PageFoot>
-          <PageFoot align="between">
+          <PageFoot align="between" styleName="page-footer">
             <Link to="/onboard/payment-setup">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                {"< "}Back
+                <IconBackArrow />
+                <span styleName="back-button-text">&nbsp;Back</span>
               </Button>
             </Link>
             <a

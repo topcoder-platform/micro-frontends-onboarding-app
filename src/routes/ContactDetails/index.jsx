@@ -28,6 +28,7 @@ import {
   createContactDetails,
   updateContactDetails,
 } from "services/contactDetails";
+import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
 
 import {
   scrollToTop,
@@ -480,10 +481,11 @@ const ContactDetails = () => {
           </PageRow>
           <PageDivider />
           <PageFoot></PageFoot>
-          <PageFoot align="between">
+          <PageFoot align="between" styleName="page-footer">
             <Link to="/onboard">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                {"< "}Back
+                <IconBackArrow />
+                <span styleName="back-button-text">&nbsp;Back</span>
               </Button>
             </Link>
             <Link to="/onboard/payment-setup" onClick={(e) => handleSubmit(e)}>

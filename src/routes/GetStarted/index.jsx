@@ -463,13 +463,16 @@ const GetStarted = () => {
             />
           </PageRow>
           <PageDivider />
-          <PageFoot>
+          <PageFoot styleName="page-footer">
             <Link
               to="/onboard/contact-details"
               onClick={(e) => handleSubmit(e)}
             >
               <Button size={BUTTON_SIZE.MEDIUM}>
-                CONTINUE TO CONTACT DETAILS
+                <span styleName="footer-btn-lg">
+                  CONTINUE TO CONTACT DETAILS
+                </span>
+                <span styleName="footer-btn-sm">NEXT</span>
               </Button>
             </Link>
           </PageFoot>

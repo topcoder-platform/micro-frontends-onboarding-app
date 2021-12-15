@@ -268,3 +268,15 @@
     }
   }
 }
+
+@media screen and (max-width: 425px) {
+  .footer {
+    .footer-back-button {
+      padding: 14px 24px 14px 24px !important;
+    }
+
+    .footer-back-button-text {
+      display: none;
+    }
+  }
+}
