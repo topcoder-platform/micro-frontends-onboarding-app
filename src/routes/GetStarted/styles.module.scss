@@ -57,3 +57,33 @@
     margin: 0 5px 0 0;
   }
 }
+
+.page-footer {
+  .footer-btn-lg {
+    display: inline-block;
+  }
+
+  .footer-btn-sm {
+    display: none;
+  }
+}
+
+
+
+
+@media screen and (max-width: 425px) {
+  .page-footer {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+
+    .footer-btn-lg {
+      display: none;
+    }
+
+    .footer-btn-sm {
+      display: inline-block;
+    }
+  }
+
+}

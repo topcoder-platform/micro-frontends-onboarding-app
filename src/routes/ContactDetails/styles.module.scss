@@ -12,3 +12,15 @@
     margin-top: 20px;
   }
 }
+
+@media screen and (max-width: 425px) {
+  .back-button-text {
+    display: none;
+  }
+
+  .page-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between !important;
+  }
+}
