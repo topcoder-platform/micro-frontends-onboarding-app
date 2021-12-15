@@ -160,7 +160,7 @@ const PaymentSetup = () => {
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
                   >
-                    SKIP
+                    FINISH LA
                   </Button>
                 </Link>
               )}
