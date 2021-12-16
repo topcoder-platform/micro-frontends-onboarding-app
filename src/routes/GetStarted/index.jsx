@@ -278,15 +278,11 @@ const GetStarted = () => {
             myInterestsFlat
           );
         } else {
-          if (isGetStartedFormDataEmpty(myInterestsFlat)) {
-            return updateMyPrimaryInterests(
-              authUser.handle,
-              basicInfoTraits,
-              myInterestsFlat
-            );
-          } else {
-            return Promise.resolve();
-          }
+          return updateMyPrimaryInterests(
+            authUser.handle,
+            basicInfoTraits,
+            myInterestsFlat
+          );
         }
       })
       .catch((e) => {
