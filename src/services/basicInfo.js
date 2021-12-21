@@ -73,47 +73,6 @@ export function updateMyPrimaryInterests(
 }
 
 /**
- * Add my address, if the basicInfo not exists
- */
-export function addMyAddress(myusername, address, country) {
-  return axios.post(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      traitId: TRAIT_BASIC_INFO,
-      categoryName: CATEGORY_NAME,
-      traits: {
-        data: [
-          {
-            ...country,
-            addresses: [address],
-          },
-        ],
-      },
-    },
-  ]);
-}
-
-/**
- * Update my address
- */
-export function updateMyAddress(myusername, prevBasicInfo, address, country) {
-  return axios.put(`${config.API.V5}/members/${myusername}/traits`, [
-    {
-      traitId: TRAIT_BASIC_INFO,
-      categoryName: CATEGORY_NAME,
-      traits: {
-        data: [
-          {
-            ...prevBasicInfo,
-            ...country,
-            addresses: [address],
-          },
-        ],
-      },
-    },
-  ]);
-}
-
-/**
  * Add my title and bio, if the basicInfo not exists
  */
 export function addMyTitleAndBio(myusername, data) {
