@@ -4,7 +4,6 @@ import "./styles.module.scss";
 import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
-import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 // import components and other stuffs
 import Page from "components/Page";
 import PageContent from "components/PageContent";
@@ -22,62 +21,59 @@ import Select from "components/ReactSelect";
 import LoadingSpinner from "components/LoadingSpinner";
 import { BUTTON_SIZE, BUTTON_TYPE, workingHours, timeZones } from "constants";
 import { getAllCountries } from "services/countries";
-import { addMyAddress, updateMyAddress } from "services/basicInfo";
 import {
   getContactDetails,
   createContactDetails,
   updateContactDetails,
 } from "services/contactDetails";
-import { updateMemberData } from "services/memberData";
+import { getMemberData, updateMemberData } from "services/memberData";
 import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
 
-import {
-  scrollToTop,
-  getTraits,
-  isAddressFormEmpty,
-  isContactFormEmpty,
-  isNullOrEmpty,
-} from "utils/";
+import { scrollToTop, getTraits, isContactFormEmpty } from "utils/";
 import { sortBy } from "lodash";
-import { checkUserTrait } from "services/traits";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
   const [isLoading, setIsLoading] = useState(false);
-  const [myProfileData, setMyProfileData] = useState({});
+  const [profileData, setProfileData] = useState(null);
+  const [newProfileData, setNewProfileData] = useState({
+    address: {
+      streetAddr1: "",
+      streetAddr2: "",
+      city: "",
+      stateCode: "",
+      zip: "",
+    },
+    country: "",
+  });
   // form states
   const [formDate, setFormData] = useState({
-    addressLine1: "",
-    addressLine2: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    country: "",
     timeZone: "",
     startTime: "",
     endTime: "",
   });
-  const {
-    addressLine1,
-    addressLine2,
-    city,
-    state,
-    zipCode,
-    country,
-    timeZone,
-    startTime,
-    endTime,
-  } = formDate;
+
+  const { timeZone, startTime, endTime } = formDate;
   // countries
   const [countries, setCountries] = useState([]);
-  // workingHours
+
+  const handleAddressChange = (name, value) => {
+    const newAddress = { ...newProfileData.address };
+    newAddress[name] = value;
+    setNewProfileData((data) => ({
+      ...data,
+      address: newAddress,
+    }));
+  };
+
   const handleInputChange = (name, value) => {
     switch (name) {
       case "country":
         const countryCode = countries.find((c) => c.country === value)
           ?.countryCode;
-        setMyProfileData((data) => ({
+        setNewProfileData((data) => ({
           ...data,
+          country: value,
           homeCountryCode: countryCode,
           competitionCountryCode: countryCode,
         }));
@@ -107,10 +103,8 @@ const ContactDetails = () => {
   // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
   useEffect(() => {
     if (!authUser || !authUser.handle) return;
-    getAuthUserProfile()
-      .then((result) => {
-        setMyProfileData(result);
-      })
+    getMemberData(authUser.handle)
+      .then((result) => setProfileData(result.data))
       .catch((e) => {
         // eslint-disable-next-line no-console
         console.log(e);
@@ -118,9 +112,24 @@ const ContactDetails = () => {
   }, [authUser]);
 
   useEffect(() => {
+    if (profileData?.competitionCountryCode) {
+      const country = countries.find(
+        (c) => c.countryCode === profileData.competitionCountryCode
+      )?.country;
+      setNewProfileData({
+        country,
+      });
+    }
+    setNewProfileData((data) => ({
+      ...data,
+      address: profileData?.addresses[0] || data.address,
+    }));
+  }, [countries, profileData]);
+
+  useEffect(() => {
     if (!formDate.country) {
       const code =
-        myProfileData.homeCountryCode || myProfileData.competitionCountryCode;
+        newProfileData.homeCountryCode || newProfileData.competitionCountryCode;
       const { country } = countries.find((c) => c.countryCode === code) || {};
       if (country) {
         setFormData({ country });
@@ -129,8 +138,8 @@ const ContactDetails = () => {
   }, [
     countries,
     formDate.country,
-    myProfileData.competitionCountryCode,
-    myProfileData.homeCountryCode,
+    newProfileData.competitionCountryCode,
+    newProfileData.homeCountryCode,
   ]);
 
   // Get contact details
@@ -141,58 +150,16 @@ const ContactDetails = () => {
         setIsLoading(false);
         // find datas we need
         let traits = result?.data;
-
-        let basicInfo = traits.find((t) => t.traitId === "basic_info");
         let connectInfo = traits.find((t) => t.traitId === "connect_info");
-
-        let address = basicInfo?.traits?.data[0].addresses;
-        if (address?.length) address = address[0];
         let contactDetails = connectInfo?.traits?.data[0];
-
-        let memberHomeCountry = contactDetails?.country;
-
-        if (isNullOrEmpty(memberHomeCountry)) {
-          memberHomeCountry = basicInfo?.traits?.data[0].country;
-        }
-
-        if (address) {
-          // store the fetched datas in state
-          const { streetAddr1, streetAddr2 } = address;
-          setFormData((formData) => ({
-            ...formData,
-            addressLine1: streetAddr1,
-            addressLine2: streetAddr2,
-          }));
-        }
-
         if (contactDetails) {
           // store the fetched datas in state
-          const {
-            zip,
-            country,
-            city,
-            timeZone,
-            state,
-            workingHourStart,
-            workingHourEnd,
-          } = contactDetails;
-
+          const { timeZone, workingHourStart, workingHourEnd } = contactDetails;
           setFormData((formData) => ({
             ...formData,
-            city: city,
-            state: state,
-            zipCode: zip,
-            country: country,
             timeZone: timeZone,
             startTime: workingHourStart,
             endTime: workingHourEnd,
-          }));
-        }
-
-        if (memberHomeCountry != null) {
-          setFormData((formData) => ({
-            ...formData,
-            country: memberHomeCountry,
           }));
         }
       })
@@ -203,74 +170,14 @@ const ContactDetails = () => {
       });
   }, [countries, authUser]);
 
-  const saveMyAddress = async (basicInfo) => {
-    // update address
-    let addressMapped = {
-      streetAddr1: addressLine1 || "",
-      streetAddr2: addressLine2 || "",
-      city: city || "",
-      stateCode: state || "",
-      zip: zipCode || "",
-      type: "HOME",
-    };
-
-    let countryObj = {
-      country,
-      competitionCountryCode: null,
-      homeCountryCode: null,
-    };
-
-    if (!isNullOrEmpty(country)) {
-      const code = countries.find((c) => c.country == country);
-      if (code != null) {
-        countryObj.competitionCountryCode = code.countryCode;
-        countryObj.homeCountryCode = code.countryCode;
-      }
-    }
-
-    // hack to check if the user has an existing basic_info trait object
-    const exists = await checkUserTrait(authUser.handle, "basic_info");
-    if (
-      isAddressFormEmpty(addressMapped, basicInfo) &&
-      (!exists || basicInfo.primaryInterestInTopcoder == null) // we created primaryInterestInTopcoder in the previous step
-    ) {
-      try {
-        await addMyAddress(
-          authUser.handle,
-          addressMapped,
-          country != null ? countryObj : null
-        );
-      } catch (err) {
-        // try updating if create fails
-        await updateMyAddress(
-          authUser.handle,
-          basicInfo,
-          addressMapped,
-          country != null ? countryObj : null
-        );
-      }
-    } else {
-      if (isAddressFormEmpty(addressMapped, basicInfo)) {
-        await updateMyAddress(
-          authUser.handle,
-          basicInfo,
-          addressMapped,
-          country != null ? countryObj : null
-        );
-      } else {
-        return Promise.resolve();
-      }
-    }
-  };
-
   const saveContactDetails = async (contactDetailsOnServer) => {
     // saving contact details
     // map data before passing to server
     let contactDetailsMapped = {
-      city: city || "",
-      state: state || "",
-      zip: zipCode || "",
-      country: country || "",
+      city: newProfileData?.address?.city || "",
+      state: newProfileData?.address?.stateCode || "",
+      zip: newProfileData?.address.zip || "",
+      country: newProfileData?.country || "",
       timeZone: timeZone || "",
       workingHourStart: startTime || "",
       workingHourEnd: endTime || "",
@@ -316,16 +223,6 @@ const ContactDetails = () => {
     );
     const contactDetailsTraits = getTraits(contactDetails);
 
-    const basicInfo = result?.data?.find((t) => t.traitId === "basic_info");
-    const basicInfoTraits = getTraits(basicInfo);
-
-    try {
-      await saveMyAddress(basicInfoTraits);
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log("Failed to save address in basic_info", err);
-    }
-
     try {
       await saveContactDetails(contactDetailsTraits);
     } catch (err) {
@@ -334,11 +231,29 @@ const ContactDetails = () => {
     }
 
     try {
-      const { homeCountryCode, competitionCountryCode } = myProfileData;
-      await updateMemberData(myProfileData.handle, {
+      const {
+        homeCountryCode,
+        competitionCountryCode,
+        address,
+      } = newProfileData;
+      if (!address.createdAt) {
+        address.createdAt = new Date();
+      }
+      if (!address.updatedAt) {
+        address.updatedAt = new Date();
+      }
+      if (!address.createdBy) {
+        address.createdBy = profileData.handle;
+      }
+      if (!address.updatedBy) {
+        address.updatedBy = profileData.handle;
+      }
+      const updatedMemberdata = await updateMemberData(profileData.handle, {
+        addresses: [address, ...profileData?.addresses.slice(1)],
         homeCountryCode,
         competitionCountryCode,
       });
+      setProfileData(updatedMemberdata.data);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log("Failed to save country of member", err);
@@ -349,8 +264,15 @@ const ContactDetails = () => {
     navigate("/onboard/payment-setup");
   };
 
-  const selectedCountryObj =
-    country != null ? countries.find((c) => c.country == country) : null;
+  const selectedCountryObj = React.useMemo(
+    () =>
+      newProfileData.country != null
+        ? countries.find((c) => c.country == newProfileData.country)
+        : null,
+    [countries, newProfileData.country]
+  );
+
+  const { address } = newProfileData;
 
   return (
     <>
@@ -358,9 +280,9 @@ const ContactDetails = () => {
       <Page title="Contact Details" styleName="contact-details">
         <PageContent>
           <PageH2>Contact Details</PageH2>
-          {`${myProfileData?.firstName || ""} ${
-            myProfileData?.lastName || ""
-          } | ${authUser?.handle}`}
+          {`${profileData?.firstName || ""} ${profileData?.lastName || ""} | ${
+            authUser?.handle
+          }`}
           <PageDivider />
           <PageH1>Where can we reach you?</PageH1>
           <br />
@@ -377,30 +299,30 @@ const ContactDetails = () => {
               <FormField label={"Address Line 1"}>
                 <FormInputText
                   placeholder={"Enter address line 1"}
-                  value={addressLine1}
-                  name="addressLine1"
+                  value={address.streetAddr1}
+                  name="streetAddr1"
                   onChange={(e) =>
-                    handleInputChange(e.target.name, e.target.value)
+                    handleAddressChange(e.target.name, e.target.value)
                   }
                 />
               </FormField>
               <FormField label={"Address Line 2"}>
                 <FormInputText
                   placeholder={"Enter address line 2"}
-                  value={addressLine2}
-                  name="addressLine2"
+                  value={address.streetAddr2}
+                  name="streetAddr2"
                   onChange={(e) =>
-                    handleInputChange(e.target.name, e.target.value)
+                    handleAddressChange(e.target.name, e.target.value)
                   }
                 />
               </FormField>
               <FormField label={"City / District"}>
                 <FormInputText
                   placeholder={"Enter City / District"}
-                  value={city}
+                  value={address.city}
                   name="city"
                   onChange={(e) =>
-                    handleInputChange(e.target.name, e.target.value)
+                    handleAddressChange(e.target.name, e.target.value)
                   }
                 />
               </FormField>
@@ -408,20 +330,20 @@ const ContactDetails = () => {
                 <FormField label={"State / Province"}>
                   <FormInputText
                     placeholder={"Enter State / Province"}
-                    value={state}
-                    name="state"
+                    value={address.stateCode}
+                    name="stateCode"
                     onChange={(e) =>
-                      handleInputChange(e.target.name, e.target.value)
+                      handleAddressChange(e.target.name, e.target.value)
                     }
                   />
                 </FormField>
                 <FormField label={"Zip / Postal Code"}>
                   <FormInputText
                     placeholder={"Enter Zip / Postal Code"}
-                    value={zipCode}
-                    name="zipCode"
+                    value={address.zip}
+                    name="zip"
                     onChange={(e) =>
-                      handleInputChange(e.target.name, e.target.value)
+                      handleAddressChange(e.target.name, e.target.value)
                     }
                   />
                 </FormField>
@@ -430,7 +352,7 @@ const ContactDetails = () => {
                 <FormField label={"Country"}>
                   <Select
                     value={
-                      country &&
+                      newProfileData.country &&
                       selectedCountryObj && {
                         value: selectedCountryObj.country,
                         label: selectedCountryObj.country,
