@@ -28,6 +28,7 @@ import {
   createContactDetails,
   updateContactDetails,
 } from "services/contactDetails";
+import { updateMemberData } from "services/memberData";
 import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
 
 import {
@@ -71,7 +72,18 @@ const ContactDetails = () => {
   const [countries, setCountries] = useState([]);
   // workingHours
   const handleInputChange = (name, value) => {
-    setFormData((formDate) => ({ ...formDate, [name]: value }));
+    switch (name) {
+      case "country":
+        const countryCode = countries.find((c) => c.country === value)
+          ?.countryCode;
+        setMyProfileData((data) => ({
+          ...data,
+          homeCountryCode: countryCode,
+          competitionCountryCode: countryCode,
+        }));
+      default:
+        setFormData((formDate) => ({ ...formDate, [name]: value }));
+    }
   };
 
   // Get all live skills
@@ -104,6 +116,22 @@ const ContactDetails = () => {
         console.log(e);
       });
   }, [authUser]);
+
+  useEffect(() => {
+    if (!formDate.country) {
+      const code =
+        myProfileData.homeCountryCode || myProfileData.competitionCountryCode;
+      const { country } = countries.find((c) => c.countryCode === code) || {};
+      if (country) {
+        setFormData({ country });
+      }
+    }
+  }, [
+    countries,
+    formDate.country,
+    myProfileData.competitionCountryCode,
+    myProfileData.homeCountryCode,
+  ]);
 
   // Get contact details
   useEffect(() => {
@@ -303,6 +331,17 @@ const ContactDetails = () => {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log("Failed to save address in connect_info", err);
+    }
+
+    try {
+      const { homeCountryCode, competitionCountryCode } = myProfileData;
+      await updateMemberData(myProfileData.handle, {
+        homeCountryCode,
+        competitionCountryCode,
+      });
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log("Failed to save country of member", err);
     }
 
     setIsLoading(false);
