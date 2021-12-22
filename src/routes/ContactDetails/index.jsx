@@ -122,7 +122,10 @@ const ContactDetails = () => {
     }
     setNewProfileData((data) => ({
       ...data,
-      address: profileData?.addresses[0] || data.address,
+      address:
+        profileData?.addresses?.length > 0
+          ? profileData?.addresses[0]
+          : data.address,
     }));
   }, [countries, profileData]);
 
@@ -236,18 +239,6 @@ const ContactDetails = () => {
         competitionCountryCode,
         address,
       } = newProfileData;
-      if (!address.createdAt) {
-        address.createdAt = new Date();
-      }
-      if (!address.updatedAt) {
-        address.updatedAt = new Date();
-      }
-      if (!address.createdBy) {
-        address.createdBy = profileData.handle;
-      }
-      if (!address.updatedBy) {
-        address.updatedBy = profileData.handle;
-      }
       const updatedMemberdata = await updateMemberData(profileData.handle, {
         addresses: [address, ...profileData?.addresses.slice(1)],
         homeCountryCode,
@@ -299,7 +290,7 @@ const ContactDetails = () => {
               <FormField label={"Address Line 1"}>
                 <FormInputText
                   placeholder={"Enter address line 1"}
-                  value={address.streetAddr1}
+                  value={address?.streetAddr1}
                   name="streetAddr1"
                   onChange={(e) =>
                     handleAddressChange(e.target.name, e.target.value)
@@ -309,7 +300,7 @@ const ContactDetails = () => {
               <FormField label={"Address Line 2"}>
                 <FormInputText
                   placeholder={"Enter address line 2"}
-                  value={address.streetAddr2}
+                  value={address?.streetAddr2}
                   name="streetAddr2"
                   onChange={(e) =>
                     handleAddressChange(e.target.name, e.target.value)
@@ -319,7 +310,7 @@ const ContactDetails = () => {
               <FormField label={"City / District"}>
                 <FormInputText
                   placeholder={"Enter City / District"}
-                  value={address.city}
+                  value={address?.city}
                   name="city"
                   onChange={(e) =>
                     handleAddressChange(e.target.name, e.target.value)
@@ -330,7 +321,7 @@ const ContactDetails = () => {
                 <FormField label={"State / Province"}>
                   <FormInputText
                     placeholder={"Enter State / Province"}
-                    value={address.stateCode}
+                    value={address?.stateCode}
                     name="stateCode"
                     onChange={(e) =>
                       handleAddressChange(e.target.name, e.target.value)
@@ -340,7 +331,7 @@ const ContactDetails = () => {
                 <FormField label={"Zip / Postal Code"}>
                   <FormInputText
                     placeholder={"Enter Zip / Postal Code"}
-                    value={address.zip}
+                    value={address?.zip}
                     name="zip"
                     onChange={(e) =>
                       handleAddressChange(e.target.name, e.target.value)
@@ -427,17 +418,6 @@ const ContactDetails = () => {
                   />
                 </FormField>
               </PageRow>
-              {/*<FormField label={"Start Date"}>
-                <DateInput
-                  value={null}
-                  onChange={e => e}
-                  style2={true}
-                  placeholder={"Select start date"}
-                />
-              </FormField>*/}
-              {/*<div>
-                <FormInputCheckbox label={"Graduated"} />
-              </div>*/}
             </div>
           </PageRow>
           <PageDivider />
@@ -451,7 +431,8 @@ const ContactDetails = () => {
             </Link>
             <Link to="/onboard/payment-setup" onClick={(e) => handleSubmit(e)}>
               <Button size={BUTTON_SIZE.MEDIUM}>
-                CONTINUE TO PAYMENT SETUP
+                <span styleName="footer-btn-lg">CONTINUE TO PAYMENT SETUP</span>
+                <span styleName="footer-btn-sm">NEXT</span>
               </Button>
             </Link>
           </PageFoot>
