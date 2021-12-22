@@ -30,7 +30,7 @@ import { getMemberData, updateMemberData } from "services/memberData";
 import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
 
 import { scrollToTop, getTraits, isContactFormEmpty } from "utils/";
-import { sortBy } from "lodash";
+import _, { sortBy } from "lodash";
 
 const ContactDetails = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -209,28 +209,39 @@ const ContactDetails = () => {
     }
   };
 
-  const [error, setError] = React.useState(null);
-
-  function checkErrors() {
-    const { address } = newProfileData;
-    const reqFields = [
-      "streetAddr1",
-      "streetAddr2",
-      "city",
-      "zip",
-      "stateCode",
-    ];
-    for (const field of reqFields) {
-      if (!address[field]) {
-        setError({
-          field,
-          msg: `${field} is required`,
-        });
-        return true;
+  const saveMemberApiDetails = async () => {
+    const { homeCountryCode, competitionCountryCode, address } = newProfileData;
+    const initialAddress =
+      profileData?.addresses?.length > 0 && profileData.addresses[0];
+    const newAddress = { ...address };
+    const newData = {};
+    if (!_.isEqual(newAddress, initialAddress)) {
+      _.mapKeys(
+        newAddress,
+        (value, key) => _.isEmpty(value) && delete newAddress[key]
+      );
+      if (_.isEmpty(newAddress.createdAt)) {
+        newAddress.createdAt = new Date();
       }
+      if (_.isEmpty(newAddress.createdBy)) {
+        newAddress.createdBy = profileData.handle;
+      }
+      newAddress.updatedAt = new Date();
+      newAddress.updatedBy = profileData.handle;
+      const newAddresses = [newAddress];
+      if (!_.isEmpty(profileData?.addresses)) {
+        newAddresses.push(...profileData.addresses.slice(1));
+      }
+      newData.addresses = newAddresses;
     }
-    return false;
-  }
+    if (homeCountryCode && competitionCountryCode) {
+      newData.homeCountryCode = homeCountryCode;
+      newData.competitionCountryCode = competitionCountryCode;
+    }
+    if (!_.isEmpty(newData)) {
+      return updateMemberData(profileData.handle, newData);
+    }
+  };
 
   // reach router, navigate programmatically
   const navigate = useNavigate();
@@ -238,9 +249,6 @@ const ContactDetails = () => {
   const handleSubmit = async (e) => {
     // save address (basic info) then contact details before navigate
     e.preventDefault();
-
-    const hasError = checkErrors();
-    if (hasError) return;
 
     setIsLoading(true);
 
@@ -258,41 +266,10 @@ const ContactDetails = () => {
     }
 
     try {
-      const {
-        homeCountryCode,
-        competitionCountryCode,
-        address,
-      } = newProfileData;
-      const newAddress = { ...address };
-      if (!newAddress.createdAt) {
-        newAddress.createdAt = new Date();
-      }
-      if (!newAddress.updatedAt) {
-        newAddress.updatedAt = new Date();
-      }
-      if (!newAddress.createdBy) {
-        newAddress.createdBy = profileData.handle;
-      }
-      if (!newAddress.updatedBy) {
-        newAddress.updatedBy = profileData.handle;
-      }
-      const newAddresses = [newAddress];
-      if (profileData?.addresses?.length > 1) {
-        newAddresses.push(...profileData.addresses.slice(1));
-      }
-      const newData = { addresses: newAddresses };
-      if (homeCountryCode && competitionCountryCode) {
-        newData.homeCountryCode = homeCountryCode;
-        newData.competitionCountryCode = competitionCountryCode;
-      }
-      const updatedMemberdata = await updateMemberData(
-        profileData.handle,
-        newData
-      );
-      setProfileData(updatedMemberdata.data);
+      await saveMemberApiDetails();
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.log("Failed to save country of member", err);
+      console.log("Failed to save address and country of member", err);
     }
 
     setIsLoading(false);
@@ -332,10 +309,7 @@ const ContactDetails = () => {
               </PageP>
             </div>
             <div>
-              <FormField
-                error={error?.field === "streetAddr1" ? error?.msg : null}
-                label={"Address Line 1"}
-              >
+              <FormField label={"Address Line 1"}>
                 <FormInputText
                   placeholder={"Enter address line 1"}
                   value={address?.streetAddr1}
@@ -346,10 +320,7 @@ const ContactDetails = () => {
                   }
                 />
               </FormField>
-              <FormField
-                error={error?.field === "streetAddr2" ? error?.msg : null}
-                label={"Address Line 2"}
-              >
+              <FormField label={"Address Line 2"}>
                 <FormInputText
                   placeholder={"Enter address line 2"}
                   value={address?.streetAddr2}
@@ -360,10 +331,7 @@ const ContactDetails = () => {
                   }
                 />
               </FormField>
-              <FormField
-                error={error?.field === "city" ? error?.msg : null}
-                label={"City / District"}
-              >
+              <FormField label={"City / District"}>
                 <FormInputText
                   placeholder={"Enter City / District"}
                   value={address?.city}
@@ -374,10 +342,7 @@ const ContactDetails = () => {
                 />
               </FormField>
               <PageRow half={true}>
-                <FormField
-                  error={error?.field === "stateCode" ? error?.msg : null}
-                  label={"State / Province"}
-                >
+                <FormField label={"State / Province"}>
                   <FormInputText
                     placeholder={"Enter State / Province"}
                     value={address?.stateCode}
@@ -387,10 +352,7 @@ const ContactDetails = () => {
                     }
                   />
                 </FormField>
-                <FormField
-                  error={error?.field === "zip" ? error?.msg : null}
-                  label={"Zip / Postal Code"}
-                >
+                <FormField label={"Zip / Postal Code"}>
                   <FormInputText
                     placeholder={"Enter Zip / Postal Code"}
                     value={address?.zip}

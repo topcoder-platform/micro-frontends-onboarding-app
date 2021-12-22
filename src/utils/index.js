@@ -109,14 +109,9 @@ export function isAddressFormEmpty(data, basicInfo) {
  */
 export function isContactFormEmpty(data) {
   return (
-    data?.city.length ||
-    data?.country.length ||
-    data?.state.length ||
     data?.timeZone.length ||
-    data?.zip.length ||
     data?.workingHourEnd.length ||
-    data?.workingHourStart.length ||
-    data?.zip.length
+    data?.workingHourStart.length
   );
 }
 
