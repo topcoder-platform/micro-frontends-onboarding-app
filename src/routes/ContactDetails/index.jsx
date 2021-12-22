@@ -178,10 +178,6 @@ const ContactDetails = () => {
     // saving contact details
     // map data before passing to server
     let contactDetailsMapped = {
-      city: newProfileData?.address?.city || "",
-      state: newProfileData?.address?.stateCode || "",
-      zip: newProfileData?.address.zip || "",
-      country: newProfileData?.country || "",
       timeZone: timeZone || "",
       workingHourStart: startTime || "",
       workingHourEnd: endTime || "",
@@ -284,7 +280,7 @@ const ContactDetails = () => {
       if (profileData?.addresses?.length > 1) {
         newAddresses.push(...profileData.addresses.slice(1));
       }
-      const newData = { addresses: newAddress };
+      const newData = { addresses: newAddresses };
       if (homeCountryCode && competitionCountryCode) {
         newData.homeCountryCode = homeCountryCode;
         newData.competitionCountryCode = competitionCountryCode;
@@ -342,7 +338,7 @@ const ContactDetails = () => {
               >
                 <FormInputText
                   placeholder={"Enter address line 1"}
-                  value={address.streetAddr1}
+                  value={address?.streetAddr1}
                   name="streetAddr1"
                   required
                   onChange={(e) =>
@@ -356,7 +352,7 @@ const ContactDetails = () => {
               >
                 <FormInputText
                   placeholder={"Enter address line 2"}
-                  value={address.streetAddr2}
+                  value={address?.streetAddr2}
                   name="streetAddr2"
                   required
                   onChange={(e) =>
@@ -370,7 +366,7 @@ const ContactDetails = () => {
               >
                 <FormInputText
                   placeholder={"Enter City / District"}
-                  value={address.city}
+                  value={address?.city}
                   name="city"
                   onChange={(e) =>
                     handleAddressChange(e.target.name, e.target.value)
@@ -384,7 +380,7 @@ const ContactDetails = () => {
                 >
                   <FormInputText
                     placeholder={"Enter State / Province"}
-                    value={address.stateCode}
+                    value={address?.stateCode}
                     name="stateCode"
                     onChange={(e) =>
                       handleAddressChange(e.target.name, e.target.value)
@@ -397,7 +393,7 @@ const ContactDetails = () => {
                 >
                   <FormInputText
                     placeholder={"Enter Zip / Postal Code"}
-                    value={address.zip}
+                    value={address?.zip}
                     name="zip"
                     onChange={(e) =>
                       handleAddressChange(e.target.name, e.target.value)
@@ -484,17 +480,6 @@ const ContactDetails = () => {
                   />
                 </FormField>
               </PageRow>
-              {/*<FormField label={"Start Date"}>
-                <DateInput
-                  value={null}
-                  onChange={e => e}
-                  style2={true}
-                  placeholder={"Select start date"}
-                />
-              </FormField>*/}
-              {/*<div>
-                <FormInputCheckbox label={"Graduated"} />
-              </div>*/}
             </div>
           </PageRow>
           <PageDivider />
@@ -508,7 +493,8 @@ const ContactDetails = () => {
             </Link>
             <Link to="/onboard/payment-setup" onClick={(e) => handleSubmit(e)}>
               <Button size={BUTTON_SIZE.MEDIUM}>
-                CONTINUE TO PAYMENT SETUP
+                <span styleName="footer-btn-lg">CONTINUE TO PAYMENT SETUP</span>
+                <span styleName="footer-btn-sm">NEXT</span>
               </Button>
             </Link>
           </PageFoot>
