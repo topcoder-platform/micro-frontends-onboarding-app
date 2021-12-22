@@ -116,13 +116,17 @@ const ContactDetails = () => {
       const country = countries.find(
         (c) => c.countryCode === profileData.competitionCountryCode
       )?.country;
-      setNewProfileData({
+      setNewProfileData((data) => ({
+        ...data,
         country,
-      });
+      }));
     }
     setNewProfileData((data) => ({
       ...data,
-      address: profileData?.addresses[0] || data.address,
+      address:
+        profileData?.addresses?.length > 0
+          ? profileData.addresses[0]
+          : data.address,
     }));
   }, [countries, profileData]);
 
@@ -209,13 +213,40 @@ const ContactDetails = () => {
     }
   };
 
+  const [error, setError] = React.useState(null);
+
+  function checkErrors() {
+    const { address } = newProfileData;
+    const reqFields = [
+      "streetAddr1",
+      "streetAddr2",
+      "city",
+      "zip",
+      "stateCode",
+    ];
+    for (const field of reqFields) {
+      if (!address[field]) {
+        setError({
+          field,
+          msg: `${field} is required`,
+        });
+        return true;
+      }
+    }
+    return false;
+  }
+
   // reach router, navigate programmatically
   const navigate = useNavigate();
   // on submit, save form and then navigate
   const handleSubmit = async (e) => {
-    setIsLoading(true);
     // save address (basic info) then contact details before navigate
     e.preventDefault();
+
+    const hasError = checkErrors();
+    if (hasError) return;
+
+    setIsLoading(true);
 
     const result = await getContactDetails(authUser.handle);
     const contactDetails = result?.data?.find(
@@ -236,23 +267,32 @@ const ContactDetails = () => {
         competitionCountryCode,
         address,
       } = newProfileData;
-      if (!address.createdAt) {
-        address.createdAt = new Date();
+      const newAddress = { ...address };
+      if (!newAddress.createdAt) {
+        newAddress.createdAt = new Date();
       }
-      if (!address.updatedAt) {
-        address.updatedAt = new Date();
+      if (!newAddress.updatedAt) {
+        newAddress.updatedAt = new Date();
       }
-      if (!address.createdBy) {
-        address.createdBy = profileData.handle;
+      if (!newAddress.createdBy) {
+        newAddress.createdBy = profileData.handle;
       }
-      if (!address.updatedBy) {
-        address.updatedBy = profileData.handle;
+      if (!newAddress.updatedBy) {
+        newAddress.updatedBy = profileData.handle;
       }
-      const updatedMemberdata = await updateMemberData(profileData.handle, {
-        addresses: [address, ...profileData?.addresses.slice(1)],
-        homeCountryCode,
-        competitionCountryCode,
-      });
+      const newAddresses = [newAddress];
+      if (profileData?.addresses?.length > 1) {
+        newAddresses.push(...profileData.addresses.slice(1));
+      }
+      const newData = { addresses: newAddress };
+      if (homeCountryCode && competitionCountryCode) {
+        newData.homeCountryCode = homeCountryCode;
+        newData.competitionCountryCode = competitionCountryCode;
+      }
+      const updatedMemberdata = await updateMemberData(
+        profileData.handle,
+        newData
+      );
       setProfileData(updatedMemberdata.data);
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -290,33 +330,44 @@ const ContactDetails = () => {
             <div>
               <PageP styleName="form-description">
                 We may contact you about relevant freelance opportunities at
-                Topcoder, or even surprise you with a cool T-shirt. Sharing your
-                contact details will never result in robocalls about health
+                Topcoder, or even surprise you with a cool T-shirt. Sharing
+                contact details will never result in robocalls about insurance
                 insurance plans or junk mail.
               </PageP>
             </div>
             <div>
-              <FormField label={"Address Line 1"}>
+              <FormField
+                error={error?.field === "streetAddr1" ? error?.msg : null}
+                label={"Address Line 1"}
+              >
                 <FormInputText
                   placeholder={"Enter address line 1"}
                   value={address.streetAddr1}
                   name="streetAddr1"
+                  required
                   onChange={(e) =>
                     handleAddressChange(e.target.name, e.target.value)
                   }
                 />
               </FormField>
-              <FormField label={"Address Line 2"}>
+              <FormField
+                error={error?.field === "streetAddr2" ? error?.msg : null}
+                label={"Address Line 2"}
+              >
                 <FormInputText
                   placeholder={"Enter address line 2"}
                   value={address.streetAddr2}
                   name="streetAddr2"
+                  required
                   onChange={(e) =>
                     handleAddressChange(e.target.name, e.target.value)
                   }
                 />
               </FormField>
-              <FormField label={"City / District"}>
+              <FormField
+                error={error?.field === "city" ? error?.msg : null}
+                label={"City / District"}
+              >
                 <FormInputText
                   placeholder={"Enter City / District"}
                   value={address.city}
@@ -327,7 +378,10 @@ const ContactDetails = () => {
                 />
               </FormField>
               <PageRow half={true}>
-                <FormField label={"State / Province"}>
+                <FormField
+                  error={error?.field === "stateCode" ? error?.msg : null}
+                  label={"State / Province"}
+                >
                   <FormInputText
                     placeholder={"Enter State / Province"}
                     value={address.stateCode}
@@ -337,7 +391,10 @@ const ContactDetails = () => {
                     }
                   />
                 </FormField>
-                <FormField label={"Zip / Postal Code"}>
+                <FormField
+                  error={error?.field === "zip" ? error?.msg : null}
+                  label={"Zip / Postal Code"}
+                >
                   <FormInputText
                     placeholder={"Enter Zip / Postal Code"}
                     value={address.zip}
