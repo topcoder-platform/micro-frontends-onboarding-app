@@ -29,5 +29,5 @@ export function updateMySkills(username, skillIds, deletedSkillIds) {
   deletedSkillIds.forEach((skillId) => {
     skills[skillId] = { hidden: true };
   });
-  return axios.patch(`${config.API.V5}/members/${username}/skills`, skills);
+  return axios.post(`${config.API.V5}/members/${username}/skills`, skills);
 }

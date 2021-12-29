@@ -330,14 +330,10 @@ const GetStarted = () => {
     setIsLoading(true);
     // save interests before navigate
     e.preventDefault();
-    saveMyInterests()
-      .then(() => {
-        return saveMySkills(selectedSkills);
-      })
-      .then(() => {
-        setIsLoading(false);
-        navigate("/onboard/contact-details");
-      });
+    saveMyInterests().then(() => {
+      setIsLoading(false);
+      navigate("/onboard/contact-details");
+    });
   };
   return (
     <>
