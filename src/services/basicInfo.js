@@ -54,8 +54,6 @@ export function updateMyPrimaryInterests(
   prevBasicInfo,
   interestsFlat
 ) {
-  console.log("updating primary interests", prevBasicInfo);
-
   return axios.put(`${config.API.V5}/members/${myusername}/traits`, [
     {
       traitId: TRAIT_BASIC_INFO,

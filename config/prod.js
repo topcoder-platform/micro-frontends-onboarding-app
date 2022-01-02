@@ -14,6 +14,5 @@ module.exports = {
     V3: "https://api.topcoder.com/v3",
   },
   HEAP_ANALYTICS_KEY: process.env.HEAP_ANALYTICS_KEY,
-  ONBOARD_FLOW: false,
   TOPCODER_START_URL: "https://topcoder.com/start",
 };

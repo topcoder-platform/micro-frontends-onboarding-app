@@ -127,13 +127,3 @@ export function wrapV3(payload) {
     param: payload,
   };
 }
-
-/**
- * Check if onboarding flow is allowed and
- * if not it redirects user to Topcoder Start Page.
- */
-export function checkOnboardFlowPermission() {
-  if (config.ONBOARD_FLOW) {
-    window.location.href = config.TOPCODER_START_URL;
-  }
-}
