@@ -23,11 +23,9 @@ export function scrollToTop() {
  */
 export function isProfileFormDataEmpty(type, data) {
   switch (type) {
-    case "bio":
-      let { shortBio, description } = data;
-      return (
-        (shortBio && shortBio.length) || (description && description.length)
-      );
+    case "title":
+      let { shortBio } = data;
+      return shortBio && shortBio.length;
     case "work":
       let { cityTown, company, position, timePeriodFrom, timePeriodTo } = data;
       let response =
