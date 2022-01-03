@@ -328,12 +328,16 @@ const GetStarted = () => {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     setIsLoading(true);
-    // save interests before navigate
+    // save interests & skills before navigatating to next page
     e.preventDefault();
-    saveMyInterests().then(() => {
-      setIsLoading(false);
-      navigate("/onboard/contact-details");
-    });
+    saveMyInterests()
+      .then(() => {
+        return saveMySkills(selectedSkills);
+      })
+      .then(() => {
+        setIsLoading(false);
+        navigate("/onboard/contact-details");
+      });
   };
   return (
     <>
