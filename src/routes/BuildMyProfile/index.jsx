@@ -530,7 +530,7 @@ const BuildMyProfile = () => {
       }
     }
 
-    if (myProfileData.description != bio && bio != null && bio.trim().length) {
+    if (myProfileData.description != bio) {
       await updateMemberData(authUser.handle, { description: bio });
     }
 
