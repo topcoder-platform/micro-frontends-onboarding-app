@@ -220,14 +220,6 @@ const ContactDetails = () => {
         newAddress,
         (value, key) => _.isEmpty(value) && delete newAddress[key]
       );
-      if (_.isEmpty(newAddress.createdAt)) {
-        newAddress.createdAt = new Date();
-      }
-      if (_.isEmpty(newAddress.createdBy)) {
-        newAddress.createdBy = profileData.handle;
-      }
-      newAddress.updatedAt = new Date();
-      newAddress.updatedBy = profileData.handle;
       const newAddresses = [newAddress];
       if (!_.isEmpty(profileData?.addresses)) {
         newAddresses.push(...profileData.addresses.slice(1));
