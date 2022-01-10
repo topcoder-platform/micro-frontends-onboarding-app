@@ -3,7 +3,10 @@ import { Provider } from "react-redux";
 import { Router } from "@reach/router";
 import ReactHeap from "reactjs-heap";
 import ReduxToastr from "react-redux-toastr";
-import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
+import {
+  disableSidebarForRoute,
+  disableNavigationForRoute,
+} from "@topcoder/micro-frontends-navbar-app";
 import GetStarted from "./routes/GetStarted";
 import ContactDetails from "./routes/ContactDetails";
 import PaymentSetup from "./routes/PaymentSetup";
@@ -27,6 +30,8 @@ if (HEAP_ANALYTICS_KEY) {
 
 export default function Root() {
   useEffect(() => {
+    disableNavigationForRoute("/onboard/*");
+    
     disableSidebarForRoute("/onboard");
     disableSidebarForRoute("/onboard/contact-details");
     disableSidebarForRoute("/onboard/payment-setup");
