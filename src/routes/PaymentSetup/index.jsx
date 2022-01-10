@@ -25,6 +25,7 @@ import {
 import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import IconCheck from "../../assets/images/check.svg";
+import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
 
 const PaymentSetup = () => {
   const authUser = useSelector((state) => state.authUser);
@@ -149,8 +150,8 @@ const PaymentSetup = () => {
           <PageFoot align="between" styleName="page-footer">
             <Link to="/onboard/contact-details">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                {"< "}
-                <span styleName="back-button-text">Back</span>
+                <IconBackArrow />
+                <span styleName="back-button-text">&nbsp;Back</span>
               </Button>
             </Link>
             <div styleName="footer-btns">
@@ -160,7 +161,7 @@ const PaymentSetup = () => {
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
                   >
-                    FINISH LA
+                    FINISH LATER
                   </Button>
                 </Link>
               )}

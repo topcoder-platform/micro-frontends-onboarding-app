@@ -12,3 +12,33 @@
     margin-top: 20px;
   }
 }
+
+.page-footer {
+  .footer-btn-lg {
+    display: inline-block;
+  }
+
+  .footer-btn-sm {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .back-button-text {
+    display: none;
+  }
+
+  .page-footer {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+
+    .footer-btn-lg {
+      display: none;
+    }
+
+    .footer-btn-sm {
+      display: inline-block;
+    }
+  }
+}
