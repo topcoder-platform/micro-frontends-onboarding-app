@@ -12,6 +12,13 @@ export function getMemberData(username) {
 }
 
 /**
+ * Update member Data
+ */
+export function updateMemberData(username, data) {
+  return axios.put(`${config.API.V5}/members/${username}`, data);
+}
+
+/**
  * Upload profile photo
  */
 export function uploadProfilePhoto(username, file) {

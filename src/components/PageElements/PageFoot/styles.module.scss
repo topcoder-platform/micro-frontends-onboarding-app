@@ -14,7 +14,7 @@
   }
   @include mobile {
     flex-direction: column;
-    justify-content: center !important;
+    justify-content: flex-end !important;
     align-items: center !important;
     & > * {
       margin-bottom: 20px;

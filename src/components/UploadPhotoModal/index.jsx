@@ -12,6 +12,7 @@ import PageDivider from "components/PageDivider";
 import PageH3 from "components/PageElements/PageH3";
 import PageP from "components/PageElements/PageP";
 import PageFoot from "components/PageElements/PageFoot";
+import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
 
 import Button from "components/Button";
 import Modal from "components/Modal";
@@ -92,13 +93,14 @@ const UploadPhotoModal = ({
         )}
       </PageP>
       <PageDivider />
-      <PageFoot align="between">
+      <PageFoot align="between" styleName="page-footer">
         <Button
           size={BUTTON_SIZE.MEDIUM}
           type={BUTTON_TYPE.SECONDARY}
           onClick={handleBackClick}
         >
-          {"< "}Back
+          <IconBackArrow />
+          <span styleName="back-button-text">&nbsp;Back</span>
         </Button>
         <Button
           size={BUTTON_SIZE.MEDIUM}

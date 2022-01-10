@@ -3,7 +3,10 @@ import { Provider } from "react-redux";
 import { Router } from "@reach/router";
 import ReactHeap from "reactjs-heap";
 import ReduxToastr from "react-redux-toastr";
-import { disableSidebarForRoute } from "@topcoder/micro-frontends-navbar-app";
+import {
+  disableSidebarForRoute,
+  disableNavigationForRoute,
+} from "@topcoder/micro-frontends-navbar-app";
 import GetStarted from "./routes/GetStarted";
 import ContactDetails from "./routes/ContactDetails";
 import PaymentSetup from "./routes/PaymentSetup";
@@ -20,19 +23,15 @@ import store from "./store";
 import "./styles/main.vendor.scss";
 import styles from "./styles/main.module.scss";
 import { HEAP_ANALYTICS_KEY } from "../config";
-import { checkOnboardFlowPermission } from "./utils";
 
 if (HEAP_ANALYTICS_KEY) {
-  console.log("heap analytics key found");
   ReactHeap.initialize(HEAP_ANALYTICS_KEY);
-} else {
-  console.log("heap analytics key missing");
 }
 
 export default function Root() {
   useEffect(() => {
-    checkOnboardFlowPermission();
-
+    disableNavigationForRoute("/onboard/*");
+    
     disableSidebarForRoute("/onboard");
     disableSidebarForRoute("/onboard/contact-details");
     disableSidebarForRoute("/onboard/payment-setup");

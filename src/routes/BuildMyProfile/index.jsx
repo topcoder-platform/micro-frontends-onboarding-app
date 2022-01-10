@@ -27,6 +27,7 @@ import DateInput from "components/DateInput";
 import LoadingSpinner from "components/LoadingSpinner";
 import ImgTestimonial2 from "../../assets/images/testimonial-2.png";
 import IconCross from "../../assets/images/icon-cross.svg";
+import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
 import config from "../../../config";
 import { MAX_COMPLETED_STEP, PAYMENT_PROVIDER, TAX_FORM } from "constants/";
 
@@ -45,6 +46,7 @@ import { getTraits, scrollToTop, isProfileFormDataEmpty } from "utils/";
 import moment from "moment";
 import _ from "lodash";
 import { createTraits, updateTraits } from "services/traits";
+import { updateMemberData } from "services/memberData";
 
 const formatDate = (date) => {
   let ret = new Date(
@@ -58,12 +60,13 @@ const BuildMyProfile = () => {
   const authUser = useSelector((state) => state.authUser);
   const [isLoading, setIsLoading] = useState(false);
   const [myProfileData, setMyProfileData] = useState({});
+  const [bio, setBio] = useState("");
+
   // form states
   const [formData, setFormData] = useState({
     title: "",
-    bio: "",
   });
-  const { title, bio } = formData;
+  const { title } = formData;
   // get an empty job item
   const emptyJob = () => ({
     company: "",
@@ -189,6 +192,7 @@ const BuildMyProfile = () => {
     getAuthUserProfile()
       .then((result) => {
         setMyProfileData(result);
+        setBio(result.description);
       })
       .catch((e) => {
         // eslint-disable-next-line no-console
@@ -217,11 +221,10 @@ const BuildMyProfile = () => {
         // fill title and bio to state
         if (basicInfoValue) {
           // Using shortBio as title has to do with v3 using this mapping
-          const { description, shortBio: title } = basicInfoValue;
+          const { shortBio: title } = basicInfoValue;
           setFormData((formData) => ({
             ...formData,
             title: title || "",
-            bio: description || "",
           }));
         }
         if (workExpValue) {
@@ -272,16 +275,15 @@ const BuildMyProfile = () => {
     scrollToTop();
   }, []);
 
-  // save title / bio
-  const getTitleAndBioData = (basicInfo) => {
-    const { title, bio } = formData;
+  // save title
+  const getTitle = (basicInfo) => {
+    const { title } = formData;
     // mapped data
     let data = {
       shortBio: title,
-      description: bio,
     };
     // check if basic info already exists. if so, update(put data). otherwise, post data.
-    if (basicInfo == null && isProfileFormDataEmpty("bio", data)) {
+    if (basicInfo == null && isProfileFormDataEmpty("title", data)) {
       return {
         action: "create",
         data: {
@@ -292,10 +294,8 @@ const BuildMyProfile = () => {
           },
         },
       };
-      // return addMyTitleAndBio(authUser.handle, data);
     } else {
       if (isProfileFormDataEmpty("bio", data)) {
-        // return updateMyTitleAndBio(authUser.handle, basicInfo, data);
         return {
           action: "update",
           data: {
@@ -450,8 +450,6 @@ const BuildMyProfile = () => {
     );
   };
 
-  // reach router, navigate programmatically
-  const navigate = useNavigate();
   // on submit, save form and then navigate
   const handleSubmit = async (e) => {
     if (!canSubmit()) {
@@ -480,7 +478,7 @@ const BuildMyProfile = () => {
     const functions = [
       {
         val: basicInfoTraits,
-        func: getTitleAndBioData,
+        func: getTitle,
       },
       {
         val: workExperience,
@@ -530,6 +528,10 @@ const BuildMyProfile = () => {
         // eslint-disable-next-line no-console
         console.log("Failed to update traits", err);
       }
+    }
+
+    if (myProfileData.description != bio) {
+      await updateMemberData(authUser.handle, { description: bio });
     }
 
     setIsLoading(false);
@@ -597,9 +599,7 @@ const BuildMyProfile = () => {
                   placeholder={"Enter your bio"}
                   value={bio}
                   name="bio"
-                  onChange={(e) =>
-                    handleInputChange(e.target.name, e.target.value)
-                  }
+                  onChange={(e) => setBio(e.target.value)}
                 />
               </FormField>
             </div>
@@ -1010,10 +1010,11 @@ const BuildMyProfile = () => {
 
           <PageDivider />
           <PageFoot></PageFoot>
-          <PageFoot align="between">
+          <PageFoot align="between" styleName="page-footer">
             <Link to="/onboard/payment-setup">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
-                {"< "}Back
+                <IconBackArrow />
+                <span styleName="back-button-text">&nbsp;Back</span>
               </Button>
             </Link>
             <a

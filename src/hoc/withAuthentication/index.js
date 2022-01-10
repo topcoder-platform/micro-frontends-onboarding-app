@@ -16,13 +16,37 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import { authUserSuccess, authUserError } from "./actions";
 import { decodeToken } from "tc-auth-lib";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "@reach/router";
+import {
+  getOnboardingChecklist,
+  updateOnboardingWizardTraits,
+} from "services/onboardingChecklist";
 
 export default function withAuthentication(Component) {
   const AuthenticatedComponent = (props) => {
     const dispatch = useDispatch();
     const { isLoggedIn, authError } = useSelector((state) => state.authUser);
-    const params = useParams();
+
+    const updateOnboardingWizardStatus = (handle) => {
+      getOnboardingChecklist(handle).then(async (checklist) => {
+        const traits =
+          checklist.data.length > 0 ? checklist.data[0].traits.data : [];
+
+        const shouldCreate = checklist.data.length === 0;
+        const onboardingWizardChecklistIndex = traits.findIndex(
+          (x) => x[`onboarding_wizard`] != null
+        );
+
+        if (onboardingWizardChecklistIndex === -1) {
+          traits.push({
+            onboarding_wizard: {
+              status: "seen",
+            },
+          });
+
+          updateOnboardingWizardTraits(handle, traits, shouldCreate);
+        }
+      });
+    };
 
     /*
       Check if user is logged-in or redirect ot the login page
@@ -30,13 +54,15 @@ export default function withAuthentication(Component) {
     useEffect(() => {
       // prevent page redirecting to login page when unmount
       let isUnmount = false;
-
       if (!isLoggedIn) {
         getAuthUserTokens()
           .then(({ tokenV3 }) => {
             if (!!tokenV3) {
               const tokenData = decodeToken(tokenV3);
-              console.log("tokenData", tokenData);
+              const handle = tokenData.handle;
+
+              updateOnboardingWizardStatus(handle);
+
               dispatch(
                 authUserSuccess(
                   _.pick(tokenData, ["userId", "handle", "roles"])

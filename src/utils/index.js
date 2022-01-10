@@ -23,11 +23,9 @@ export function scrollToTop() {
  */
 export function isProfileFormDataEmpty(type, data) {
   switch (type) {
-    case "bio":
-      let { shortBio, description } = data;
-      return (
-        (shortBio && shortBio.length) || (description && description.length)
-      );
+    case "title":
+      let { shortBio } = data;
+      return shortBio && shortBio.length;
     case "work":
       let { cityTown, company, position, timePeriodFrom, timePeriodTo } = data;
       let response =
@@ -109,14 +107,9 @@ export function isAddressFormEmpty(data, basicInfo) {
  */
 export function isContactFormEmpty(data) {
   return (
-    data?.city.length ||
-    data?.country.length ||
-    data?.state.length ||
     data?.timeZone.length ||
-    data?.zip.length ||
     data?.workingHourEnd.length ||
-    data?.workingHourStart.length ||
-    data?.zip.length
+    data?.workingHourStart.length
   );
 }
 
@@ -131,14 +124,4 @@ export function wrapV3(payload) {
   return {
     param: payload,
   };
-}
-
-/**
- * Check if onboarding flow is allowed and
- * if not it redirects user to Topcoder Start Page.
- */
-export function checkOnboardFlowPermission() {
-  if (config.ONBOARD_FLOW) {
-    window.location.href = config.TOPCODER_START_URL;
-  }
 }
