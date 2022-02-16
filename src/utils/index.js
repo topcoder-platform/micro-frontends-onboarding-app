@@ -125,3 +125,10 @@ export function wrapV3(payload) {
     param: payload,
   };
 }
+
+export function clearCookie(name) {}
+
+export function getCookie(name) {
+  const v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
+  return v ? v[2] : undefined;
+}

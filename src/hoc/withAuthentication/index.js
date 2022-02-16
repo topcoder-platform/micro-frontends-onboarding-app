@@ -42,7 +42,13 @@ export default function withAuthentication(Component) {
               status: "seen",
             },
           });
-
+          updateOnboardingWizardTraits(handle, traits, shouldCreate);
+        } else if (
+          traits[onboardingWizardChecklistIndex].onboarding_wizard?.status ===
+          "pending_at_user"
+        ) {
+          traits[onboardingWizardChecklistIndex].onboarding_wizard.status =
+            "seen";
           updateOnboardingWizardTraits(handle, traits, shouldCreate);
         }
       });
