@@ -47,6 +47,8 @@ import moment from "moment";
 import _ from "lodash";
 import { createTraits, updateTraits } from "services/traits";
 import { updateMemberData } from "services/memberData";
+import { getCookie } from "utils/";
+import { updateOnboardingWizardTraits } from "services/onboardingChecklist";
 
 const formatDate = (date) => {
   let ret = new Date(
@@ -61,6 +63,9 @@ const BuildMyProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [myProfileData, setMyProfileData] = useState({});
   const [bio, setBio] = useState("");
+  const [redirectUrl, setRedirectUrl] = useState(
+    config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"
+  );
 
   // form states
   const [formData, setFormData] = useState({
@@ -189,6 +194,7 @@ const BuildMyProfile = () => {
   // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
   useEffect(() => {
     if (!authUser || !authUser.handle) return;
+
     getAuthUserProfile()
       .then((result) => {
         setMyProfileData(result);
@@ -209,6 +215,9 @@ const BuildMyProfile = () => {
         // find datas we need
         // get traits values
         let traits = result?.data;
+        const onboardingChecklist = traits.find(
+          (t) => t.traitId === "onboarding_checklist"
+        );
         let basicInfo = traits.find((t) => t.traitId === "basic_info");
         let workExp = traits.find((t) => t.traitId === "work");
         let educationExp = traits.find((t) => t.traitId === "education");
@@ -217,6 +226,24 @@ const BuildMyProfile = () => {
         let workExpValue = workExp?.traits?.data;
         let educationExpValue = educationExp?.traits?.data;
         let languagesExpValue = languagesExp?.traits?.data;
+
+        if (
+          onboardingChecklist.traits.data.length > 0 &&
+          onboardingChecklist.traits.data[0].onboarding_wizard?.status !==
+            "completed"
+        ) {
+          onboardingChecklist.traits.data[0].onboarding_wizard.status =
+            "completed";
+          const url = getCookie("returnAfterOnboard");
+          if (url != null) {
+            setRedirectUrl(url);
+          }
+          updateOnboardingWizardTraits(
+            authUser.handle,
+            onboardingChecklist.traits.data,
+            false
+          );
+        }
 
         // fill title and bio to state
         if (basicInfoValue) {
@@ -535,7 +562,7 @@ const BuildMyProfile = () => {
     }
 
     setIsLoading(false);
-    window.location.href = config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home";
+    window.location.href = redirectUrl;
   };
 
   return (
@@ -1018,11 +1045,7 @@ const BuildMyProfile = () => {
               </Button>
             </Link>
             <a
-              href={
-                errors && canSubmit()
-                  ? config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"
-                  : "#"
-              }
+              href={errors && canSubmit() ? redirectUrl : "#"}
               onClick={(e) => handleSubmit(e)}
             >
               <Button

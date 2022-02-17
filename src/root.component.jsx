@@ -31,7 +31,7 @@ if (HEAP_ANALYTICS_KEY) {
 export default function Root() {
   useEffect(() => {
     disableNavigationForRoute("/onboard/*");
-    
+
     disableSidebarForRoute("/onboard");
     disableSidebarForRoute("/onboard/contact-details");
     disableSidebarForRoute("/onboard/payment-setup");
