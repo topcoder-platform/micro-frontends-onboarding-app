@@ -4,7 +4,7 @@ import "./styles.module.scss";
 import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
-import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserProfile } from "@topcoder/mfe-header";
 // import components and other stuffs
 import Page from "components/Page";
 import PageContent from "components/PageContent";

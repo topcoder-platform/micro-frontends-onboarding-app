@@ -7,7 +7,7 @@ import withAuthentication from "hoc/withAuthentication";
 import {
   setUserProfilePhoto,
   getAuthUserProfile,
-} from "@topcoder/micro-frontends-navbar-app";
+} from "@topcoder/mfe-header";
 
 // import components and other stuffs
 import Page from "components/Page";
