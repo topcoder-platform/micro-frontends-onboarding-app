@@ -11,7 +11,7 @@
  */
 import React, { useEffect } from "react";
 import _ from "lodash";
-import { getAuthUserTokens, login } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserTokens, login } from "@topcoder/mfe-header";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { authUserSuccess, authUserError } from "./actions";
 import { decodeToken } from "tc-auth-lib";

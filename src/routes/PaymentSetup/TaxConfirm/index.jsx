@@ -16,7 +16,7 @@ import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
 import IconBackArrow from "../../../assets/images/icon-back-arrow.svg";
 import PageFoot from "components/PageElements/PageFoot";
-import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
+import { getAuthUserProfile } from "@topcoder/mfe-header";
 
 import styles from "./styles.module.scss";
 import "rc-checkbox/assets/index.css";
