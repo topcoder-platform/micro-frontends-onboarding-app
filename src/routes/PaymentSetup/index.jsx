@@ -22,7 +22,7 @@ import {
   PAYMENT_PROVIDER,
   PAYMENT_METHOD_MAP,
 } from "constants";
-import { getAuthUserProfile } from "@topcoder/mfe-header";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import IconCheck from "../../assets/images/check.svg";
 import IconBackArrow from "../../assets/images/icon-back-arrow.svg";

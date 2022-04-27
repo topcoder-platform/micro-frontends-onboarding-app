@@ -14,7 +14,7 @@ import PageDivider from "components/PageDivider";
 import StepsIndicator from "components/StepsIndicator";
 import PageH1 from "components/PageElements/PageH1";
 import PageP from "components/PageElements/PageP";
-import { getAuthUserProfile } from "@topcoder/mfe-header";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
 

@@ -19,7 +19,7 @@ import PageDivider from "components/PageDivider";
 import StepsIndicator from "components/StepsIndicator";
 import PageH1 from "components/PageElements/PageH1";
 import PageFoot from "components/PageElements/PageFoot";
-import { getAuthUserProfile } from "@topcoder/mfe-header";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 
 import "./styles.module.scss";
 import { FORM_DETAILS } from "constants/";

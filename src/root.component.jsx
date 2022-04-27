@@ -6,7 +6,7 @@ import ReduxToastr from "react-redux-toastr";
 import {
   disableSidebarForRoute,
   disableNavigationForRoute,
-} from "@topcoder/mfe-header";
+} from "@topcoder/micro-frontends-navbar-app";
 import GetStarted from "./routes/GetStarted";
 import ContactDetails from "./routes/ContactDetails";
 import PaymentSetup from "./routes/PaymentSetup";

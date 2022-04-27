@@ -26,7 +26,7 @@ import StepsIndicator from "components/StepsIndicator";
 import "rc-checkbox/assets/index.css";
 import styles from "./styles.module.scss";
 import ScrollToBottom from "components/ScrollToBottom";
-import { getAuthUserProfile } from "@topcoder/mfe-header";
+import { getAuthUserProfile } from "@topcoder/micro-frontends-navbar-app";
 import { PAYMENT_PROVIDER } from "constants/";
 
 /**
