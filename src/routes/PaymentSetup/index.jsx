@@ -43,7 +43,7 @@ const PaymentSetup = () => {
   );
   const authUser = useSelector((state) => state.authUser);
   const navigate = useNavigate();
-  const [isShowSelectPayment, setIsShowSelectPayment] = useState(false);
+  const [yesToPaymentProvider, setYesToPaymentProvider] = useState();
 
   const [isPaymentServiceSelected, setIsPaymentServiceSelected] = useState(
     false
@@ -52,10 +52,13 @@ const PaymentSetup = () => {
   const [paymentService, setPaymentService] = useState(
     localStorage.getItem(`${authUser?.handle}_${PAYMENT_PROVIDER}`)
   );
-  const isNextButtonDisabled = !isPaymentServiceSelected;
+  const isNextButtonDisabled =
+    !isPaymentServiceSelected && paymentService !== "No";
 
   React.useEffect(() => {
-    setIsPaymentServiceSelected(!!paymentService);
+    if (paymentService !== "No") {
+      setIsPaymentServiceSelected(!!paymentService);
+    }
   }, [paymentService]);
 
   // Get Member data from redux (firstName, lastName, handle, photoURL) and store it on myProfileData
@@ -109,7 +112,7 @@ const PaymentSetup = () => {
             )}
           </div>
 
-          {!isPaymentServiceSelected && (
+          {(!isPaymentServiceSelected || paymentService === "No") && (
             <div styleName="cards">
               <div styleName="card card1">
                 <PageP styleName="para">
@@ -121,7 +124,19 @@ const PaymentSetup = () => {
                   onChange={(items) => {
                     const selectedItem = _.find(items, { value: true });
                     if (selectedItem) {
-                      setIsShowSelectPayment(selectedItem.label === "Yes");
+                      setYesToPaymentProvider(selectedItem.label === "Yes");
+                      if (selectedItem.label === "No, not at this time") {
+                        localStorage.setItem(
+                          `${authUser?.handle}_${PAYMENT_PROVIDER}`,
+                          "No"
+                        );
+                        setPaymentService("No");
+                      } else {
+                        localStorage.removeItem(
+                          `${authUser?.handle}_${PAYMENT_PROVIDER}`
+                        );
+                        setPaymentService("");
+                      }
                     }
                   }}
                   size="sm"
@@ -135,12 +150,15 @@ const PaymentSetup = () => {
                       value: false,
                     },
                   ]}
+                  selectedOption={
+                    paymentService === "No" ? "No, not at this time" : ""
+                  }
                 />
               </div>
             </div>
           )}
 
-          {isShowSelectPayment && !isPaymentServiceSelected && (
+          {yesToPaymentProvider && !isPaymentServiceSelected && (
             <PaymentMethods
               handleConfirm={() => {
                 setPaymentService(
@@ -151,7 +169,7 @@ const PaymentSetup = () => {
               }}
             />
           )}
-          {(!isShowSelectPayment || isPaymentServiceSelected) && (
+          {(!yesToPaymentProvider || isPaymentServiceSelected) && (
             <div styleName="bottom-space" />
           )}
 
@@ -174,10 +192,7 @@ const PaymentSetup = () => {
                   </Button>
                 </Link>
               )}
-              <a
-                href={!isNextButtonDisabled ? redirectUrl : "#"}
-                onClick={(e) => handleSubmit(e)}
-              >
+              <a href={!isNextButtonDisabled ? redirectUrl : "#"}>
                 <Button
                   size={BUTTON_SIZE.MEDIUM}
                   disabled={isNextButtonDisabled}
