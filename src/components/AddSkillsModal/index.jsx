@@ -33,6 +33,7 @@ const AddSkillsModal = ({
     { id: "Design/UX", label: "Design / UX" },
     { id: "Development", label: "Development" },
     { id: "Data Science", label: "Data Science" },
+    { id: "QA", label: "QA" },
   ]);
 
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
