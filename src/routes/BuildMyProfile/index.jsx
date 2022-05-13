@@ -28,8 +28,6 @@ import LoadingSpinner from "components/LoadingSpinner";
 import ImgTestimonial2 from "../../assets/images/testimonial-2.png";
 import IconCross from "../../assets/images/icon-cross.svg";
 import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
-import config from "../../../config";
-import { MAX_COMPLETED_STEP, PAYMENT_PROVIDER, TAX_FORM } from "constants/";
 
 import {
   industries,
@@ -47,7 +45,6 @@ import moment from "moment";
 import _ from "lodash";
 import { createTraits, updateTraits } from "services/traits";
 import { updateMemberData } from "services/memberData";
-import { getCookie } from "utils/";
 import { updateOnboardingWizardTraits } from "services/onboardingChecklist";
 
 const formatDate = (date) => {
@@ -63,9 +60,9 @@ const BuildMyProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [myProfileData, setMyProfileData] = useState({});
   const [bio, setBio] = useState("");
-  const [redirectUrl, setRedirectUrl] = useState(
-    config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home"
-  );
+
+  // reach router, navigate programmatically
+  const navigate = useNavigate();
 
   // form states
   const [formData, setFormData] = useState({
@@ -234,10 +231,6 @@ const BuildMyProfile = () => {
         ) {
           onboardingChecklist.traits.data[0].onboarding_wizard.status =
             "completed";
-          const url = getCookie("returnAfterOnboard");
-          if (url != null) {
-            setRedirectUrl(url);
-          }
           updateOnboardingWizardTraits(
             authUser.handle,
             onboardingChecklist.traits.data,
@@ -562,7 +555,7 @@ const BuildMyProfile = () => {
     }
 
     setIsLoading(false);
-    window.location.href = redirectUrl;
+    navigate("/onboard/payment-setup");
   };
 
   return (
@@ -1038,32 +1031,25 @@ const BuildMyProfile = () => {
           <PageDivider />
           <PageFoot></PageFoot>
           <PageFoot align="between" styleName="page-footer">
-            <Link to="/onboard/payment-setup">
+            <Link to="/onboard/contact-details">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
                 <IconBackArrow />
                 <span styleName="back-button-text">&nbsp;Back</span>
               </Button>
             </Link>
-            <a
-              href={errors && canSubmit() ? redirectUrl : "#"}
+            <Link
+              to={errors && !canSubmit() ? "#" : "/onboard/payment-setup"}
               onClick={(e) => handleSubmit(e)}
             >
               <Button
-                onClick={() => {
-                  localStorage.removeItem(MAX_COMPLETED_STEP);
-                  localStorage.removeItem(
-                    `${authUser?.handle}_${PAYMENT_PROVIDER}`
-                  );
-                  localStorage.removeItem(`${authUser?.handle}_${TAX_FORM}`);
-                }}
                 disabled={errors && !canSubmit()}
                 size={BUTTON_SIZE.MEDIUM}
               >
-                ALL DONE
+                CONTINUE TO PAYMENT SETUP
               </Button>
-            </a>
+            </Link>
           </PageFoot>
-          <OnboardProgress level={4} />
+          <OnboardProgress level={3} />
         </PageContent>
       </Page>
     </>
