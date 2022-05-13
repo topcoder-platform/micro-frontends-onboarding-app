@@ -59,8 +59,8 @@ export const writtenLevels = writtenLevel.map((v) => v.name);
 export const ProgressLevels = [
   { label: "Get Started", url: "/onboard" },
   { label: "Contact Details", url: "/onboard/contact-details" },
-  { label: "Payment Setup", url: "/onboard/payment-setup" },
   { label: "Building My Profile", url: "/onboard/build-my-profile" },
+  { label: "Payment Setup", url: "/onboard/payment-setup" },
 ];
 
 /**
@@ -267,7 +267,7 @@ export const FORM_DETAILS = {
     infoLabel: "See Topcoder Tax Information for Form W-8BEN for details",
     extraDetails: `
       <p>
-        The W-8BEN is required to: 
+        The W-8BEN is required to:
         <ul>
           <li>Establish that you are not a U.S. person </li>
           <li>Claim that you are the beneficial owner of the income for which Form W-8BEN is being provided. </li>
