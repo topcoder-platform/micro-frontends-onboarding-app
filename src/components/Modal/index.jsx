@@ -9,12 +9,21 @@ import cn from "classnames";
 import "./styles.module.scss";
 import IconCross from "../../assets/images/icon-cross.svg";
 
-const Modal = ({ children, show = false, handleClose = (f) => f }) => {
+const Modal = ({
+  children,
+  noMaxWith = false,
+  show = false,
+  handleClose = (f) => f,
+}) => {
   return (
     show && (
       <div styleName={"modal"}>
         <div styleName="modal-back" onClick={(e) => handleClose(e)}></div>
-        <div styleName="modal-inner">
+        <div
+          styleName={cn("modal-inner", {
+            ["no-max-with"]: noMaxWith,
+          })}
+        >
           {children}
           <IconCross
             styleName="modal-close-btn"

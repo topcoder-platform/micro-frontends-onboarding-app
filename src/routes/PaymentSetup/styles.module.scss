@@ -6,6 +6,16 @@
     flex-wrap: wrap;
     align-items: stretch;
     margin-bottom: 22px;
+
+    &.cards1 {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    &.cards2 {
+      margin-top: 30px;
+      margin-bottom: 0;
+    }
   }
   .card {
     width: calc(50% - 12px);
@@ -19,6 +29,18 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+
+    &.card1 {
+      background: transparent;
+      gap: 0;
+      padding: 0;
+    }
+
+    &.logos {
+      flex-direction: row;
+      padding: 0 24px;
+      gap: 30px;
+    }
     & > p {
       margin: 0;
     }
@@ -52,17 +74,16 @@
   }
 
   .success-container {
-    background: linear-gradient(264.69deg, #017c6d 2.17%, #198807 97.49%);
+    background: linear-gradient(264.69deg, #198807 2.17%, #017c6d 97.49%);
     border-radius: 8px;
     display: flex;
     align-items: center;
     color: white;
-    padding: 24px;
+    padding: 0 24px;
     align-self: start;
     width: calc(50% - 12px);
     height: 120px;
     flex-grow: 1;
-    text-transform: uppercase;
     line-height: 24px;
     svg {
       margin-right: 18px;
@@ -109,4 +130,8 @@
       margin-right: 5px;
     }
   }
+}
+
+.bottom-space {
+  margin-bottom: 200px;
 }

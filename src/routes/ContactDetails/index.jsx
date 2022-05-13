@@ -266,7 +266,7 @@ const ContactDetails = () => {
 
     setIsLoading(false);
     // toastr.success("Success", "Successfully saved contact details!");
-    navigate("/onboard/payment-setup");
+    navigate("/onboard/build-my-profile");
   };
 
   const selectedCountryObj = React.useMemo(
@@ -445,9 +445,14 @@ const ContactDetails = () => {
                 <span styleName="back-button-text">&nbsp;Back</span>
               </Button>
             </Link>
-            <Link to="/onboard/payment-setup" onClick={(e) => handleSubmit(e)}>
+            <Link
+              to="/onboard/build-my-profile"
+              onClick={(e) => handleSubmit(e)}
+            >
               <Button size={BUTTON_SIZE.MEDIUM}>
-                <span styleName="footer-btn-lg">CONTINUE TO PAYMENT SETUP</span>
+                <span styleName="footer-btn-lg">
+                  CONTINUE TO CONTACT DETAILS
+                </span>
                 <span styleName="footer-btn-sm">NEXT</span>
               </Button>
             </Link>
