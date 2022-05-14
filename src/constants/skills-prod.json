@@ -191,7 +191,7 @@
   {
     "id": "c01fb00b-392d-424c-9c8d-2d9f9e9293da",
     "label": "Performance Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 544,
     "rank": 32
   },
@@ -968,7 +968,7 @@
   {
     "id": "b1d6f257-acb4-4d14-9792-8e5c379d91af",
     "label": "Usability Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 546,
     "rank": 172
   },
@@ -1192,7 +1192,7 @@
   {
     "id": "63b83be5-e398-417d-8666-8dac05ee3f4e",
     "label": "Unit-Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 373,
     "rank": 219
   },
@@ -2452,7 +2452,7 @@
   {
     "id": "8f631fd8-1f08-4b20-bdbe-666dc35cbed0",
     "label": "Accessibility Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 551,
     "rank": 166
   },
@@ -2620,7 +2620,7 @@
   {
     "id": "c40afc95-882c-4b10-9471-0a1e497cbf10",
     "label": "User Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 377,
     "rank": 190
   },
