@@ -306,7 +306,7 @@
   {
     "id": "8e1b4785-e56b-4d2e-9b31-898b05a90da7",
     "label": "Performance Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 498,
     "rank": 218
   },
@@ -1572,7 +1572,7 @@
   {
     "id": "afd86b54-db00-4218-a6be-5b7af155c091",
     "label": "Usability Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 500,
     "rank": 219
   },
@@ -1877,7 +1877,7 @@
   {
     "id": "63189fe0-94a9-4e2e-90f3-ef764e6a005b",
     "label": "Unit-Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 373,
     "rank": 113
   },
@@ -2347,12 +2347,6 @@
     "label": "Mobile App Test Automation",
     "category": "Development",
     "rank": 11
-  },
-  {
-    "id": "0e3e2797-ff9e-4cd2-b16e-f6bfe60fd031",
-    "label": "QA",
-    "category": "Development",
-    "rank": 15
   },
   {
     "id": "d94a94fb-9b97-4ee2-ad7c-533b87356af6",
@@ -3939,7 +3933,7 @@
   {
     "id": "89139c80-d0a2-47c2-aa16-14589d5afd10",
     "label": "User Testing",
-    "category": "Development",
+    "category": "QA",
     "legacyId": 377,
     "rank": 20
   },
@@ -4622,11 +4616,5 @@
     "label": "Syncback",
     "category": "Development",
     "rank": 30
-  },
-  {
-    "id": "0e3e2797-ff9e-4cd2-b16e-f6bfe60fd031",
-    "label": "QA",
-    "category": "QA",
-    "rank": 15
   }
 ]
