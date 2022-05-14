@@ -10,10 +10,13 @@ import { range, isUndefined, isNull, orderBy } from "lodash";
 
 import skills_list_dev from "./skills-dev.json";
 import skills_list_prod from "./skills-prod.json";
-export const skills =
+
+
+export const skills = 
   isUndefined(process.env.APPENV) ||
   isNull(process.env.APPENV) ||
-  process.env.APPENV === "dev"
+  process.env.APPENV.toLowerCase() === "dev" || 
+  process.env.APPENV.toLowerCase() === "local"
     ? skills_list_dev
     : skills_list_prod;
 
