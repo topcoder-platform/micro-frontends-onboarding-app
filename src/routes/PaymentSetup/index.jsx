@@ -183,14 +183,14 @@ const PaymentSetup = () => {
             </Link>
             <div styleName="footer-btns">
               {isNextButtonDisabled && (
-                <Link to="/onboard/build-my-profile">
+                <a href={redirectUrl}>
                   <Button
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
                   >
                     FINISH LATER
                   </Button>
-                </Link>
+                </a>
               )}
               <a href={!isNextButtonDisabled ? redirectUrl : "#"}>
                 <Button

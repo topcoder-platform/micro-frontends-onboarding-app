@@ -74,7 +74,7 @@ const PaymentMethods = ({ handleConfirm = (f) => f }) => {
 
       <div styleName="info-text">
         The information above is gathered from each payment provider's
-        perspective website. We encourage you to do any additional information
+        respective website. We encourage you to do any additional information
         gathering you see fit prior to making a payment provider decision.
       </div>
 
