@@ -1,9 +1,8 @@
 @import "styles/include";
 
 .page-wrapper {
-  @include mobile {
-    padding: 0;
-  }
+  padding: 0;
+
   .page-title {
     background-color: white;
     padding: 12px 24px;
@@ -23,7 +22,9 @@
       padding: 16px 8px 16px 8px;
     }
     .page-content {
-      padding: 38px 32px 32px 32px;
+      padding: 20px;
+      margin: 0;
+
       @include mobile {
         padding: 16px 19px;
         margin: 0;
@@ -52,9 +53,6 @@
               line-height: 12px;
               @include font-roboto;
               margin-bottom: 10px;
-            }
-            .button-text {
-              margin-left: 6px;
             }
           }
           .payment-service-title {
@@ -296,9 +294,9 @@
     .footer-back-button {
       padding: 14px 24px 14px 24px !important;
     }
-
-    .footer-back-button-text {
-      display: none;
-    }
   }
+}
+
+.modal-inner-no-max-width {
+  max-width: none !important;
 }

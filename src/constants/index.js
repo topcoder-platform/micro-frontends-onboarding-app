@@ -10,10 +10,13 @@ import { range, isUndefined, isNull, orderBy } from "lodash";
 
 import skills_list_dev from "./skills-dev.json";
 import skills_list_prod from "./skills-prod.json";
-export const skills =
+
+
+export const skills = 
   isUndefined(process.env.APPENV) ||
   isNull(process.env.APPENV) ||
-  process.env.APPENV === "dev"
+  process.env.APPENV.toLowerCase() === "dev" || 
+  process.env.APPENV.toLowerCase() === "local"
     ? skills_list_dev
     : skills_list_prod;
 
@@ -59,8 +62,8 @@ export const writtenLevels = writtenLevel.map((v) => v.name);
 export const ProgressLevels = [
   { label: "Get Started", url: "/onboard" },
   { label: "Contact Details", url: "/onboard/contact-details" },
-  { label: "Payment Setup", url: "/onboard/payment-setup" },
   { label: "Building My Profile", url: "/onboard/build-my-profile" },
+  { label: "Payment Setup", url: "/onboard/payment-setup" },
 ];
 
 /**
@@ -267,7 +270,7 @@ export const FORM_DETAILS = {
     infoLabel: "See Topcoder Tax Information for Form W-8BEN for details",
     extraDetails: `
       <p>
-        The W-8BEN is required to: 
+        The W-8BEN is required to:
         <ul>
           <li>Establish that you are not a U.S. person </li>
           <li>Claim that you are the beneficial owner of the income for which Form W-8BEN is being provided. </li>

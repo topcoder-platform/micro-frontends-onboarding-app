@@ -15,6 +15,7 @@ const SkillsList = ({ selecteds, onNewSkillClicked, handleSkillRemove }) => {
     { id: "Design/UX", label: "Design / UX Skills" },
     { id: "Development", label: "Developer Skills" },
     { id: "Data Science", label: "Data Science Skills" },
+    { id: "QA", label: "QA Skills" },
   ];
 
   // render selected skills

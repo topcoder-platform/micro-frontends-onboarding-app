@@ -16,6 +16,11 @@
     border-radius: 4px;
     padding: 0 26px 25px 26px;
     overflow: auto;
+    max-height: calc(100vh - 100px);
+
+    &.no-max-with {
+      max-width: none;
+    }
   }
 
   .modal-back {
