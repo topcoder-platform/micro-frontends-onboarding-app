@@ -21,6 +21,14 @@
   .footer-btn-sm {
     display: none;
   }
+
+  .right-content {
+    display: flex;
+  }
+
+  .finish-later {
+    margin-right: 10px;
+  }
 }
 
 @media screen and (max-width: 425px) {

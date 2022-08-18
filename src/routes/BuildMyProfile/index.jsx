@@ -28,6 +28,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 import ImgTestimonial2 from "../../assets/images/testimonial-2.png";
 import IconCross from "../../assets/images/icon-cross.svg";
 import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
+import IconArrowRight from "../../assets/images/icon-arrow-right.svg";
 
 import {
   industries,
@@ -46,6 +47,7 @@ import _ from "lodash";
 import { createTraits, updateTraits } from "services/traits";
 import { updateMemberData } from "services/memberData";
 import { updateOnboardingWizardTraits } from "services/onboardingChecklist";
+import config from "../../../config";
 
 const formatDate = (date) => {
   let ret = new Date(
@@ -60,6 +62,7 @@ const BuildMyProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [myProfileData, setMyProfileData] = useState({});
   const [bio, setBio] = useState("");
+  const redirectUrl = config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home";
 
   // reach router, navigate programmatically
   const navigate = useNavigate();
@@ -471,7 +474,7 @@ const BuildMyProfile = () => {
   };
 
   // on submit, save form and then navigate
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, exit = false) => {
     if (!canSubmit()) {
       return;
     }
@@ -555,7 +558,11 @@ const BuildMyProfile = () => {
     }
 
     setIsLoading(false);
-    navigate("/onboard/payment-setup");
+    if (exit) {
+      window.location = redirectUrl;
+    } else {
+      navigate("/onboard/payment-setup");
+    }
   };
 
   return (
@@ -1034,20 +1041,53 @@ const BuildMyProfile = () => {
             <Link to="/onboard/contact-details">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
                 <IconBackArrow />
-                <span styleName="back-button-text">&nbsp;Back</span>
+                <span styleName="back-button-text">&nbsp;</span>
               </Button>
             </Link>
-            <Link
-              to={errors && !canSubmit() ? "#" : "/onboard/payment-setup"}
-              onClick={(e) => handleSubmit(e)}
-            >
-              <Button
-                disabled={errors && !canSubmit()}
-                size={BUTTON_SIZE.MEDIUM}
+            <div styleName="right-content">
+              <a
+                href={redirectUrl}
+                styleName="finish-later"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit(e, true);
+                }}
               >
-                CONTINUE TO PAYMENT SETUP
-              </Button>
-            </Link>
+                <Button
+                  styleName="footer-btn-desktop"
+                  size={BUTTON_SIZE.MEDIUM}
+                  type={BUTTON_TYPE.SECONDARY}
+                >
+                  <span styleName="footer-btn-lg">FINISH LATER</span>
+                </Button>
+                <Button
+                  styleName="footer-btn-mobile"
+                  size={BUTTON_SIZE.MEDIUM}
+                  type={BUTTON_TYPE.SECONDARY}
+                >
+                  <span styleName="footer-btn-lg">SAVE & EXIT</span>
+                </Button>
+              </a>
+              <Link
+                to={errors && !canSubmit() ? "#" : "/onboard/payment-setup"}
+                onClick={(e) => handleSubmit(e)}
+              >
+                <Button
+                  disabled={errors && !canSubmit()}
+                  size={BUTTON_SIZE.MEDIUM}
+                  styleName="footer-btn-desktop"
+                >
+                  CONTINUE TO PAYMENT SETUP
+                </Button>
+                <Button
+                  disabled={errors && !canSubmit()}
+                  size={BUTTON_SIZE.MEDIUM}
+                  styleName="footer-btn-mobile"
+                >
+                  <IconArrowRight />
+                </Button>
+              </Link>
+            </div>
           </PageFoot>
           <OnboardProgress level={3} />
         </PageContent>
