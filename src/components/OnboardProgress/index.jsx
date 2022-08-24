@@ -15,7 +15,7 @@ import config from "../../../config";
 import { ProgressLevels as levels, MAX_COMPLETED_STEP } from "constants";
 import _ from "lodash";
 
-const OnboardProgress = ({ level, styleName, ...props }) => {
+const OnboardProgress = ({ level, styleName, handleSubmit, ...props }) => {
   const [progressPopupOpen, setProgressPopupOpen] = useState(false);
   const maxCompletedStep = localStorage.getItem(MAX_COMPLETED_STEP) || 0;
   const redirectUrl = config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home";
@@ -41,7 +41,14 @@ const OnboardProgress = ({ level, styleName, ...props }) => {
         styleName="progress-donut-chart"
         progress={100 * (level / levels.length)}
       />
-      <a href={redirectUrl} styleName="cancel-onboard">
+      <a
+        href={redirectUrl}
+        onClick={(e) => {
+          e.preventDefault();
+          handleSubmit(e, true);
+        }}
+        styleName="cancel-onboard"
+      >
         <IconCrossGreen />
       </a>
       <div
@@ -62,6 +69,7 @@ const OnboardProgress = ({ level, styleName, ...props }) => {
 };
 
 OnboardProgress.propTypes = {
+  handleSubmit: PT.func,
   level: PT.number,
 };
 

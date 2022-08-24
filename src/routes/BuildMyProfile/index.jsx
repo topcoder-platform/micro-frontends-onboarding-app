@@ -1089,7 +1089,7 @@ const BuildMyProfile = () => {
               </Link>
             </div>
           </PageFoot>
-          <OnboardProgress level={3} />
+          <OnboardProgress handleSubmit={handleSubmit} level={3} />
         </PageContent>
       </Page>
     </>

@@ -492,7 +492,7 @@ const GetStarted = () => {
               </Button>
             </Link>
           </PageFoot>
-          <OnboardProgress level={1} />
+          <OnboardProgress handleSubmit={handleSubmit} level={1} />
         </PageContent>
       </Page>
       <UploadPhotoModal
