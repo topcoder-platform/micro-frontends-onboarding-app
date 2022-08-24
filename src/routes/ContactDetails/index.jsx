@@ -481,7 +481,7 @@ const ContactDetails = () => {
               </Link>
             </div>
           </PageFoot>
-          <OnboardProgress level={2} />
+          <OnboardProgress handleSubmit={handleSubmit} level={2} />
         </PageContent>
       </Page>
     </>
