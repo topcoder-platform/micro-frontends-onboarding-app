@@ -78,6 +78,11 @@ const PaymentSetup = () => {
       });
   }, [authUser]);
 
+  const handleExit = (e) => {
+    e.preventDefault();
+    window.location = redirectUrl;
+  };
+
   return (
     <>
       <Page title="Payment Setup" styleName="payment-setup">
@@ -221,7 +226,7 @@ const PaymentSetup = () => {
               </a>
             </div>
           </PageFoot>
-          <OnboardProgress level={4} />
+          <OnboardProgress level={4} handleSubmit={handleExit} />
         </PageContent>
       </Page>
     </>
