@@ -43,6 +43,34 @@
   }
 }
 
+.page-footer {
+  display: flex;
+
+  .footer-btn-lg {
+    display: inline-block;
+  }
+
+  .footer-btn-sm {
+    display: none;
+  }
+
+  .right-content {
+    display: flex;
+  }
+
+  .finish-later {
+    margin-right: 10px;
+  }
+
+  .footer-btn-desktop {
+    display: block;
+  }
+
+  .footer-btn-mobile {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .back-button-text {
     display: none;
@@ -52,5 +80,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between !important;
+ 
+    .footer-btn-desktop {
+      display: none;
+    }
+  
+    .footer-btn-mobile {
+      display: block;
+    }
   }
 }

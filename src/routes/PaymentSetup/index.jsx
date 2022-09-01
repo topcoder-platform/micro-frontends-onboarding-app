@@ -35,6 +35,7 @@ import { getCookie } from "utils/";
 
 import IconCheck from "../../assets/images/check.svg";
 import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
+import IconArrowRight from "../../assets/images/icon-arrow-right.svg";
 import PaymentMethods from "components/PaymentMethods";
 
 const PaymentSetup = () => {
@@ -76,6 +77,11 @@ const PaymentSetup = () => {
         // toastr.error('Error', 'failed to get profile basic infos!');
       });
   }, [authUser]);
+
+  const handleExit = (e) => {
+    e.preventDefault();
+    window.location = redirectUrl;
+  };
 
   return (
     <>
@@ -178,17 +184,25 @@ const PaymentSetup = () => {
             <Link to="/onboard/build-my-profile">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
                 <IconBackArrow />
-                <span styleName="back-button-text">&nbsp;Back</span>
+                <span styleName="back-button-text">&nbsp;</span>
               </Button>
             </Link>
             <div styleName="footer-btns">
               {isNextButtonDisabled && (
                 <a href={redirectUrl}>
                   <Button
+                    styleName="next-button-lg"
                     size={BUTTON_SIZE.MEDIUM}
                     type={BUTTON_TYPE.SECONDARY}
                   >
                     FINISH LATER
+                  </Button>
+                  <Button
+                    styleName="next-button-sm"
+                    size={BUTTON_SIZE.MEDIUM}
+                    type={BUTTON_TYPE.SECONDARY}
+                  >
+                    SAVE & EXIT
                   </Button>
                 </a>
               )}
@@ -205,12 +219,14 @@ const PaymentSetup = () => {
                   }}
                 >
                   <span styleName="next-button-lg">ALL DONE</span>
-                  <span styleName="next-button-sm">ALL DONE</span>
+                  <span styleName="next-button-sm">
+                    <IconArrowRight />
+                  </span>
                 </Button>
               </a>
             </div>
           </PageFoot>
-          <OnboardProgress level={4} />
+          <OnboardProgress level={4} handleSubmit={handleExit} />
         </PageContent>
       </Page>
     </>

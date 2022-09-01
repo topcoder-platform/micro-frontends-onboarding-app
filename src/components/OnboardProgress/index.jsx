@@ -10,12 +10,16 @@ import "./styles.module.scss";
 import ProgressDonutChart from "components/ProgressDonutChart";
 import ProgressPopup from "components/ProgressPopup";
 import IconThreeDots from "../../assets/images/icon-three-dots-vertical.svg";
+import IconCrossGreen from "../../assets/images/icon-cross-green.svg";
+import config from "../../../config";
 import { ProgressLevels as levels, MAX_COMPLETED_STEP } from "constants";
 import _ from "lodash";
 
-const OnboardProgress = ({ level, styleName, ...props }) => {
+const OnboardProgress = ({ level, styleName, handleSubmit, ...props }) => {
   const [progressPopupOpen, setProgressPopupOpen] = useState(false);
   const maxCompletedStep = localStorage.getItem(MAX_COMPLETED_STEP) || 0;
+  const redirectUrl = config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home";
+
   if (
     _.isUndefined(maxCompletedStep) ||
     _.isNull(maxCompletedStep) ||
@@ -37,6 +41,16 @@ const OnboardProgress = ({ level, styleName, ...props }) => {
         styleName="progress-donut-chart"
         progress={100 * (level / levels.length)}
       />
+      <a
+        href={redirectUrl}
+        onClick={(e) => {
+          e.preventDefault();
+          handleSubmit(e, true);
+        }}
+        styleName="cancel-onboard"
+      >
+        <IconCrossGreen />
+      </a>
       <div
         styleName="progress-popup-toggle"
         onClick={(e) => setProgressPopupOpen((o) => !o)}
@@ -55,6 +69,7 @@ const OnboardProgress = ({ level, styleName, ...props }) => {
 };
 
 OnboardProgress.propTypes = {
+  handleSubmit: PT.func,
   level: PT.number,
 };
 

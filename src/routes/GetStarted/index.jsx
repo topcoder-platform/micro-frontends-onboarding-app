@@ -4,10 +4,7 @@ import "./styles.module.scss";
 import { Link, useNavigate } from "@reach/router";
 import { useSelector } from "react-redux";
 import withAuthentication from "hoc/withAuthentication";
-import {
-  setUserProfilePhoto,
-  getAuthUserProfile,
-} from "@topcoder/mfe-header";
+import { setUserProfilePhoto, getAuthUserProfile } from "@topcoder/mfe-header";
 
 // import components and other stuffs
 import Page from "components/Page";
@@ -37,7 +34,9 @@ import {
 
 import IconEdit from "../../assets/images/icon-edit.svg";
 import IconUpload from "../../assets/images/icon-upload.svg";
+import IconArrowRight from "../../assets/images/icon-arrow-right.svg";
 import ImgTestimonial1 from "../../assets/images/testimonial-1.png";
+import config from "../../../config";
 
 import { getAllSkills, getMemberSkills, updateMySkills } from "services/skills";
 import {
@@ -56,7 +55,7 @@ import {
 import { getAllCountries } from "services/countries";
 import { checkUserTrait } from "services/traits";
 import { trackEvent } from "services/analytics";
-import { EVENT_TYPE } from "constants/";
+import { EVENT_TYPE, BUTTON_TYPE } from "constants/";
 
 const GetStarted = () => {
   // states
@@ -84,6 +83,7 @@ const GetStarted = () => {
     allSkills: false,
     mySkills: false,
   });
+  const redirectUrl = config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home";
 
   // at start, set loading to true
   useEffect(() => {
@@ -326,7 +326,7 @@ const GetStarted = () => {
 
   // reach router, navigate programmatically
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, exit = false) => {
     setIsLoading(true);
     // save interests & skills before navigatating to next page
     e.preventDefault();
@@ -336,7 +336,12 @@ const GetStarted = () => {
       })
       .then(() => {
         setIsLoading(false);
-        navigate("/onboard/contact-details");
+
+        if (exit) {
+          window.location = redirectUrl;
+        } else {
+          navigate("/onboard/contact-details");
+        }
       });
   };
   return (
@@ -460,6 +465,19 @@ const GetStarted = () => {
           </PageRow>
           <PageDivider />
           <PageFoot styleName="page-footer">
+            <a
+              href={redirectUrl}
+              styleName="finish-later"
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit(e, true);
+              }}
+            >
+              <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                <span styleName="footer-btn-lg">FINISH LATER</span>
+                <span styleName="footer-btn-sm">SAVE & EXIT</span>
+              </Button>
+            </a>
             <Link
               to="/onboard/contact-details"
               onClick={(e) => handleSubmit(e)}
@@ -468,11 +486,13 @@ const GetStarted = () => {
                 <span styleName="footer-btn-lg">
                   CONTINUE TO CONTACT DETAILS
                 </span>
-                <span styleName="footer-btn-sm">NEXT</span>
+                <span styleName="footer-btn-sm">
+                  <IconArrowRight />
+                </span>
               </Button>
             </Link>
           </PageFoot>
-          <OnboardProgress level={1} />
+          <OnboardProgress handleSubmit={handleSubmit} level={1} />
         </PageContent>
       </Page>
       <UploadPhotoModal

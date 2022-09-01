@@ -28,6 +28,8 @@ import {
 } from "services/contactDetails";
 import { getMemberData, updateMemberData } from "services/memberData";
 import IconBackArrow from "../../assets/images/icon-back-arrow.svg";
+import IconArrowRight from "../../assets/images/icon-arrow-right.svg";
+import config from "../../../config";
 
 import { scrollToTop, getTraits, isContactFormEmpty } from "utils/";
 import _, { sortBy } from "lodash";
@@ -56,6 +58,7 @@ const ContactDetails = () => {
   const { timeZone, startTime, endTime } = formDate;
   // countries
   const [countries, setCountries] = useState([]);
+  const redirectUrl = config.TOPCODER_COMMUNITY_WEBSITE_URL + "/home";
 
   const handleAddressChange = (name, value) => {
     const newAddress = { ...newProfileData.address };
@@ -238,7 +241,7 @@ const ContactDetails = () => {
   // reach router, navigate programmatically
   const navigate = useNavigate();
   // on submit, save form and then navigate
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, exit = false) => {
     // save address (basic info) then contact details before navigate
     e.preventDefault();
 
@@ -266,7 +269,11 @@ const ContactDetails = () => {
 
     setIsLoading(false);
     // toastr.success("Success", "Successfully saved contact details!");
-    navigate("/onboard/build-my-profile");
+    if (exit) {
+      window.location = redirectUrl;
+    } else {
+      navigate("/onboard/build-my-profile");
+    }
   };
 
   const selectedCountryObj = React.useMemo(
@@ -442,22 +449,39 @@ const ContactDetails = () => {
             <Link to="/onboard">
               <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
                 <IconBackArrow />
-                <span styleName="back-button-text">&nbsp;Back</span>
+                <span styleName="back-button-text">&nbsp;</span>
               </Button>
             </Link>
-            <Link
-              to="/onboard/build-my-profile"
-              onClick={(e) => handleSubmit(e)}
-            >
-              <Button size={BUTTON_SIZE.MEDIUM}>
-                <span styleName="footer-btn-lg">
-                  CONTINUE TO CONTACT DETAILS
-                </span>
-                <span styleName="footer-btn-sm">NEXT</span>
-              </Button>
-            </Link>
+            <div styleName="right-content">
+              <a
+                href={redirectUrl}
+                styleName="finish-later"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit(e, true);
+                }}
+              >
+                <Button size={BUTTON_SIZE.MEDIUM} type={BUTTON_TYPE.SECONDARY}>
+                  <span styleName="footer-btn-lg">FINISH LATER</span>
+                  <span styleName="footer-btn-sm">SAVE & EXIT</span>
+                </Button>
+              </a>
+              <Link
+                to="/onboard/build-my-profile"
+                onClick={(e) => handleSubmit(e)}
+              >
+                <Button size={BUTTON_SIZE.MEDIUM}>
+                  <span styleName="footer-btn-lg">
+                    CONTINUE TO BUILD MY PROFILE
+                  </span>
+                  <span styleName="footer-btn-sm">
+                    <IconArrowRight />
+                  </span>
+                </Button>
+              </Link>
+            </div>
           </PageFoot>
-          <OnboardProgress level={2} />
+          <OnboardProgress handleSubmit={handleSubmit} level={2} />
         </PageContent>
       </Page>
     </>
