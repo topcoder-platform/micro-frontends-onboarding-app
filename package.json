@@ -4,6 +4,7 @@
     "start": "node server.js",
     "dev": "cross-env webpack-dev-server --port 8510 --host 0.0.0.0",
     "dev-https": "cross-env webpack-dev-server --https --port 8510 --host 0.0.0.0",
+    "qa": "cross-env webpack-dev-server --port 8510 --host 0.0.0.0",    
     "build": "cross-env APPENV=${APPENV:-prod} APPMODE=${APPMODE:-production} webpack --mode=${APPMODE:-production}",
     "analyze": "webpack --mode=production --env.analyze=true",
     "lint": "eslint src --ext js,jsx --fix",
